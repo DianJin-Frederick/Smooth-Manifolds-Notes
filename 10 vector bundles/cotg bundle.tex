@@ -1,0 +1,47 @@
+\section{Cotangent Bundles}
+\subsection{Covector Fields}
+For the rest of the chapter, fix a smooth manifold $M$.
+Let $V$ be a finite-dimensional vector space, a \textit{covector} on $V$ is defined to be a real-valued linear functional on $V$. 
+\begin{definition}
+    For each $p \in M$, we define the \textit{cotangent space} at $p$ to be the dual space to $T_pM:$
+    $$T_p^*M := (T_pM)^*. $$
+    Elements of $T_p^*M$ are called \textit{tangent covectors} at $p$, or just covectors at $p$. 
+\end{definition}
+\begin{definition}
+    Let $T^*M = \bigsqcup_{p \in M}T_p^*M$, then $T^*M$ is called the \textit{cotangent bundle} of $TM$.
+\end{definition}
+There is a natural projection $\pi:T^*M \to M$ given by $\omg \in T_p^*M \mapsto p \in M$. 
+
+Fix a chart $(U,\phe)$ of $M$. If $p \in U$, let $dx^1|_p, \cdots, dx^n|_p \in T_p^*M$ be the dual basis to $\pdv*{}{x^1}|_p, \cdots, \pdv*{}{x^n}|_p \in T_pM$ so that 
+$$ dx^i|_p\br{\pdv{}{x^j}\bigg|_p} = \begin{cases}
+1 & i=j, \\
+0 & i \neq j. \end{cases} $$
+Next, let $\widetilde{U} = \pi^{-1}(U) \subset T^*M$ and define $\widetilde{\phe}:\widetilde{U} \to \R^n \times \R^n$ by 
+$$\widetilde{\phe}\br{\xi_i dx^i|_p} = \br{\phe(p), \xi_1, \cdots, \xi_n}. $$
+\begin{proposition}
+    $(\widetilde{U}, \widetilde{\phe})$ is a smooth chart of $T^*M$. 
+\end{proposition}
+\begin{proof}
+    Check. 
+\end{proof}
+
+
+A section $w:M \to T^*M$ is called a \textit{covector field}. Given a chart, we can write $w = w_i dx^i$ on $U$ where $w_1, \cdots, w_n:U \to \R$ are the component functions of $w$. 
+\begin{proposition}\label{11.11}
+    A covector field is smooth if and only if for every chart its component functions are smooth. 
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+We let $\frak{X}^*(M)$ be the vector space of covector fields. 
+\subsection{Differential of a Function}
+Given $f \in C^\infty(M)$, if we identify $T_x\R = \R$ for all $x \in \R$, then $df_p \in T_p^*M$. Recall 
+$$df_p(v) = v(f), $$ equivalently, 
+$$df_p(v) = \dv{}{t}\bigg|_{t=0} (f \circ \ga)(t), $$ where $\ga:I \to M$ is a smooth curve with $\ga(0) = p, \ga'(0) = v$. 
+\begin{remark}
+    On a chart $(U,\phe)$, 
+    \begin{itemize}
+    \item $df = \pdv{f}{x^i} dx^i$, so $f$ is smooth. 
+    \item $dx^i \in \frak{X}(U)$ is the differential of $x^i:U \to \R$, the $i$th component of $\phe$. 
+    \end{itemize}
+\end{remark}

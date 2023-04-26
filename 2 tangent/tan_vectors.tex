@@ -1,0 +1,206 @@
+\section{Tangent Vectors}
+\subsection{Geometric Tangent Vectors}
+In $\R^n$, we always identify a \textbf{point} with a \textbf{vector}, expressed by the coordinates $(x^1,\cdots,x^n)$. However, when come to tangent vectors, it is convenient to think of a point as a location, and think of a vector as have magnitude and direction. 
+
+Let us begin with a prototype definition of tangent vectors in Euclidean space. 
+Given a point $a \in \R^n$, define the \textbf{geometric tangent space} to $\R^n$ at $a$, denoted by $\R_a^n$, to be the set 
+$$\{(a,v): v \in \R^n\} = \{a\} \times \R^n. $$
+A \textbf{geometric tangent vector} in $\R^n$ is an element of $\R_a^n$ for some $a \in \R^n$. We abbreviate $(a,v)$ as $v_a$ and think of $v_a$ as the vector $v$ with its initial point at $a$. These definitions will serve as prototypes of tangent spaces on a manifold. So far they are of no practical uses because there is nothing to ``tangent" $\R^n$! \\
+\begin{remark}
+    We can regard a geometric tangent vector as a special type of vector which is not unique up to translation. Two \textit{vectors} are identical if they have the same direction and magnitude, but two \textit{geometric tangent vectors} are distinct even if 
+    \begin{itemize}
+    \item their initial points are different, and
+    \item they have the same direction and magnitude.
+    \end{itemize}
+\end{remark}
+
+\begin{example}[~(directional derivatives)]
+    Any geometric tangent vector $v_a \in \R_a^n$ yields a map 
+    \begin{align*}
+    &D_v|_a: C^\infty(\R^n) \to \R \\
+    &D_v|_a f = D_v f(a) = \dv{}{t}\bigg|_{t=0} f(a+tv).
+    \end{align*}
+    This operation is linear over $\R$ and satisfies the Leibniz's rule:
+    $$D_v|_a(fg) = f(a)D_v|_a g + g(a) D_v |_a f. $$
+    If $v_a = v^i e_i|_a$ in terms of the standard basis, then by the chain rule we have 
+    \begin{align*}
+    D_v|_a f &= \dv{}{t}\bigg|_{t=0} f(a_1+t v^1, \cdots, a_n+t v^n) 
+    = v^i {\pdv{f}{x^i}}(a), 
+    \end{align*}
+    where we are using the summation convention.
+\end{example}
+\begin{definition}
+    If $a$ is a point of $\R^n$, a map $w: C^\infty(\R^n) \to \R$ is called a \textbf{derivation} at $a$ if is linear over $\R$ and satsifies the \textbf{Leibniz's rule}:
+    $$w(fg) = f(a) w(g) + g(a) w(f). $$
+    Denote the set of all derivations of $C^\infty(\R^n)$ at $a$ by $T_a \R^n$.
+\end{definition}
+\begin{lemma}
+    Let $a \in \R^n, w \in T_a \R^n$, and $f,g \in C^\infty(\R^n)$.
+    \begin{enumerate}
+    \item If $f$ is a constant function, then $wf = 0$.
+    \item If $f(a) = g(a) = 0$, then $w(fg) = 0$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    If $f_1=1$, then $wf_1 = w(f_1f_1) = f_1(a)wf_1 + (wf_1)f_1(a) = 2wf_1$, hence $wf_1 = 0$. If $f=c$, then by linearity $wf = w(cf_1) = cwf_1 = 0$. 
+    If $f(a) = g(a) = 0$, then by the Leibniz's rule $w(fg) = 0$. \qed 
+\end{proof}
+\begin{proposition}[$\R_a^n \simeq T_a\R^n$]
+    Let $a \in \R^n$.
+    \begin{enumerate}
+    \item For each gemoetric tangent vector $v_a \in \R_a^n$, the map
+    \begin{align*}
+    &D_v|_a: C^\infty(\R^n) \to \R \\
+    &D_v|_a f = D_v f(a) = \dv{}{t}\bigg|_{t=0} f(a+tv).
+    \end{align*}
+    is a derivation at $a$. 
+    \item The map $v_a \mapsto D_v|_a$ is an isomorphism from $\R_a^n$ to $T_a\R^n$.
+    \item The $n$ partial derivative operators 
+    $$\pdv{}{x^1}\bigg|_a, \cdots, \pdv{}{x^n}\bigg|_a$$
+    form a basis for $T_a \R^n$. 
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    The directional derivative operator is the same as the differentiation in calculus, so $\D_v|_a$ is clearly a derivation. Now we show that $\R_a^n \simeq T_a \R^n$. Write $u = u^i e_i|_a, v = v^i e_i|_a$ in terms of the standard basis, then 
+    $$D_{u+v}|_a(f) = (u^i+v^i){\pdv{f}{x^i}}(a) = u^i{\pdv{f}{x^i}}(a) + v^i{\pdv{f}{x^i}}(a) = D_u|_a(f) + D_v|_a(f), $$
+    and $D_u|_a(cf) = cD_u|_a(f)$ is easy to see. This shows the linearity. 
+
+    Denote the map by $T: v_a \mapsto Tv_a = D_v|_a$. To see that $T$ is injective, suppose $Tv_a = D_v|_a = 0$, then take $f$ to be the $j$th coordinate function: $f(x^1, \cdots, x^j, \cdots, x^n) = x^j$, we obtain
+    $$0 = D_v|_a(f) = v^i {\pdv{f}{x^i}}(f)\bigg| = v^j. $$
+    Since this is true for each $j$, it follows that $v_a$ is the zero vector. 
+
+    Now we show the surjectivity. Let $w \in T_a\R^n$ be arbitrary, and define $v = v^i e_i$, where the coefficients $v^1, \cdots, v^n$ are given by 
+    $v^i = w(x^i)$. Here $x^i$ is the $i$th coordinate function: $(x^1,\cdots,x^i,\cdots,x^n) \mapsto x^i$. We will show that $w = D_v|_a$.
+    Let $f$ be any smooth real-valued function on $\R^n$. By Taylor's theorem, we can write
+    \begin{align*}
+    f(x)=f(a) + \Sum{i=1}{n}{\pdv{f}{x^i}}(a)(x^i-a^i) + \Sum{i,j=1}{n}(x^i-a^i)(x^j-a^j)\int_0^1 (1-t){\pdv[2]{f}{x^i}{x^j}} (a+t(x-a))~dt.
+    \end{align*}
+    Each term in the last sum is a product of two smooth functions of $x$ that vanish at $x=a$. Thus 
+    \begin{align*}
+    wf &= w(f(a)) + \Sum{i=1}{n} w\br{{\pdv{f}{x^i}}(a)(x^i-a^i)} \\
+    &= 0 + \Sum{i=1}{n} {\pdv{f}{x^i}}(a)(w(x^i)-w(a^i)) \\
+    &= \Sum{i=1}{n} {\pdv{f}{x^i}}(a)v^i = D_v|_a f. 
+    \end{align*} \qed 
+\end{proof}  
+
+\subsection{Tangent Vectors on Manifolds}
+\begin{definition}
+    Let $M$ be a smooth manifold, and let $p \in M$. A linear map $v:C^\infty(M) \to \R$ is called a \textbf{derivation} at $p$ if it satisfies
+    $$v(fg) = f(p)vg + g(p)vf \quad \forall f,g \in C^\infty(M). $$
+    Denote the set of all derivations of $C^\infty(M)$ at $p$ by $T_p M$, which is a vector space called the \textbf{tangent space} to $M$ at $p$. 
+    An element of $T_p M$ is called a tangent vector at $p$.
+\end{definition}
+\begin{lemma}
+    Suppose $M$ is a smooth manifold, $p \in M, v \in T_pM$, and $f,g \in C^\infty(M)$. 
+    \begin{enumerate}
+    \item If $f$ is a constant function, then $vf = 0$.
+    \item If $f(p) = g(p) = 0$, then $v(fg) = 0$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    First let $f_1 = 1$, then $vf_1 = v(f_1 f_1) = f_1(p)vf_1 + (vf_1) f_1(p) 
+    = 2vf_1$, hence $vf_1 = 0$. 
+    If $f=c$, then by linearity $vf = v(cf_1) = c (vf_1) = 0$. The second assertion is obvious by the Leibniz's rule. \qed     
+\end{proof}
+
+\section{The Differential of a Smooth Map}
+\begin{definition}
+    If $M,N$ are smooth manifolds and $F:M \to N$ is a smooth map, for each $p \in M$ we define a map 
+    \begin{align*}
+    dF_p: T_pM &\to T_{F(p)}N, \\
+    v &\mapsto dF_p(v),
+    \end{align*}
+    called the \textbf{differential} of $F$ at $p$.
+    Given $v \in T_p M$, we let $dF_p(v)$ be the derivation at $F(p)$ that acts on $f \in C^\infty(N)$ by the rule
+\begin{equation}
+    dF_p(v)(f) = v(f \circ F). 
+\end{equation}
+\end{definition}
+If $f \in C^\infty(N)$, then $f \circ F \in C^\infty(M)$, so $v(f \circ F)$ makes sense. The operator $dF_p(v): C^\infty(N) \to \R$ is linear since
+\begin{itemize}
+    \item $dF_p(v)(f+g) = v((f+g)\circ F) = v(f \circ F + g \circ F) = v(f \circ F) + v(g \circ F)$. 
+    \item $dF_p(v)(cf) = v((cf) \circ F) = v(c(f\circ F)) = cv(f \circ F)$.
+\end{itemize}
+And $dF_p(v)$ is a derivation at $F(p)$ because 
+\begin{align*}
+    dF_p(v)(fg)
+    &= v((fg) \circ F) = v((f\circ F)(g\circ F)) \\
+    &= (f \circ F)(p) v(g \circ F) + (g \circ F)(p) v(f \circ F) \\
+    &= f(F(p)) dF_p(v)(g) + g(F(p)) dF_p(v)(f). 
+\end{align*}
+\begin{proposition}[properties of differentials]
+    Let $M,N,P$ be smooth manifolds, let $F:M \to N$ and $G:N \to P$ be smooth maps, and let $p \in M$.
+    \begin{enumerate}
+    \item $dF_p: T_pM \to T_{F(p)}N$ is linear.
+    \item $d(G \circ F)_p = d G_{F(p)} \circ dF_p: T_p M \to T_{G \circ F(p)}P$.
+    \item $d(\id_M)_p = \id_{T_pM}: T_pM \to T_pM$.
+    \item If $F$ is a diffeomorphism, then $dF_p: T_pM \to T_{F(p)}N$ is an isomorphism, and $(dF_p)^{-1} = d(F^{-1})_{F(p)}$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+    \item Let $u,v \in T_pM$ and $f \in C^\infty(N)$ be arbitrary, then 
+    \begin{align*}
+        dF_p(u+v)(f) = (u+v)(f \circ F) = u(f \circ F) + v(f \circ F)
+        = dF_p(u)(f) + dF_p(v)(f).
+    \end{align*}
+    Because $f$ is arbitrary, we have $dF_p(u+v) = dF_p(u) + dF_p(v)$. Let $c$ be a scalar, then $dF_p(cu)(f) = (cu)(f \circ F) = c dF_p(u)(f)$. Therefore $dF_p$ is linear. 
+    \item Let $v \in T_pM$ and $f \in C^\infty(P)$. Let $w = dF_p(v)$, and recall that 
+    $dF_p:T_pM \to T_{F(p)}N$, hence $w \in T_{F(p)}N$, and 
+    $dG_{F(p)}N \to T_{G(F(p))}P$. Start with
+    $$(dG_{F(p)} \circ dF_p)(v) = dG_{F(p)}(dF_p(v))=dG_{F(p)}(w), $$ and then plug $f$ in the right side, 
+    \begin{align*}
+    dG_{F(p)}(w)(f) &= w(f \circ G) = v(f \circ G \circ F)
+    = d(G \circ F)_p(v)(f). 
+    \end{align*}
+
+
+    
+    \item Let $v \in T_pM$ and $f \in C^\infty(M)$, then 
+    $$d(\id_M)_p(v)(f) = v(f \circ \id_M) = v(f), $$
+    hence $d(\id_M)_p(v) = v$, implying that $d(\id_M)_p = \id_{T_pM}: T_pM \to T_pM$.
+    \item First, 
+    \begin{align*}
+    (dF^{-1}_{F(p)} \circ dF_p)(v)(f) 
+    &= dF^{-1}_{F(p)}(dF_p(v))(f) \\
+    &= dF_p(v) (f \circ F^{-1}) \\
+    &= v(f \circ F^{-1} \circ F) = v(f).  
+    \end{align*}
+    On the other hand, 
+    \begin{align*}
+    (dF_p \circ dF^{-1}_{F(p)})(w)(g) 
+    &= dF_p(dF^{-1}_{F(p)}(w))(g) \\
+    &= (dF^{-1}_{F(p)}(w))(g \circ F) \\
+    &= w(g \circ F \circ F^{-1}) = w(g). 
+    \end{align*}
+    Therefore, $dF_p$ is invertible, and $(dF_p)^{-1}=dF^{-1}_{F(p)}$. 
+    \end{enumerate} \qed 
+\end{proof}
+\begin{proposition}\label{Lee3.8}
+    Let $M$ be a smooth manifold, $p \in M$, and $v \in T_pM$. If $f,g \in C^\infty(M)$ agree on some neighborhood of $p$, then $vf = vg$.
+\end{proposition}
+
+\begin{proposition}[the tangent space to an open submanifold]\label{Lee3.9}
+    Let $M$ be a smooth manifold, let $U \subset M$ be open, and let $\iota: U \hookrightarrow M$ be the inclusion map. For every $p \in U$, the differential $d\iota_p: T_pU \to T_pM$ is an isomorphism. 
+\end{proposition}
+\begin{proof}
+    To show injectivity, let $v \in T_pU$ and $d\iota_p(v) = 0 \in T_pM$. Let $B$ be a neighborhood of $p$ such that $\cl{B} \subset U$. Let $f \in C^\infty(U)$ be arbitrary, then the extension lemma for smooth functions implies that there exists $\Tilde{f} \in C^\infty(M)$ such that $\Tilde{f} = f$ on $\cl{B}$. Then since $f=\Tilde{f}|_U$ in a neighborhood of $p$, Proposition (\ref{Lee3.8}) implies 
+    $$vf=v(\Tilde{f}|_U) = v(\Tilde{f} \circ \iota) = d\iota(v)_p (\Tilde{f}) = 0.$$
+    Since this holds for every $f \in C^\infty(U)$, it follows that $v=0$, so $d\iota_p$ is injective. 
+
+    On the other hand, suppose $w \in T_pM$ is arbitrary. Define an operator $v:C^\infty(U) \to \R$ by $vf = w\Tilde{f}$, where $\Tilde{f}$ is any smooth function on $M$ that agrees with $f$ on $\cl{B}$. By Proposition (\ref{Lee3.8}), $vf$ is independent of the choice of $\Tilde{f}$, so $v$ is well defined, and it is a derivation of $C^\infty(U)$ at $p$ because $w$ is. For any $g \in C^\infty(M)$, 
+    $$d\iota_p(v)(g) = v(g \circ \iota) = w(\widetilde{g \circ \iota}) = wg, $$
+    where the last two equalities follow from the facts that $g \circ \iota, \widetilde{g \circ \iota}, g$ all agree on $B$. Therefore, $d\iota_p$ is surjective. \qed 
+\end{proof}
+\begin{proposition}[dimension of the tangent space]
+    If $M$ is an $n$-dimensional smooth manifold, then for each $p \in M$, the tangent space $T_pM$ is an $n$-dimensional vector space. 
+\end{proposition}
+\begin{proof}
+    Given $p \in M$, let $(U,\phe)$ be a smooth coordinate chart containing $p$. Since $\phe$ is a differomorphism from $U$ to $\phe(U)$, $d\phe_p$ is an isomorphism from $T_pU$ to $T_{\phe(p)}(\phe(U))$. By Proposition (\ref{Lee3.9}), $T_pM \simeq T_pU$ and $T_{\phe(p)}\phe(U) \simeq T_{\phe(p)}\R^n$, it follows that $$\dim T_p M = \dim T_{\phe(p)}\R^n = n. $$ \qed 
+\end{proof}
+
+
+
+
+
+

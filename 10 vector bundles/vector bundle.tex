@@ -1,0 +1,149 @@
+\section{Vector Bundles}
+Goal: introduce the language of vector bundles. 
+\begin{definition}
+    Let $M$ be a topological space. A (real) vector bundle of rank $k$ over $M$ is a topological space $E$ and a surjective continuous map $\pi:E \to M$ such that
+    \begin{itemize}
+    \item for each $p \in M$, the fiber $E_p:=\pi^{-1}(p)$ is endowed with a $k$-dimensional real vector space structure.
+    \item For each $p \in M$, there is a open neighborhood $U$ of $p$ and a homeomorphism
+    $$ \Phi:\pi^{-1}(U) \to U \times \R^k $$
+    (called the \textit{local trivialization} of $E$ over $U$) such that 
+    \begin{itemize}
+        \item $\pi_U \circ \Phi = \pi$ where $\pi_U:U \times \R^k \to U$ is the projection. 
+        \item For each $q \in U$, the map $\Phi|_{E_q}: E_q \to \{q\} \times \R^k \simeq \R^k $ is a linear isomorphism.
+    \end{itemize}
+    \end{itemize}
+    If $E,M$ are smooth manifolds, $\pi$ is smooth, and each $\Phi$ is a diffeomorphism, then $\pi:E \to M$ is a \textit{smooth vector bundle}.
+\end{definition}
+
+$E = $ total space of the vector bundle \\
+$\pi =$ projection space of the vector bundle \\
+$M = $ base space of the vector bundle 
+
+\begin{example}
+    $M \times \R^k \to M$ is the \textit{trivial bundle}. 
+\end{example}
+\begin{proof}
+    Let $p \in M$, then $\pi^{-1}(p) = \{p\} \times \R^k \simeq \R^k$ is a $k$-dimensional vector space. Let $U$ be an open neighborhood of $p$, and define 
+    \begin{align*}
+        \Phi: \pi^{-1}(U) &\to U \times \R^k \\
+        \Phi(p, x) &= (p, x). 
+    \end{align*} Then $\Phi$ is clearly a homeomorphism. 
+\end{proof}
+\begin{example}
+    Given a smooth manifold $M$, $TM \to M$ is a smooth vector bundle. 
+\end{example}
+\begin{proof}
+    Suppose $\dim M = n$. Let $p \in M$, then $E_p := \pi^{-1}(p) = T_p M = \R^n$. Let $U$ be a neighborhood of $p$, then $\pi^{-1}(U)$ is the set of all tangent vectors at each point of $U$. Define
+    \begin{align*}
+        \Phi: \pi^{-1}(U) &\to U \times \R^n \\
+        \Phi\br{v^i \dvBase{x^i}{p}} &= (p, v^1, \cdots, v^n),
+    \end{align*}
+    then $\Phi$ is a homeomorphism. Next,
+    $$\pi_U \circ \Phi\br{v^i \dvBase{x^i}{p}} = \pi_U(p) = p, $$
+    and $$\Phi|_{E_q}\br{v^i \dvBase{x^i}{q}} = (q, v^1, \cdots, v^n) $$ is clearly a linear isomorphism. 
+\end{proof}
+\begin{example}
+    If $M \subset \R^n$ is an embedded submanifold, $NM \to M$ is a smooth vector bundle. 
+\end{example}
+\begin{example}
+    Let $E = [0,1] \times \R / (0,t) \sim (1,-t)$, $\S^1 = [0,1] / 0 \sim -1$. Then $\pi:E \to \S^1$ defined by $\pi([x,t]) = [x]$ is a vector bundle. 
+\end{example}
+
+\section{Transition Functions}
+\begin{lemma}\label{10.5}
+    Let $\pi:E \to M$ be a smooth vector bundle of rank $k$. Suppose $$\Phi:\pi^{-1}(U) \to U \times \R^k, \quad \Psi: \pi^{-1}(V) \to V \times \R^k$$ are smooth local trivializations with 
+    $U \cap V \neq \varnothing$. Then 
+    $$\Phi \circ \Psi^{-1}(p, w) = (p, \tau(p)w)$$
+    on $(U \cap V) \times \R^k$, where $\tau:U \cap V \to \mathrm{GL}(k,\R)$ is smooth. $\tau$ is called the \textit{transition function} between the  trivializations.
+\end{lemma}
+\begin{proof}
+    By definition, $$\Phi \circ \Psi^{-1}(p,v) = (p, \tau(p)v)$$ for some map $\tau:U \cap V \to \mathrm{GL}(k,\R)$. To show that $\tau$ is smooth, it suffices to show that the $(i,j)$-entry $\tau(p)_j^i$ is smooth. Let $E_1, \cdots, E_k$ be the standard basis of $\R^k$. Let $\pi^i:\R^k \to \R$ be the projection onto the $i$th entry. Let $\widehat{\pi}:(U \cap V) \times \R^k \to \R^k$ be the projection. Then
+    \begin{align*}
+    \tau(p)_j^i &= \pi^i(\tau(p)E_j) 
+    = \pi^i(\widehat{\pi}(\Phi \circ \Psi^{-1}(p, E_j)) 
+    \end{align*}
+    is smooth. 
+\end{proof}
+\begin{lemma}[vector bundle chart lemma]\label{10.6}
+    Let $M$ be a smooth manifold. For each $p \in M$, suppose $E_p$ is a real vector space of dimension $k$. Let $E = \bigsqcup_{p \in M}E_p$ and let $\pi:E \to M$ be the map with $\pi_{E_p} = p$ for all $p \in M$. Suppose we are given:
+    \begin{enumerate}
+        \item an open cover $\{U_\a\}_{\a \in A}$ of $M$. 
+        \item For each $\a \in A$, a bijection $\Phi_\a:\pi^{-1}(U_\a) \to U_\a \times \R^k$, where $\Phi_\a|_{E_p}:E_p \to \{p\} \times \R^k \simeq \R^k$ is a linear isomorphism for all $p \in U_\a$. 
+        \item For each $\a, \b \in A$ with $U_\a \cap U_\b$ nonempty, there is a smooth map $\tau_{\a \b}:U_\a \cap U_\b \to \mathrm{GL}(k,\R)$ such that 
+        $$\Phi_a \circ \Phi_\b^{-1}(p,v) = (p, \tau_{\a\b}(p)v)$$ on $(U_\a \cap U_\b) \times \R^k$. 
+    \end{enumerate}
+    Then $E$ has a unique topology and smooth structure making $\pi:E \to M$ a smooth vector bundle of rank $k$ where each $\Phi_\a$ is a local trivialization. 
+\end{lemma}
+\begin{proof}
+    Topology: See Lee. \\
+    Smooth Structure: Let 
+    $$\calA = \bigcup_{\a \in A} \{(\widetilde{U}, \widetilde{\phe}): (U,\phe) \text{ a smooth chart of }M\text{ where }U \subset U_\a \}, $$
+    where 
+    $$\widetilde{U} = \pi^{-1}(U) = \bigcup_{p \in U}E_p, \quad \widetilde{\phe} = (\phe \times \id_{\R^k}) \circ \Phi_\a. $$ We claim that $\calA$ is a smooth atlas covers $M$, since $M = \bigcup_{\a \in A}U_\a$. If $(\widetilde{U}, \widetilde{\phe}), (\widetilde{W}, \widetilde{\psi}) \in \calA$, then 
+    \begin{align*}
+    \widetilde{\phe} \circ \widetilde{\psi}^{-1}(x,v)
+    &= (\phe \times \id_{\R^k}) \circ \Phi_\a \circ \Phi_\b^{-1} \circ (\psi \times \id_{\R^k})^{-1}(x,v) \\
+    &= (\phe \times \id_{\R^k}) \circ \Phi_\a \circ \Phi_\b^{-1}(\psi^{-1}(x), v) \\
+    &= (\phe \times \id_{\R^k})(\psi^{-1}(x), \tau_{\a\b}(\psi^{-1}(x), v)) \\
+    &= (\phe \circ \psi^{-1}(x), \tau_{\a\b}(\psi^{-1}(x), v)).
+    \end{align*}
+    is smooth, so $\calA$ is a smooth atlas. \\
+    Vector Bundle: Check that $\Phi_\a$ are smooth local trivializations. 
+\end{proof}
+\begin{example}[(Whitney Sums)]
+    Suppose $\pi_1: E_1 \to M, \pi_2: E_2 \to M$ are smooth vector bundles. Let $E_p = E_{1p} \oplus E_{2p}$ and $E = \bigsqcup_{p \in M}E_p$. Then the projection $\pi:E \to M$ is a smooth vector bundle (called the Whitney sum of $E_1$ and $E_2$). 
+\end{example}
+\begin{proof}
+    Fix an open cover $M = \bigcup_{\a}U_\a$ such that there are smooth local trivializations $\Phi_{i\a}:\pi_i^{-1}(U_\a) \to U_\a \times \R^{k_i}$. Let $\tau_{i\a\b}:U_\a \cap U_\b \to \GL(k_i, \R)$ be the transition functions.
+    Define $\Phi_\a:\pi^{-1}(U_\a) \to U_\a \times \R^{k_1+k_2}$ by 
+    $$\Phi_\a((v_1,v_2)) = (\pi_1(v_1), (\pi_{\R^{k_1}}(\Phi_{i\a}(v_1)), \pi_{\R^{k_2}}(\Phi_{i\a}(v_2)) ) ).$$
+    Note that $\pi_1(v_1) = \pi_2(v_2)$ since $(v_1,v_2) \in E_p = E_{1p} \oplus E_{2p}$. 
+    Define $\tau_{\a\b}: U_\a \cap U_\b \to \GL(k_1+k_2, \R)$ by 
+    $$\tau_{\a\b}(p) = \begin{pmatrix}
+    \tau_{1\a\b}(p) & 0 \\
+    0 & \tau_{2\a\b}(p) \end{pmatrix}. $$
+    Check that this satisfies the lemma. 
+\end{proof}
+\begin{example}[(Dual)]
+    Suppose $\pi:E \to M$ is a smooth vector bundle. Let $E_p^* = (E_p)^*$ be the dual of $E_p$. Let $E^* = \bigsqcup_{p \in M}E_p^*$, then the projection $\pi:E^* \to M$ is a smooth vector bundle (called the \textit{dual} to $E$). 
+\end{example}
+\begin{proof}
+    Check on HW. 
+\end{proof}
+
+\section{Sections of Vector Bundles}\label{section of VB}
+Let $\pi:E \to M$ be a vector bundle. A \textit{section} of $E$ is a continuous map $\sigma: M \to E$ such that $\pi \circ \sigma = \id_M$ (so that $\sigma$) is injective. 
+\begin{example}
+    Sections of $TM$ are vector fields on $M$. 
+\end{example}
+\begin{definition}
+    If $f \in C^\infty(M)$ and $\sigma$ is a section of $E$, then define a new section $f \sigma$ by 
+    $$(f\sigma)(p) = f(p)\sigma(p). $$
+\end{definition}
+
+
+\section{Maps Between Bundles}
+\begin{definition}
+    Suppose $\pi_1:E_1 \to M_1, \quad \pi_2:E_2 \to M_2$ are two vector bundles. A continuous map $F:E_1 \to E_2$ is a \textit{vector bundle homomorphism} if
+    \begin{enumerate}
+    \item there is a continuous map $f:M_1 \to M_2$ such that 
+    \begin{center}
+        \begin{tikzcd}
+        E_1 \arrow[r, "F"] \arrow[d, "\pi_1"]& E_2 \arrow[d, "\pi_2"]   \\
+        M_1 \arrow[r, "f"] & M_2 
+        \end{tikzcd}
+    \end{center}
+    \item For each $p$, $F|_{E_{1p}}: E_{1p} \to E_{2f(p)}$ is linear.
+    \end{enumerate}
+    Moreover, 
+    \begin{itemize}
+    \item if $E,f$ are homeomorphisms, $F$ is a \textit{bundle isomorphism}.
+    \item If everything is smooth, we add the word smooth to $F$.
+    \end{itemize}
+\end{definition}
+\begin{remark}
+    If $F$ is a bundle homomorphism, then $F$ is a bundle isomorphism if and only if $F$ is bijective and $F^{-1}$ is a bundle homomorphism. 
+\end{remark}
+\begin{example}
+    If $F:M \to N$ is smooth, then $dF:TM \to TN$ is a smooth bundle homomorphism. 
+\end{example}

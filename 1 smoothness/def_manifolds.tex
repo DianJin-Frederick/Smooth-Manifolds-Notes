@@ -1,0 +1,373 @@
+\section{Topological Manifolds}
+\subsection{Elements of a Manifold}
+We start with the most basic type of manifolds: topological manifolds, and then equip them smooth structures.
+\begin{definition}
+    Suppose $M$ is a topological space. We say that $M$ is a \textbf{topological manifold of dimension} $n$ if it has the following properties:
+    \begin{itemize}
+    \item $M$ is a Hausdorff space.
+    \item $M$ is second-countable.
+    \item $M$ is \textbf{locally Euclidean of dimension }$n$: 
+    each point of $M$ has a neighborhood that is homeomorphic to an open subset of $\R^n$. 
+    \end{itemize}
+\end{definition}
+``Locally Euclidean of dimension $n$" means that for each point $p \in M$ we can find an open neighborhood $U$ of $p$ and an open set $\hat{U} \subset \R^n$, and a homeomorphism $\phe: U \to \hat{U}$. There are equivalent definitions of ``locally Euclidean".
+\begin{exercise}
+    Show that equivalent definitions of manifolds are obtained if instead of allowing $U$ to be homeomorphic to any open subset of $\mathbb{R}^n$, we require it to be homeomorphic to an open ball in $\mathbb{R}^n$, or to $\mathbb{R}^n$ itself. 
+\end{exercise}
+
+\begin{definition}[chart]
+    Let $M$ be a topological $n$-manifold. A \textbf{coordinate chart} (or chart) on $M$ is a pair $(U, \phe)$, where $U$ is an open subset of $M$ and $\phe:U \to \phe(U)$ is a homeomorphism.
+\end{definition}
+Given a chart $(U,\phe)$, we call $U$ a \textbf{coordinate domain} of each of its points. If in adition $\phe(U)$ is an open ball in $\R^n$. then $U$ is called a \textbf{coordinate ball}. The map $\phe$ is called a \textbf{(local) coordinate map}, and the component functions $x^1, \cdots, x^n$ in $\phe(p) = (x^1(p), \cdots, x^n(p))$ are called \textbf{local coordinates} on $U$. 
+
+\begin{example}\label{1-sphere}
+    Consider $1$-sphere $\S^1$, a topological subspace of $\R^2$, we show it is locally Euclidean.  
+    Denote 
+    $$U_i^+ = \{(x^1, x^2) \in \R^2: x^i > 0\}, \quad 
+      U_i^- = \{(x^1, x^2) \in \R^2: x^i < 0\}. $$
+    Let $f: \B^1 \to \R$ be the continuous function
+    $$f(u) = \sqrt{1-|u|^2}.$$
+    Then $U_i^+ \cap S^1$ is the graph of the function
+    $$x^1 = f(0, x^2) = \sqrt{1-|x_2|^2}, \quad 
+      x^2 = f(x_1, 0) = \sqrt{1-|x_1|^2}. $$
+    (the unit circle is given by the equation $(x^1)^2 + (x^2)^2 = 1$)
+    Similarly, $U_i^- \cap S^1$ is the graph of 
+    $$x^1 = -f(0, x^2) = -\sqrt{1-|x_2|^2}, \quad 
+      x^2 = -f(x_1, 0) = -\sqrt{1-|x_1|^2}. $$
+    Thus, each $U_i^{\pm} \cap S^1$ is locally Euclidean of dimension $2$ since each point of $\S^1$ is in the domain of at least one of these charts. 
+\end{example}
+\subsection{Topological Properties of Manifolds}
+\subsubsection*{Compactness}
+
+\begin{lemma}
+    Every topological manifold has a countable basis of precompact coordinate balls. 
+\end{lemma}
+\begin{proof}
+    Let $M$ be a topological $n$-manifold, then $M$ admits a trivial covering 
+    $M = \bigcup \{U: (U,\phe) \text{ is a chart}\}$. Since $M$ is second countable, there is a countable subcover, say, $M = \bCup{i=1}{\infty}U_i$, where $(U_i,\phe_i)$ is a chart. 
+    For each $i$ let $\calB_i$ be the set of all rational balls $B_r(x)$ such that $B_{r'}(x) \subset \phe_i(U_i)$ for some $r'>r$, that is, 
+    $$\calB_i = \{B_r(x) \subset \R^n: x \in \Q^n, r \in \Q, \exists r'>r: B_{r'}(x) \subset \phe_i(U_i) \}. $$
+    Because $\phe$ is a homeomorphism and $\calB_i$ is a basis for $\phi_i(U_i)$, 
+    $\phe^{-1}(\calB_i)$ is a basis for $U_i$, hence $\calB = \bCup{i=1}{\infty}\phe_i^{-1}(\calB_i)$ is a countable basis for $M$. 
+
+    Now we show each basis element is precompact. Let $B_r(x) \in \calB_i$, then $\cl{B_r(x)} \subset \phe_i(U_i)$. As a continuous image of a compact set, 
+    $\phe_i^{-1}(\cl{B_r(x)})$ is compact in $M$. Since $M$ is Hausdorff, $\phe_i^{-1}(\cl{B_r(x)})$ is closed, so 
+    $$\cl{\phe_i^{-1}(B_r(x))} \subset \phe_i^{-1}(\cl{B_r(x)}). $$
+    Thus $\phe_i^{-1}(\cl{B_r(x)})$ is precompact. \qed 
+\end{proof}
+
+
+\subsubsection*{Local compactness and paracompactness}
+\begin{proposition}
+    Every topolocial manifold is locally compact.
+\end{proposition}
+\begin{proof}
+    This is because every topological manifold has a countable basis of precompact sets. \qed 
+\end{proof}
+\begin{definition}
+    Let $M$ be a topological space.
+    \begin{itemize}
+    \item A collection $\calX$ of subsets of $M$ is said to be \textbf{locally finite} if each point of $M$ has a neighborhood that intersects at most finitely many of the sets in $\calX$. 
+    \item Given a cover $\calU$ of $M$, another cover $\calV$ is called a \textbf{refinement} of $\calU$ if for each $V \in \calV$ there exists some $U \in \calU$ such that $V \subset U$.
+    \item We say that $M$ is \textbf{paracompact} if every open cover of $M$ admits an open, locally finite refinement. 
+    \end{itemize}
+\end{definition}
+\begin{lemma}
+    Every topological manifold $M$ can be exhausted by compact sets:
+    there is a sequence of compact sets $\{K_j\}$ such that 
+    $K_j \subset \Int K_{j+1}$ for all $j$ and $M=\bCup{j=1}{\infty}K_j$. 
+\end{lemma}
+\begin{proof}
+    $M$ has a countable basis $\calB = \{U_i\}$, where each $U_i$ is precompact. Define $K_1, \cdots, K_n$ as follows:
+    \begin{enumerate}
+    \item $K_1 = \cl{U_1}$.
+    \item Assume $K_1, \cdots, K_n$ have been defined, then $K_n \subset \bCup{i=1}{\infty}U_i$, hence there is a finite subcover $\bCup{i=1}{N}U_i \supset K_n$. Let $K_{n+1} = \bCup{i=1}{N}\cl{U_i} \cup \cl{U_{n+1}}$, 
+    then clearly $\bCup{j=1}{\infty} \supset \bCup{i=1}{\infty}U_n = M$. 
+    \end{enumerate}
+    \qed 
+\end{proof}
+\begin{theorem}
+    Given a topological manifold $M$, an open cover $\calX$, and a basis $\calB$, there is a countable locally finite refinement of $\calX$, consisting of elements of $\calB$.
+\end{theorem}
+\begin{proof}
+    Let $\{K_j\}$ be a compact exhaustion of $M$, define 
+    $\hat{K_j} = K_{j+1} \setminus \Int K_j, O_j = \Int K_{j+2} \setminus K_{j-1}$. Then
+    \begin{itemize}
+        \item $\hat{K_j}$ is compact,
+        \item $\hat{K_j} \subset O_j$, 
+        \item $O_j \cap O_l \neq \varnothing \iff |j-l| \leq 2$. 
+    \end{itemize}
+    For $x \in \hat{K_j}$ there exists $U_x \in \calX$ such that $U_x \ni x$, 
+    then there is a basis element $B_x \in \calB$ with 
+    $x \in B_x \subset U_x \cap O_j$, then $\hat{K_j} \subset \bigcup_{x \in \hat{K_i}} B_x, $
+    so there is a finite subcover $\calY_j$ of $\hat{K_j}$. 
+    Clearly $\bCup{j=1}{\infty}\hat{K_j} = M$, so $\calY := \bCup{k=1}{\infty}\calY_j$ is a countable refinement of $\calX$. Hence $\calY$ is locally finite. 
+\end{proof}
+
+\subsubsection*{Connectedness}
+In a topological manifold, connectedness is equivalent to path-connectedness. 
+Recall that a topological space $X$ is 
+\begin{itemize}
+    \item \textbf{connected} if there do not exist two disjoint, nonempty, open subsets $U,V$ of $X$ such that $U \cup V = X$,
+    \item \textbf{path-connected} if every pair of points in $X$ can be joined by a path (continuous image of an interval) in $X$, 
+    \item \textbf{locally path-connected} if for every $x \in X$ and open set $U \ni x$ there is a path-connected open set $V$ such that $x \in V \subset U$. 
+\end{itemize}
+A maximal connected subset of $X$ is called a \textbf{component} (or \textbf{connected component}) of $X$.
+\begin{proposition}[properties of connected spaces]
+    Let $X,Y$ be topological spaces.
+    \begin{enumerate}
+    \item If $F:X \to Y$ is continuous and $X$ is connected, then $F(X)$ is connected. 
+    \item A union of connected subspaces of $X$ with a point in common is connected. 
+    \item The components of $X$ are disjoint nonempty closed subsets whose union is $X$. 
+    \item If $S$ is a subset of $X$ that is both open and closed, then $S$ is a union of components of $X$. 
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{proposition}[properties of locally path-connected spaces]\label{LeeA43}
+    Let $X$ be a locally path-connected topological space.
+    \begin{enumerate}
+    \item The components of $X$ are open in $X$. 
+    \item The path components of $X$ are equal to its components. 
+    \item $X$ is connected if and only if it is path-connected.
+    \item Every open subset of $X$ is locally path-connected. 
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+    \item Let $C$ be a component of $X$, and let $x \in C$, then $x$ has a path-connected neighborhood basis, thus it is a connected neighborhood basis. Any open set in this basis must be contained in $C$, as $C$ is a maximal connected subsets. This shows that $C$ is open. 
+    \item We show that $C$ is a path component of $X$ iff $C$ is a component of $X$. Suppose $C$ is a path component, then $C$ itself is connected
+
+    \item 
+    \end{enumerate}
+\end{proof}
+\begin{proposition}
+    Let $M$ be a topological manifold.
+    \begin{enumerate}
+        \item $M$ is locally path-connected.
+        \item $M$ is connected $\iff$ $M$ is path-connected. 
+        \item The connected components of $M$ are the same as its path components. 
+        \item $M$ has countably many components, each of which is open and a connected topological manifold. 
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Since $M$ is locally Euclidean and $\R^n$ is locally path-connected, $M$ is locally path-connected. (2) and (3) comes from Proposition \ref{LeeA43}. 
+    To prove (4), note that each component is open in $M$, so the collection of components is an open cover of $M$. Since $M$ is second countable, this cover has a countable subcover. Since the components are disjoint, this cover must be countable. 
+
+\end{proof}
+
+
+\subsection{Quotient Topology and Projective Spaces}
+%If $X$ is a topological space, $Y$ is a set, $\pi: X \to Y$ is a surjective map,
+%the \textbf{quotient topology on $Y$ determined by $\pi$} is defined by 
+%declaring 
+%\begin{center}
+%    $U \subset Y$ to be open if and only if $\pi^{-1}(U)$ is open in $X$.
+%\end{center}
+%If $X$ and $Y$ are topological spaces, a map $\pi: X \to Y$ is called a \textbf{quotient map} if it is surjective and continuous and $Y$ has the quotient topology determined by $\pi$. 
+
+%If $\pi:X \to Y$ is a map, a subset $U \subset X$ is said to be \textbf{saturated }with respect to $\pi$ if $U = \pi^{-1}(\pi(U))$. Observe that $U$ is saturated if and only if it is a union of fibers. 
+
+%\begin{theorem}[characteristic property]
+%    If $B$ is a topological space, a map $F:Y \to B$ is continuous if and only if $F \circ \pi: X \to B$ is continuous. 
+%\end{theorem}
+
+%\begin{theorem}
+%    If $U \subset X$ is a saturated open or closed set, then $\pi|_U: U \to \pi(U)$ is a quotient map. 
+%\end{theorem}
+
+%\begin{example}
+%    The $n$-dimensional \textbf{real projective space}, denoted by $\RP^n$, is defined as the set of $1$-dimensional linear subspaces of $\R^{n+1}$. 
+%    For each $x \in \R^{n+1} \setminus \{0\}$, define the map 
+%    \begin{align*}
+%        \pi: \R^{n+1} \setminus \{0\} &\to \RP^n \\
+%        \pi(x) &= [x] ~(\text{the line spanned by }x)
+%    \end{align*}
+%\end{example}
+
+% Loring Tu
+%\subsubsection*{Quotient map}
+Let $\sim$ be an equivalence relation on the set $X$. We denote the set of equivalence classes by $X /\sim$ and call this set the \textit{quotient} of $X$ by the equivalence relation $\sim$. There is a natural \textit{projection map} 
+\begin{align*}
+    \pi:X &\to X / \sim,  \\
+    x &\mapsto [x].
+\end{align*}
+We call a set $U$ in $X / \sim$ \textit{open} if and only if $\pi^{-1}(U)$ is open in $X$. Clearly $\varnothing$ and $X / \sim$ are open. Since pre-image commutes with unions and intersections, the collection of open sets in $X / \sim$ is closed under arbitrary union and finite intersection, hence is a topology. 
+\begin{definition}
+    The collection $\{U \subset X / \sim: \pi^{-1}(U) \text{ is open in }X\}$ is called the \textbf{quotient topology} on $X / \sim$. With this topology, $X / \sim$ is called the \textbf{quotient space} of $X$ by the equivalence relation $\sim$. 
+\end{definition}
+\begin{exercise}
+    With the quotient topology, the projection map $\pi:X \to X / \sim$ is continuous.
+\end{exercise}
+\begin{proof}
+    Let $U$ be an open set in $X / \sim$, then by definition $\pi^{-1}(U)$ is open in $X$, so $\pi$ is continuous. \qed 
+\end{proof}
+Let $Y$ be another topological space, and let $f:X \to Y$ be constant on each equivalence class. It induces a map $\cl{f}:X / \sim \to Y$ by 
+$$\cl{f}([x]) = f(x), \quad x \in X. $$
+We can draw a commutative diagram
+\begin{center}
+    \begin{tikzcd}
+    X \arrow[rd, "\pi"] \arrow[r, "f"] & Y \\
+                                       & X/\sim \arrow[u, "\cl{f}"]
+    \end{tikzcd}
+\end{center}
+\begin{proposition}[characteristic property]
+    The induced map $\cl{f}:X / \sim \to Y$ is continuous if and only if the map $f:X \to Y$ is continuous. 
+\end{proposition}
+\begin{proof}
+    Suppose $\cl{f}$ is continuous, then since $\pi$ is continuous, so is $f = \cl{f} \circ \pi$. On the other hand, suppose $f$ is continuous. Let $V$
+    be an open set in $Y$, then $f^{-1}(V) = \pi^{-1}(\cl{f}^{-1}(V))$ is open in $X$. By the definition of quotient topology, $\cl{f}^{-1}(V)$ is open in $X/\sim$, hence $\cl{f}$ is continuous. \qed 
+\end{proof}
+If $A$ is a subspace of a topological space $X$, we define a relation $\sim$ on $X$ by declaring $x \sim x$ for all $x \in X$ and $x \sim y$ for all $x,y \in A$. We say that the quotient space $X/\sim$ is obtained from $S$ by identifying $A$ to a point. 
+\begin{example}
+    Let $I=[0,1]$ and $I/\sim$ be the quotient space obtained from $I$ by identifying the two points $\{0,1\}$ to a point. The function $f:I \to S^1, f(x) = e^{2\pi ix}$ assumes the same value at $0$ and $1$, and so induces a function $\cl{f}:I/\sim \to S^1$.
+\end{example}
+\begin{proposition}
+    The function $\cl{f}:I/\sim \to S^1$ is a homeomorphism. 
+\end{proposition}
+\begin{proof}
+    Since $f$ is continuous, $\cl{f}$ is also continuous. $\cl{f}$ is a bijection because $\cl{f}(0)=\cl{f}(1)=e^{i0}$ (we identify $0$ and $1$ in $I$), and $\cl{f}$ is clearly a bijection on $[0,1] \setminus \{0,1\}$. 
+    The quotient $I/\sim$ is compact as the continuous image of $I$ under the projection map. Thus, $\cl{f}$ is a continuous bijection from the compact space $I/\sim$ to the Hausdorff space $S^1$, hence $\cl{f}$ is a homeomorphism. \qed 
+\end{proof}
+
+The Hausdorff property is of vital importance in the theory of manifolds. 
+\begin{proposition}
+    If the quotient space $X/\sim$ is Hausdorff, then the equivalence class $[p]$ of any point $p$ in $X$ is closed in $X$. 
+\end{proposition}
+\begin{proof}
+    Let $\pi:X \to X/\sim$ be the projection map and let $X/\sim$ be Hausdorff, then for any $p \in X$, $\{\pi(p)\}$ is closed in $X/\sim$. Since $\pi$ is contiunous, $\pi^{-1}(\{\pi(p)\}) = [p]$ is closed in $X$. \qed 
+\end{proof}
+\subsubsection*{Open equivalence relations}
+Now we derive conditions under which a quotient space is Hausdorff or second countable. 
+\begin{definition}
+    An equivalence relation $\sim$ on a topological space $X$ is said to be \textbf{open} if the projection $\pi:X \to X/\sim$ is open. 
+\end{definition}
+\begin{proposition}
+    Let $\sim$ be an equivalence relation on $X$. Then $\sim$ is open if and only if for every open set $U \subset X$, the set
+    $$\pi^{-1}(\pi(U)) = \bigcup_{x\in U} [x]$$
+    is open. 
+\end{proposition}
+\begin{proof}
+    Suppose $\sim$ is open, then $\pi(U)$ is open. Since $\pi$ is continuous, $\pi^{-1}(\pi(U))$ is open. Conversely, let $U$ be open in $X$. Then 
+    $$\pi(U) = \pi\br{\bigcup_{x\in U} [x]} $$
+    % WTS \pi(U) is open
+    
+\end{proof}
+\begin{example} % Tu example 7.7
+    The projection map to a quotient space is in general not open. 
+    Let $\sim$ be the equivalence relation on the real line $\R$ that identifies the two points $1, -1$, and let $\pi:\R \to \R/\sim$ be the projection map. 
+    Let $V = (-2,0)$, then 
+    $$\pi^{-1}(\pi(V)) = (-2,0) \cup \{1\}, $$
+    which is not open in $\R$. Thus, $\pi(V)$ is not open in the quotient space, so $\pi:\R \to \R/\sim$ is not an open map. 
+\end{example}
+\begin{definition}
+    Given an equivalence relation $\sim$ on $X$, the set 
+    $$R = \{(x,y) \in X \times X: x \sim y\}$$
+    is called the \textbf{graph} of the equivalence relation $\sim$. 
+\end{definition}
+\begin{theorem}
+    Suppose $\sim$ is an open equivalence relation on $X$. Then the quotient space $X/\sim$ is Hausdorff if and only if the graph $R$ of the equivalence relation is closed in $X \times X$. 
+\end{theorem}
+\begin{proof}
+    ($\Longrightarrow$) Suppose $X/\sim$ is Hausdorff, we will show that $X \times X \setminus R$ is open. Let $(x,y) \in X \times X \setminus R$, then $x$ is not equivalent to $y$, hence $[x] \neq [y]$ in $X/\sim$.
+    Since $X/\sim$ is Hausdorff, there exist disjoint open sets $\Tilde{U}, \Tilde{V} \subset X/\sim$ with $[x] \in \Tilde{U}$ and $[y] \in \Tilde{V}$. Since $\Tilde{U} \cap \Tilde{V} = \varnothing$, no element in $U := \pi^{-1}(\Tilde{U})$ is equivalent to an element of $V:= \pi^{-1}(\Tilde{V})$. Thus $U \times V$ is open and $U \times V \cap R = \varnothing$, so $(x,y) \in U \times V \subset X \times X \setminus R. $ \\
+    ($\Longleftarrow$) Suppose $R$ is closed in $X \times X$ and $[x] \neq [y]$ in $X/\sim$. Then $x \nsim y$. Thus $(x,y) \in X \times X \setminus R$. Since $X \times X \setminus R$ is open, there exists an open set $U \times V$ such that $(x,y) \in U \times V \subset X \times X \setminus R$. Thus no element of $U$ is equivalent to an element of $V$, so $\pi(U) \cap \pi(V) = \varnothing$. Since $\pi$ is an open map, $\pi(U)$ and $\pi(V)$ are open in $X/\sim$. Clearly $[x] \in \pi(U)$ and $[y] \in \pi(V)$, hence $X/\sim$ is Hausdorff. \qed  
+\end{proof}
+\begin{theorem}
+    Let $\sim$ be an open equivalence relation on a space $X$ with projection $\pi:X\to X/\sim$. If $\calB = \{B_\a\}$ is a basis for $X$, then its image $\{\pi(B_\a)\}$ under $\pi$ is a basis for $X/\sim$.
+\end{theorem}
+\begin{proof}
+    Let $W$ be an open set in $X/\sim$, we want to find an element $\pi(B_\a) \subset W$. 
+    Let $[x] \in W$, then $x \in \pi^{-1}(W)$. Since $\pi^{-1}(W)$ is open, there is a basis element $B_\a$ such that $x \in B_\a \subset \pi^{-1}(W)$. Then $[x]=\pi(x) \in \pi(B_\a) \subset W$. \qed 
+\end{proof}
+\begin{corollary}
+    If $\sim$ is an open equivalence relation on a second countable space $X$, then the quotient space $X/\sim$ is second countable. 
+\end{corollary}
+
+\subsubsection*{Real projective spaces}
+Define an equivalence relation on $\R^{n+1} \setminus \{0\}$ by 
+\begin{center}
+    $x \sim y$ iff $y=tx$ for some $t \in \R \setminus \{0\}$.
+\end{center}
+\begin{definition}[real projective spaces]
+    The \textbf{real projective space} $\RP^n$ is the quotient space of $\R^{n+1} \setminus \{0\}$ by the above equivalence relation. We denote the equivalence class of a point $(a_0, \cdots, a_n) \in \R^{n+1}\setminus \{0\}$ by $[a_0, \cdots, a_n]$ and let 
+    $\pi: \R^{n+1}\setminus \{0\} \to \RP^n$ be the projection. 
+    We call $[a_0, \cdots, a_n]$ the \textbf{homogeneous coordinates} on $\RP^n$. 
+\end{definition}
+
+We define an equivalence relation $\sim$ on $S^n$ by identifying the antipodal points:
+\begin{center}
+    $x \sim y$ iff $x=\pm y, \quad x,y \in S^n$.
+\end{center}
+We then have a bijection $\RP^n \leftrightarrow S^n / \sim$.
+\begin{exercise}
+    Prove that the map
+    \begin{align*}
+        f:\R^{n+1} \setminus \{0\} &\to S^n \\
+        f(x) &= \frac{x}{|x|}
+    \end{align*}
+    induces a homeomorphism $\cl{f}: \RP^n \to S^n / \sim $. \\
+    (Hint: Find an inverse map $\cl{g}: S^n / \sim \to \RP^n$ and show that $\cl{f}$ and $\cl{g}$ are continuous.)
+\end{exercise}
+\begin{proof}
+    Consider the diagram 
+    \begin{center}
+        \begin{tikzcd}
+        \R^{n+1}\setminus \{0\} \arrow[d, "\pi_1"{swap}] 
+        & S^n \arrow[l, "f^{-1}"{swap}] \arrow[ld, "\pi_1 \circ f^{-1}"] 
+              \arrow[d, "\pi_2"] \\
+        \RP^n 
+        & S^{n}/\sim \arrow[l, "\cl{g}"]
+        \end{tikzcd}
+    \end{center}
+    Clearly $\pi_1 \circ f^{-1}$ is continuous, hence the induced map 
+    $\cl{\pi_1 \circ f^{-1}}: S^n/\sim \to \RP^n$ is continuous, and we denote it $\cl{g}$. Moreover, $\RP^n = (\R^{n+1} \setminus \{0\}) / \sim $, and by another diagram
+    \begin{center}
+        \begin{tikzcd}
+        \R^{n+1} \setminus \{0\} \arrow[r, "f"] \arrow[d, "\pi_1"] 
+                                 \arrow[rd, "\pi_2 \circ f"]
+        & S^n \arrow[d, "\pi_2"] 
+        \\
+        \RP^n \arrow[r, "\cl{f}"]
+        & S^{n}/\sim 
+        \end{tikzcd}
+    \end{center}
+we have obtain the continuous induced map $\cl{f}:=\cl{\pi_2 \circ f}$.
+From the diagrams we also have 
+\begin{align*}
+    &\cl{f} = \pi_2 \circ f \circ \pi_1^{-1}, \\
+    &\cl{g} = \pi_1 \circ f^{-1} \circ \pi_2^{-1},
+\end{align*}
+hence 
+\begin{align*}
+    \cl{f} \circ \cl{g} &= \pi_2 \circ f \circ \pi_1^{-1} \circ \pi_1 \circ f^{-1} \circ \pi_2^{-1} = \id_{S^n/\sim}, \\
+    \cl{g} \circ \cl{f} &= \pi_1 \circ f^{-1} \circ \pi_2^{-1} \circ \pi_2 \circ f \circ \pi_1^{-1} = \id_{\RP^n}.
+\end{align*}
+Therefore $\cl{f}$ is a continuous bijection, with its inverse $\cl{g}$ also being continuous. \qed 
+\end{proof}
+
+\begin{proposition}
+    The equivalence relation $\sim$ on $\R^{n+1}\setminus \{0\}$ in the definition of $\RP^n$ is an open equivalence relation. 
+\end{proposition}
+\begin{proof}
+    Let $U \subset \R^{n+1}\setminus \{0\}$ be open, then $\pi(U)$ is open in $\RP^n$ if and only if $\pi^{-1}(\pi(U))$ is open in $\R^{n+1} \setminus \{0\}$. 
+\end{proof}
+
+ \begin{proposition}
+     $\RP^n$ is second countable and Hausdorff.
+ \end{proposition}
+ \begin{proof}
+     Since $\sim$ is an open equivalence relation on the second countable space $\R^{n+1}$, $\RP^n = X / \sim$ is second countable. 
+
+     Let $S = \R^{n+1} \setminus \{0\}$ and let 
+     $$R = \{(x,y) \in S \times S: y=tx \text{ for some }t \in \R \setminus \{0\} \}. $$
+     Viewed as column vectors, $[x~y]$ is an $(n+1) \times 2$ matrix, and $R$ can be identified as the set of matrices $[x~y]$ in $S \times S$ of $\rank \leq 1$. Then the matrix 
+     $\begin{pmatrix}
+     x_1 & tx_1 \\
+     x_2 & tx_2 \\
+     \vdots & \vdots \\
+     x_{n+1} & tx_{n+1} \end{pmatrix}$
+     has all $2 \times 2$ minors equal to $0$.
+     
+ \end{proof}

@@ -1,0 +1,72 @@
+\section{Maps of Constant Rank}
+Suppose $M,N$ are smooth manifolds. Given a smooth amp $F:M \to N$ and a point $p \in M$, we define the \textbf{rank} of $F$ at $p$ to be the rank of the linear map $dF_p:T_pM \to T_{F(p)}N$. If $F$ has the same rank $r$ at every point, we say that it has \textbf{constant rank}, and write $\rank F = r$. 
+By the rank-nullity theorem, $\rank F \leq \min(\dim M, \dim N)$. If the rank of $dF_p$ is equal to this upper bound, we say that $F$ has \textbf{full rank} at $p$, and if $F$ has full rank everywhere, we say $F$ has full rank. 
+\begin{definition}[submersion, immersion]
+    A smooth map $F:M \to N$ is called a \textbf{smooth submersion} if its differential is surjective at each point (or equivalently, if $\rank F = \dim N$). It is called a \textbf{smooth immersion} if its differential is injective at each point (equivalently, $\rank F = \dim M$). 
+\end{definition}
+
+\begin{example}[~(open submanifolds)]
+    Let $U$ be an open set in $\R^n$, then $U$ is a topological $n$-manifold, and the single chart $(U,\id_U)$ defines a smooth structure on $U$. 
+    More generally, let $M$ be a smooth $n$-manifold and let $U \subset M$ be any open subset. Define an atlas on $U$ by 
+    $$\calA_U = \{\text{smooth charts }(V,\phe)\text{ for }M\text{ such that }V \subset U\}.$$
+    
+    
+\end{example}
+\begin{example}[~(general linear group)]
+    The general linear group $\mathrm{GL}(n,\R)=\{A \in \R^{n \times n}: \det A \neq 0 \}$. Show that it is an open subset of $\R^{n \times n}$, hence it is a smooth $n^2$-dimensional manifold.  
+\end{example}
+\begin{proof}
+    
+\end{proof}
+\begin{example}[~(matrices of full rank)]
+    Suppose $m<n$, and let $\calM_m(m \times n, \R)$ be the subset of $\calM(m \times n, \R)$ consisting of matrices of rank $m$. Prove that $\calM_m(m \times n, \R)$ is an open subset of $\calM(m \times n, \R)$, and therefore is a smooth $mn$-manifold. 
+\end{example}
+
+\begin{proposition}
+    Suppose $F:M \to N$ is a smooth map and $p \in M$. If $dF_p$ is surjective, then $p$ has a neighborhood $U$ such that $F|_U$ is a submersion. 
+    if $dF_p$ is injective, then $p$ has a neighborhood such that $F|_U$ is an immersion. 
+\end{proposition}
+
+\subsection{Local Diffeomorphisms}
+A smooth map $F:M \to N$ is called a \textbf{local diffeomorphism} if every $p \in M$ has an open neighborhood $U$ where $F(U)$ is open and $F|_U:U \to F(U)$ is a diffeomorphism. 
+\begin{example}
+    The map $f:\R \to \S^1$ given by $f(t) = (\cos t, \sin t)$ is a local diffeomorphism. 
+\end{example}
+\begin{theorem}[inverse function theorem]
+    Suppose $F:M \to N$ is a smooth map. If $p \in M$ and $dF_p$ is invertible, then there are connected open neighborhoods $U_0$ of $p$ and $V_0$ of $F(p)$ such that $F|_{U_0}: U_0 \to V_0$ is a diffeomorphism. 
+\end{theorem}
+\begin{proof}
+    Since $dF_p$ is invertible, $n = \dim M = \dim N$. Fix charts $(U,\phe), (V,\psi)$ centered at $p$ and $F(p)$ with $F(U) \subset V$. Let 
+    $$\hat{F}: \psi \circ F \circ \phe^{-1}: \phe(U) \to \psi(V), $$ then 
+    $$ d\hat{F}_0 = d\psi_{F(p)} \circ dF_p \circ d(\phe^{-1})_0 $$ is invertible. By the classical inverse function theorem there exist connected open neighborhoods $\hat{U}_0 \subset \phe(U)$ and $\hat{V}_0 \subset \psi(V)$ such that 
+    $\hat{F}|_{\hat{U}_0}: \hat{U}_0 \to \hat{V}_0$ is a diffeomorphism. Then letting $U_0 = \phe^{-1}(\hat{U}_0)$ and $V_0 = \psi^{-1}(\hat{U}_0)$ completes the proof. \qed 
+\end{proof}
+
+
+\subsection{The Rank Theorem}
+\begin{theorem}
+    Suppose $F:M \to N$ is a smooth map, $\dim M = m, \dim N = n$. If $F$ has constant rank $r$ (i.e., $\rank dF_p = r$ for all $p$). then for every $p \in M$ there exist smooth charts $(U,\phe), (V,\psi)$ of $M,N$ centered at $p, F(p)$ such that $F(U) \subset V$ and 
+    $$\psi \circ F \circ \phe^{-1}(x^1, \cdots, x^m) = (x^1, \cdots, x^r, 0, \cdots, 0). $$
+    In particular, 
+    \begin{itemize}
+    \item if $F$ is a smooth submersion, then $m \geq n$ and 
+    $$\psi \circ F \circ \phe^{-1}(x^1, \cdots, x^m) = (x^1, \cdots, x^n). $$
+    \item If $F$ is a smooth immersion, then $m \leq n$ and 
+    $$\psi \circ F \circ \phe^{-1}(x^1, \cdots, x^m) = (x^1, \cdots, x^m, 0, \cdots, 0). $$
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+    Linear algebra and inverse function theorem. 
+\end{proof}
+
+
+
+\begin{theorem}[global rank theorem]
+    Let $F:M \to N$ be a smooth map of constant rank. 
+    \begin{enumerate}
+    \item If $F$ is surjective, then $F$ is a smooth submersion.
+    \item If $F$ is injective, then $F$ is a smooth immersion. 
+    \item If $F$ is bijective, then $F$ is a diffeomorphism. 
+    \end{enumerate}
+\end{theorem}
+

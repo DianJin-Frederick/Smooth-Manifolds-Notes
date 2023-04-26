@@ -1,0 +1,32 @@
+\section{Basic Definitions}
+\begin{definition}
+    A \textbf{Lie group} is a smooth manifold $G$ (without boundary) that is also a group, with the property that the multiplication and inversion are both smooth. 
+\end{definition}
+\begin{proposition}
+    If $G$ is a smooth manifold with a group structure such that that map $(g,h) \mapsto gh^{-1}$ is smooth, then $G$ is a Lie group.
+\end{proposition}
+\begin{proof}
+    Let $a,b \in G$, then $(a,b^{-1}) \mapsto ab$ is smooth, so the multiplication is smooth. 
+    Let $g = e$, then the inverse map $(e,h) \mapsto h^{-1}$ is smooth. Thus $G$ is a Lie group. \qed
+\end{proof}
+Let $G$ be a Lie group, then any $g \in G$ defines maps $L_g, R_g:G \to G$, called \textbf{left translation} and \textbf{right translation} respectively, by 
+$$L_g(h) = gh, \quad R_g(h) = hg. $$
+
+\subsection*{Examples}
+\begin{example}
+    
+\end{example}
+
+\section{Lie Group Homomorphisms}
+\begin{definition}
+    If $G$ and $H$ are Lie groups, a \textbf{Lie group homomorphism} from $G$ to $H$ is a smooth map $F:G \to H$ that is also a group homomorphism. It is called a Lie group \textbf{isomorphism} if it is also a diffeomorphism, which implies tht it has an inverse which is also a Lie group homomorphism. In this case we say that $G$ and $H$ are isomorphic Lie groups. 
+\end{definition}
+
+\begin{theorem}
+    Every Lie group homomorphism has constant rank. 
+\end{theorem}
+
+\section{Lie Subgroups}
+\begin{definition}
+    Suppose $G$ is a Lie group. A \textbf{Lie subgroup} of $G$ is a subgroup of $G$ endowed with a topology and smooth structure making it into a Lie group and an immersed submanifold of $G$. 
+\end{definition}

@@ -1,0 +1,96 @@
+\section{Embedded Submanifolds}
+An embedded submanifold of $M$ is a subset $S \subset M$ which is a topological manifold (w.r.t. the subspace topology) endowed with a smooth structure that makes the inclusion $\iota:S \to M$ a smooth embedding. 
+\begin{example}
+    \begin{itemize}
+        \item If $U \subset M$ is open, then $U$ is an embedded submanifold.
+        \item $\S^{n-1} \subset \R^n$ is an embedded submanifold. 
+    \end{itemize}
+\end{example}
+
+In fact, every embedded submanifold is the image of some manifold under a smooth embedding. 
+
+\begin{proposition}
+    Suppose $F:N \to M$ is a smooth embedding, then $S=F(N)$ is a topological manifold (w.r.t. the subspace topology) and has a unique smooth structure such that 
+    \begin{enumerate}
+    \item $S$ is an embedded submanifold. 
+    \item $F:N \to S$ is a diffeomorphism. 
+    \end{enumerate}
+\end{proposition}    
+
+\begin{example}[(Slices of Product Manifolds)]
+    Suppose $M$ and $N$ are smooth manifolds. For each $p \in N$, the subset $M \times \{p\}$ is an embedded submanifold of $M \times N$ diffeomorphic to $M$. 
+\end{example}
+\begin{proof}
+    $M \times \{p\}$ is the image of the smooth embedding $x \mapsto (x,p)$. 
+\end{proof}
+\begin{example}[(Graph of a map)] 
+    Suppose $M, N$ are smooth $m, n$-manifolds, $U \subset M$ is open, $f:U \to N$ is smooth. Then 
+    $$\Ga(f) = \{(x,y) \in M \times N: x\in U, y=f(x)\}$$
+    is an embedded $m$-dimensional submanifold of $M \times N$. 
+\end{example}
+\begin{proof}
+    
+\end{proof}
+\subsubsection*{Slice Charts}
+If $U$ is an open subset of $\R^n$ and $k \leq n$, a $k$-dimensional slice of $U$ (or a $k$-slice) is a subset of the form
+$$S = \{(x^1, \cdots, x^k, x^{k+1}, \cdots, x^n) \in U: x^{k+1} = c^{k+1}, \cdots, x^n = c^n\}$$
+for some constants $c^{k+1}, \cdots, c^n$. In practice, those constants are often set to be zero: $c^{k+1} = \cdots = c^n = 0$. Now we define a slice on a manifold. 
+\begin{definition}
+    Let $M$ be a smooth $n$-manifold, and $(U,\phe)$ be a smooth chart on $M$. If $S \subset U$ such that $\phe(S)$ is a $k$-slice of $\phe(U)$, then we say that $S$ is a $k$-slice of $U$. 
+\end{definition}
+\begin{definition}[local $k$-slice condition]
+    Let $S \subset M$ and $k \in \N$. We say that $S$ satisfies the \textbf{local $k$-slice condition} if each point of $S$ is contained in a smooth chart $(U,\phe)$ for $M$ such that $S \cap U$ is a $k$-slice in $U$. Any such chart is called a \textbf{slice chart} for $S$ in $M$. 
+\end{definition}
+\begin{theorem}[local slice criterion]
+    Let $M$ be a smooth $n$-manifold. If $S \subset M$ is an embedded $k$-dimensional submanifold, then $S$ satisfies the local $k$-slice condition. Conversely, if $S \subset M$ is a subset that satisfies the local $k$-slice condition, then $S$ is a $k$-dimensional topological manifold, and it has a smooth structure making it into an embedded submanifold of $M$. 
+\end{theorem}
+
+\section{Level Sets}
+If $\Phi:M \to N$ is a map, the preimages $\Phi^{-1}(c)$ are called level sets. 
+\begin{theorem}
+    Let $\Phi:M \to N$ be a smooth map with constant rank $r$. Each level set of $\Phi$ is embedded submanifold of codimension $r$ in $M$, i.e., $\dim \Phi^{-1}(c) = \dim M - r$
+\end{theorem}
+
+Let $\Phi:M \to N$ be a smooth map. 
+\begin{itemize}
+    \item $p \in M$ is called a \textbf{regular point} if $d\Phi_p$ is surjective, otherwise it is called a \textbf{critical point}.
+    \item $c \in N$ is called a \textbf{regular value} if every point in $\Phi^{-1}(c)$ is a regular point (in this case $\Phi^{-1}(c)$ is called a regular level set), otherwise $c$ is called a critical value. 
+\end{itemize}
+\begin{corollary}
+    Every regular level set of a smooth map $\Phi:M \to N$ is an embedded submanifold with dimension equal to $\dim M - \dim N$. 
+\end{corollary}
+
+Every embedded submanifold is locally a level set of a smooth submersion. 
+\begin{proposition}\label{5.16}
+    Let $S$ be a subset of a smooth $m$-manifold $M$, then $S$ has the structure of an embedded $k$-dimensional submanifold if and only if every point in $S$ has an open neighborhood $U$ such that $U \cap S$ is a level set of a smooth submersion $\Phi:U \to \R^{m-k}$.
+\end{proposition}
+\begin{proof}
+    First suppose $S$ is an embedded $k$-submanifold, and let $(x^1, \cdots, x^m)$ be slice coordinates for $S$ on an open subset $U \subset M$. Let $\Phi:U \to \R^{m-k}$ given in coordinates by 
+    $$\Phi(x) = (x^{k+1}, \cdots, x^m). $$
+    Then $\Phi$ is a smooth submersion. By the local slice condition, $S \cap U$ is a $k$-slice in $U$, so 
+    $$S \cap U = \{(x^1,\cdots,x^k,x^{k+1},\cdots,x^m)\in U: x^{k+1}=c^{k+1},\cdots,x^m=c^m\},$$
+    hence $S \cap U = \Phi^{-1}(c^{k+1}, \cdots, c^m)$ is a level set of $\Phi$. 
+
+    Conversely, suppose that every $p \in S$ has a neighborhood $U$ and a smooth submersion $\Phi:U \to \R^{m-k}$ such that $S \cap U$ is a level set of $\Phi$. Then $S \cap U$ is an embedded submanifold of $U$, so it satisfies the local slice condition. It follows that $S$ itself is an embedded submanifold of $M$. 
+\end{proof}
+If $S \subset M$ is an embedded submanifold, a smooth map $\Phi:M \to N$ such that $S$ is a regular level set of $\Phi$ is called a \textit{defining map} for $S$. More generally, if $U$ is an open subset of $M$ and $\Phi:U \to N$ is a smooth map such that $S \cap U$ is a regular level set of $\Phi$, then $\Phi$ is called a \textit{local defining map} for $S$. The above proposition says that every embedded submanifold admits a local defining function in a neighborhood of each of its points. 
+ 
+\subsection*{Regular Sets}
+If $\Phi:M \to N$ is a smooth map, a point $p \in M$ is said to be a \textit{regular point} of $\Phi$ if $d\Phi_p:T_pM \to T_{\Phi(p)}N$ is surjective; it is called a \textit{critical point} of $\Phi$ otherwise. 
+
+A point $c \in N$ is called a \textit{regular value} of $\Phi$ if every point in $\Phi^{-1}(c)$ is a regular point, and a \textit{critical value} otherwise. 
+\begin{theorem}[regular level set theorem]
+    Every regular level set of a smooth map between smooth manifolds is a properly embedded submanifold whose codimension is equal to the dimension of the codomain. 
+\end{theorem}
+\section{Immersed Submanifolds}
+
+\section{The Tangent Space to a Submanifold}
+\begin{proposition}[characerization of $T_pS$]
+    Suppose $M$ is a smooth manifold, $S \subset M$ is an embedded submanifold, and $p \in S$. As a subspace of $T_pM$, the tangent space $T_pS$ is characterized by 
+    $$T_pS = \{v \in T_pM : vf = 0 \text{ whenever }f \in C^\infty \text{ and }f|_S=0\}. $$
+\end{proposition}
+\begin{proposition}
+    Suppose $M$ is a smooth manifold and $S \subset M$is an embedded submanifold. If $\Phi:U \to N$ is any local defining map for $S$, then 
+    $$ T_pS = \ker d\Phi_p:T_pM \to T_{\Phi(p)}N $$
+    for each $p \in S \cap U$. 
+\end{proposition}

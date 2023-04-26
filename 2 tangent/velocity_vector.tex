@@ -1,0 +1,41 @@
+\section{Velocity Vectors of Curves}
+% curve in manifolds
+Every element in the tangent space is the velocity of some curve. This insight will be frequently used in Chapter \ref{curve and flow}: Integral Curves and Flows. 
+
+
+\begin{definition}
+    A \textit{curve} in $M$ is a continuous map $\ga:J \to M$, where $J$ is an interval. 
+\end{definition}
+Given a smooth curve $\ga: J \to M$ and $t_0 \in J$, we define the \textit{velocity} of $\ga$ at $t_0$ to be the vector
+$$\ga'(t_0) = d\ga \br{\dv{}{t}\bigg|_{t_0} } \in T_{\ga(t_0)M }. $$
+Here $d\ga: T_{t_0}J \to T_{\ga(t_0)}M$, and for any $f \in C^\infty(M)$, 
+$$d\ga \br{\dv{}{t}\bigg|_{t_0} }(f) = \dv{}{t}\bigg|_{t_0}(f \circ \ga)(t) = (f \circ \ga)'(t_0). $$
+Other common notations are
+$$\dot{\ga}(t_0) = \dv{\ga}{t}(t_0) = \dv{\ga}{t}\bigg|_{t=t_0}. $$
+$\ga'(t_0)$ is the derivation at $\ga(t_0)$ obtained by taking the derivative of a function along $\ga$. 
+
+Let $(U,\phe)$ be a smooth chart with coordinate $(x^i)$. If $\ga(t_0) \in U$, we can write the coordinate representation of $\ga$ is 
+$$ \widehat{\ga}(t) = (\ga^1(t), \cdots, \ga^n(t)) \in U \subset \R^n, $$ 
+for $t$ sufficiently close to $t_0$. Then the coordinate formula for the differential yields
+$$ \ga'(t_0) = {\dv{\widehat{\ga}^i}{t}}(t_0) \dvBase{x^i}{\ga(t_0)}. $$
+
+Every tangent vector on a manifold is the velocity of some curve.
+\begin{proposition}
+    Suppose $M$ is a smooth manifold and $p \in M$. Every $v \in T_pM$ is the velocity of some smooth curve in $M$. 
+\end{proposition}
+\begin{proof}
+    Let $(U,\phe)$ be a smooth chart centered at $p$, and write $v = v^i \pdv*{}{x^i}|_p$. For small $\eps > 0$ let $\ga:(-\eps,\eps) \to U$ be the curve whose coordinate representation is $\widehat{\ga}(t) = (tv^1, \cdots, tv^n) \in \R^n$. Hence $\ga(t) = \phe^{-1} \circ \widehat{\ga} (t) = \phe^{-1}(tv^1, \cdots, tv^n)$. Then $\ga$ is smooth and 
+    \begin{itemize}
+        \item $\ga(0) = \phe^{-1}(0) = p$, 
+        \item $\displaystyle{ \ga'(0) = {\dv{\widehat{\ga}^i}{t}}(0) \dvBase{x^i}{\ga_0} = v^i \dvBase{x^i}{p} = v}$.    
+    \end{itemize}
+\end{proof}
+\begin{proposition}[the velocity of a composite curve]
+    Let $F:M \to N$ be a smooth map, and let $\ga:J \to M$ be a smooth curve. For any $t_0 \in J$, the velocity at $t=t_0$ of the curve $F \circ \ga:J \to N$ is given by $$(F \circ \ga)'(t_0) = dF(\ga'(t_0)). $$
+\end{proposition}
+Since every derivation $v \in T_p M$ is the velocity of some curve, we can compute $dF_p(v)$ by choosing a smooth curve $\ga$ whose initial tangent vector is $v$.
+\begin{proposition}[computing differential using velocity]
+    Suppose $F:M \to N$ is a smooth map, $p \in M$, $v \in T_pM$. Then 
+    $$ dF_p(v) = (F \circ \ga)'(0), $$
+    for any smooth curve $\ga:J \to M$ such that $0 \in J, \ga(0) = p, \ga'(0) = v$. 
+\end{proposition}

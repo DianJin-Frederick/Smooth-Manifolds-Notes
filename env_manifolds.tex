@@ -1,0 +1,22 @@
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{corollary}{Corollary}[section]
+%\newtheorem{lemma}[Lemma]{theorem}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{lemma}
+\newtheorem{lemma}{Lemma}[section]
+
+\newcounter{example}[chapter]
+\newenvironment{example}[1][]{\refstepcounter{example}\par\medskip
+   \noindent \textsc{Example~\theexample} #1. }{\medskip}
+
+\newcounter{exercise}[chapter]
+\newenvironment{exercise}[1][]{\refstepcounter{exercise}\par\medskip
+   \noindent \textsc{Exercise~\theexercise} #1. }{\medskip}
+

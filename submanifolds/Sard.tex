@@ -1,0 +1,74 @@
+\section{Sard's Theorem}
+
+\begin{theorem}[Sard's theorem]
+    Suppose $M,N$ are smooth manifolds, $F:M \to N$ is a smooth map. Then the set of critical values of $F$ has measure zero in $N$. 
+\end{theorem}
+
+\begin{corollary}
+    Suppose $M,N$ are smooth manifolds, and $F:M \to N$ is a smooth map. if $\dim M < \dim N$, then $F(M)$ has measure zero in $N$. 
+\end{corollary}
+
+\section{The Whitney Embedding Theorem}
+
+\begin{theorem}[Whitney embedding theorem]
+    Every smooth $n$-manifold admits a proper smooth embedding into $\R^{2n+1}$.
+\end{theorem}
+\section{The Whitney Approximation Theorem}
+
+\subsection{Tubular Neighborhoods and Normal Bundles}
+
+\subsection{Smooth Approximation of Maps Between Manifolds}
+
+\begin{theorem}[Whitney approximation theorem]
+    Suppose $N, M$ are a smooth manifolds and $F:N \to M$ is a continuous map. Then $F$ is homotopic to a smooth map. If $F$ is smooth on a closed subset $A \subset N$, then the homotopy can be taken to be relative to $A$.    
+\end{theorem}
+\begin{proof}
+    We embed $M$ into $\R^n$. Let $U$ be a tubular neighborhood of $M$, and $r:U \to M$ be the smooth retraction. For  $x \in M$, let 
+    $$\d(x) = \sup\{\eps \leq 1:B_\eps(x) \subset U\}, $$
+    then $\d:M \to \R^+$ is continuous. Let $\widetilde{\d} = \d \circ F:N \to \R^+$.
+\end{proof}
+\section{Transversality}
+\begin{definition}
+    Suppose $M$ is a smooth manifold. Two embedded submanifolds $S,S' \subset M$ are \textit{transverse} if 
+    $$T_pS + T_pS' = T_p M \quad \text{for all }p \in S \cap S' $$
+\end{definition}
+\begin{definition}
+    If $F:N \to M$ is smooth and $S \subset M$ is an embedded submanifold, then $F$ is transverse to $S$ if 
+    $$T_{F(x)}S + dF_x(T_xN) = T_{F(x)}M $$ or all $x \in F^{-1}(S)$. 
+\end{definition}
+\begin{theorem}
+    Suppose $N,M$ are smooth manifolds and $S \subset M$ is an embedded submanifold.
+    \begin{enumerate}
+    \item If $F:N \to M$ is transverse to $S$, then $F^{-1}(S) \subset N$ is an embedded submanifold with codimension of $F^{-1}(S)$ in $N$ equals codimension of $S$ in $M$. 
+    \item If $S' \subset M$ is an embedded submanifold which is transverse to $S$, then $S' \cap S \subset M$ is an embedded submanifold with 
+    $$ \codim S \cap S' = \codim S + \codim S'. $$
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    We use the fact that a subset is a submanifold if and only if it is locally the level set of a submersion (see \textbf{Proposition \ref{5.16}}). 
+    Fix $x \in F^{-1}(S)$, then there is an open neighborhood $U \subset M$ of $F(x)$ and a submersion $\phe:U \to \R^k$ ($k=\dim M - \dim S$), where $\phe^{-1}(0) = S \cap U$. Let $\widetilde{U}=F^{-1}(U)$ and $\widetilde{\phe} = \phe \circ F$, then $\widetilde{\phe}^{-1}(0) = \widetilde{U} \cap F^{-1}(S)$. 
+    
+    We claim that $\widetilde{\phe}$ is a submersion in a neighborhood of $x$. It suffices to show that $d\widetilde{\phe}_x:T_xN \to T_{\widetilde{\phe}(x)}\R^k$ is surjective. Fix $v \in T_{\widetilde{\phe}(x)}\R^k$, since $\phe$ is a submersion, $v = d\phe_{F(x)} w$ for some $w \in T_{F(x)}M$. Since $F$ is transverse to $S$ and $F(x) \in S$, 
+    $$w = w_1 + dF_x w_2 \quad \text{for some }w_1 \in T_{F(x)}S, w_2 \in T_xN. $$
+    Since $\phe = 0$ on $S$, $d\phe_{F(x)}w_1 = 0$, so 
+    $$v = d\phe_{F(x)}w = d\phe_{F(x)}(w_1 + dF_x w_2) = d\phe_{F(x)}dF_x w_2 = d\widetilde{\phe}_x w_2.$$
+    Apply (1) to the inclusion map $S' \hookrightarrow M$, we get (2). 
+\end{proof}
+\subsection*{Deforming To Obtain Transversality}
+Goal: Given $F:N \to M$ smooth and $X \subset M$ embedded, "deform" $F$ to be transverse. 
+\begin{theorem}\label{6.35}
+    Suppose $N,M$ are smooth manifolds and $X \subset M$ is an embedded submanifold. If $F:N \times S \to M$ is smooth and transverse to $X$, then for almost every $s \in S$ the map $F_s = F(\cdot, s):N \to M$ is transverse to $X$. 
+\end{theorem}
+\begin{proof}
+    Since $F:N \times S \to M$ is transverse to $X$, $W:=F^{-1}(X) \subset N \times S$ is an embedded submanifold. Let $\pi:N \times S \to S$ be the projection.
+    By Sard's theorem it suffices to show that if $s \in S$ is a regular value of $\pi|_W$, then $F_s$  is transverse to $X$. 
+
+    Fix $p \in F_s^{-1}(X)$ and $v \in T_{F_s(p)}M$, let $q = F_s(p) = F(p,s)$. By transversality, 
+    $$v = u+dF_{(p,s)}(v_1, v_2)$$
+    for some $u \in T_qX$ and $(v_1,v_2) \in T_{(p,s)}(N \times S) = T_pN \times T_sS$. Since $s$ is a regular value of $\pi|_W$ and $(p,s) \in W$, 
+    $v_2 = d\pi_{(p,s)}(w_1,w_2)$ for some $(w_1, w_2) \in T_{(p,s)}W$. Then $v_2=w_2$. So $v=u+dF_{(p,s)}(v_1, v_2)$
+\end{proof}
+\begin{theorem}\label{6.36}
+    Suppose $M,N$ are smooth manifolds and $X \subset M$ is an embedded submanifold. Every smooth map $f:N \to M$ is homotopic to a smooth map $g:N \to M$ transverse to $X$. 
+\end{theorem}
+

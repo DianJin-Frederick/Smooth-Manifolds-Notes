@@ -1,0 +1,483 @@
+\section{Abstract Tensor Products}
+\subsection{Free Vector Spaces}
+Given a set $S$, 
+\begin{itemize}
+    \item A \textit{formal linear combination} of elements in $S$ is a function $f:S \to \R$, where $$\#\{x \in S: f(x) \neq 0\} < \infty.$$
+    In this case we write $f = \Sum{i=1}{m}c_i x_i$, where $\{x_1, \cdots, x_m\} = \{x \in S: f(x) \neq 0\}$, and $c_i = f(x_i)$. 
+    \item The \textit{free vector space} of $S$ denoted by $\calF(S)$ is the vector space of formal linear combinations. We view $S$ as a subset of $\calF(S)$ by identifying $x \in S$ with $\d_x \in \calF(S)$, where $\d_x(y) = \begin{cases} 1, & x = y \\ 0, & x \neq y \end{cases},$ so $f = \Sum{i=1}{m}c_i x_i = \Sum{i=1}{m}c_i \d_{x_i}$.
+\end{itemize}
+Rigorously, $\calF(S)$ is the vector space of functions $f \in \R^S$, but in practice we think of $S$ as a subset of $\calF(S)$ ($S$ is just a set). Typically we identify $x \in S$ with $\delta_x \in \R^S$. 
+
+{\color{blue}There are many formal linear combinations. Is it possible to construct 
+a sequence of formal linear combinations $\#\{x \in S: f_n(x) \neq 0\} = n$? }
+\begin{example}
+    Let $S = \{1, 2\}$, then $\#\{x \in S: f_n(x) \neq 0\} \leq 2$, and thus all functions from $S$ to $\R$ is a formal linear combination. Thus $\calF(S) = \R^S$. 
+\end{example}
+\begin{example}
+    Let $S = \R$ and $f$ be a formal linear combination, then $\supp f = \{x_1, \cdots, x_m\}$, so we can write $f = \Sum{i=1}{m}c_i \d_{x_i}$. In this case $\Im f = \{c_1, \cdots, c_m\}$. Hence 
+    $$\calF(\R) = \cBr{
+    f \in \R^S: f = \Sum{i=1}{m}c_i \d_{x_i}, m \in \N, x_i \in \R \text{ distinct}
+    },$$ which is a vector subspace of $\R^S$ (think of simple functions in real analysis, but assume values on a finite set).
+\end{example}
+\begin{example}
+    Let $S = \R^d$, then 
+    $$\calF(\R^d) = \cBr{
+    f \in (\R^d)^S: f = \Sum{i=1}{m}c_i \d_{x_i}, m \in \N, x_i \in \R^d \text{ distinct}
+    },$$
+\end{example}
+\begin{example}
+    Let $V_1, V_2$ be finite-dimensional vector spaces, then 
+    $$\calF(V_1 \times V_2) = \cBr{
+    f \in (V_1 \times V_2)^S: f = \Sum{i=1}{m}c_i \d_{(v_1,v_2)}, m \in \N, v_i \in V_i
+    },$$
+\end{example}
+
+
+\begin{proposition}\label{12.5}
+    If $W$ is a vector space, then every map $A:S \to W$ has a unique extension to a linear map
+    $\cl{A}:\calF(S) \to W$. 
+\end{proposition}
+\begin{proof}
+    Check that 
+    $$\cl{A}\br{\Sum{i=1}{m}c_i x_i} = \Sum{i=1}{m}c_i A(x_i) $$ defines $\cl{A}$. 
+    Let $\Sum{i=1}{m}c_i x_i, \Sum{i=1}{m}d_i y_i \in \calF(S)$, then 
+    \begin{align*}
+    \cl{A}\br{\Sum{i=1}{m}c_i x_i + \Sum{i=1}{m}d_i y_i} 
+    &= \cl{A}\br{\Sum{i=1}{m}(c_i x_i + d_i y_i)} \\
+    &= \Sum{i=1}{m} \cl{A}(c_ix_i + d_iy_i) \\
+    &= \Sum{i=1}{m} c_iA(x_i) + d_iA(y_i) \\
+    &= \cl{A}\br{\Sum{i=1}{m}c_i x_i} + \cl{A}\br{\Sum{i=1}{m}d_i y_i}.
+    \end{align*}
+    Let $\lam \in \R$, then 
+    $$\cl{A}\br{\lam \Sum{i=1}{m}c_i x_i} = \cl{A}\br{\Sum{i=1}{m} \lam c_i x_i}
+    = \Sum{i=1}{m}\lam c_i A(x_i) = \lam \cl{A}\br{\Sum{i=1}{m}c_i x_i}. $$
+\end{proof}
+
+\subsection{Tensor Products}
+Given $V_1, \cdots, V_k$ vector spaces, Let $\calR \subset \calF(V_1 \times \cdots \times V_k)$ be the linear subspace spanned by elements of the form 
+    \begin{align*}
+    (w_1, \cdots, w_{i-1}, aw_i, w_{i+1}, \cdots, w_k) - a(w_1, \cdots, w_k)
+    \end{align*} and 
+    \begin{align*}
+    &(w_1, \cdots, w_{i-1}, w_i + w_i', w_{i+1}, \cdots, w_k) \\
+    &- (w_1, \cdots, w_i, \cdots, w_k) - (w_1, \cdots, w_{i-1}, w_i', w_{i+1}, \cdots, w_k).  
+    \end{align*}
+Then
+\begin{itemize} 
+    \item The \textit{tensor product} of $V_1, \cdots, V_k$ is the vector space 
+    $$V_1 \otimes \cdots \otimes V_k = \calF(V_1 \times \cdots \times V_k) / \calR. $$
+    \item Let $\Pi:\calF(V_1 \times \cdots \times V_k) \to V_1 \otimes \cdots \otimes V_k$ be the projection and define the \textit{tensor product} of $w_1, \cdots, w_k$ as
+    $$w_1 \otimes \cdots \otimes w_k = \Pi(w_1, \cdots, w_k)$$ where $w_i \in V_i$. This is the equivalence class of $(v_1, \cdots, v_k)$ in $V_1 \cdOtimes V_k$. 
+\end{itemize}
+\begin{remark}
+    By definition, 
+    \begin{align*}
+    a \cdot (w_1 \otimes \cdots \otimes w_k) 
+    &= (aw_1) \otimes w_2 \otimes \cdots \otimes w_k \\
+    &= w_1 \otimes (aw_2) \otimes w_3 \otimes \cdots \otimes w_k
+    &= w_1 \otimes \cdots \otimes w_{k-1} \otimes (aw_k)
+    \end{align*} and 
+    \begin{align*}
+    &w_1 \otimes \cdots \otimes w_{i-1} \otimes (w_i + w_i') \otimes w_{i+1} \otimes \cdots \otimes w_k \\
+    &= w_1 \otimes \cdots \otimes w_k + w_1 \otimes \cdots \otimes w_{i-1} \otimes w_i' \otimes w_{i+1} \otimes \cdots \otimes w_k
+    \end{align*}
+    for all $w_j \in V_j, w_j' \in V_j, a \in \R, i=1,\cdots, k$.
+\end{remark}
+
+We review a property of quotient vector space.
+\begin{lemma}
+    Let $W$ be a vector space and $V$ be a subspace of $W$, let $T:W \to X$ be a linear map. Then $T$ descends\footnote{Think of as ``$T$ induces a map $\widetilde{T}$''. } 
+    to $\widetilde{T}:W / V \to X$ iff $V \subset \ker T$, where $\widetilde{T}(w+V) = Tw$. 
+\end{lemma}
+\begin{proof}
+    Suppose $V \subset \ker T$. If $u+V = w+V$, then $u-w \in V \subset \ker T$, so $T(u-w) = Tu - Tw = 0$. Hence $\widetilde{T}(u+V) = \widetilde{T}(w+V)$, so $\widetilde{T}$ is well-defined, and it is clearly linear. 
+
+    Conversely, suppose $T$ descends to a linear map $\widetilde{T}:W/V \to X$. Then $\widetilde{T}(u+V) = Tu = 0$ for all $u \in V$, hence $V \subset \ker T$.  
+\end{proof}
+
+\begin{proposition}[Characteristic Property]\label{12.7}
+    If $A \in \calL(V_1, \cdots, V_k; W)$, then there is a unique linear map $\widetilde{A}:V_1 \otimes \cdots \otimes V_k \to W$ such that the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+        V_1 \times \cdots \times V_k \arrow[r, "A"] \arrow[d, "\pi"]& W \\ 
+        V_1 \otimes \cdots \otimes V_k
+        \arrow[ur, "\widetilde{A}", labels=below right]
+        \end{tikzcd}
+    \end{center}
+    where $\pi(v_1,\cdots,v_k) = v_1 \otimes \cdots \otimes v_k$. 
+\end{proposition}
+\begin{proof}
+    First extend $A$ to $\cl{A}: \calF(V_1 \times \cdots \times V_k) \to W$, then 
+    $$\cl{A}\br{\Sum{i=1}{m}c_i x_i} = \Sum{i=1}{m}c_i A(x_i). $$ 
+    Since $A$ is multi-linear, 
+    \begin{itemize}
+        \item $\cl{A}((v_1,\cdots,av_i,\cdots,v_k)-a(v_1,\cdots,v_k)) = 0$,
+        \item $\cl{A}((v_1,\cdots,v_i+v_i',\cdots,v_k)-(v_1,\cdots,v_i,\cdots,v_k)-(v_1,\cdots,v_i',\cdots,v_k))=0$,
+    \end{itemize}
+    so $\calR \subset \ker \cl{A}$, hence by the above lemma $\cl{A}$ descends to a linear map $\widetilde{A}: \calF(V_1 \cdTimes V_k)/\calR \to W$ satisfying $\widetilde{A}\br{\Sum{i=1}{m}c_i x_i + \calR} = \cl{A}\br{\Sum{i=1}{m}c_i x_i}$. 
+    \begin{center}
+        \begin{tikzcd}
+        \calF(V_1 \times \cdots \times V_k) \arrow[r, "\cl{A}"] \arrow[d, "\Pi"]& W \\ 
+        \calF(V_1 \times \cdots \times V_k) / \calR
+        \arrow[ur, "\widetilde{A}", labels=below right]
+        \end{tikzcd}
+    \end{center}
+    
+    Let $\Pi: \calF(V_1 \cdTimes V_k) \to \calF(V_1 \cdTimes V_k) / \calR$ be the natural projection, then we can write 
+    $$\widetilde{A} \circ \Pi = \cl{A}. $$
+    The subtle difference between $\pi$ and $\Pi$ is that 
+    $$\pi: V_1 \cdTimes V_k \to V_1 \cdOtimes V_k$$ and 
+    $$\Pi: \calF(V_1 \cdTimes V_k) \to V_1 \cdOtimes V_k.$$ 
+    Consider the following diagram,
+    \begin{center}
+        \begin{tikzcd}
+        V_1 \times \cdots \times V_k \arrow[r, "\iota"] \arrow[d, "\pi"]& 
+        \calF(V_1 \times \cdots \times V_k) \arrow[dl, "\Pi", labels=below right]\\ 
+        V_1 \cdOtimes V_k 
+        \end{tikzcd}
+    \end{center}
+    we have $\pi = \Pi \circ \iota$. Then $\widetilde{A} \circ \pi = \widetilde{A} \circ \pi \circ \iota = \cl{A} \circ \iota = A$. 
+    
+    Uniqueness follows from the fact that $\pi(V_1 \times \cdots \times V_k)$ spans $V_1 \otimes \cdots \otimes V_k. $
+\end{proof}
+\begin{proposition}\label{12.9}
+    There are unique isomorphisms
+    $$V_1 \otimes (V_2 \otimes V_3) \simeq V_1 \otimes V_2 \otimes V_3 \simeq (V_1 \otimes V_2) \otimes V_3, $$ where $w_1 \otimes (w_2 \otimes w_3), w_1 \otimes w_2 \otimes w_3, (w_1 \otimes w_2) \otimes w_3$ are identified for all $w_i \in V_i$. 
+\end{proposition}
+\begin{proposition}\label{12.10}
+    If $V_1, \cdots, V_k$ are finite dimensional vector spaces, then there is a canonical isomorphism 
+    $$V_1^* \otimes \cdots \otimes V_k^* \simeq \calL(V_1, \cdots, V_k; \R). $$
+\end{proposition}
+\begin{proof}
+    Fix a basis 
+    $$E_1^{(j)}, \cdots, E_{n_j}^{(j)} $$ of $V_j$,  and let 
+    $$\eps_{(j)}^1, \cdots, \eps_{(j)}^{n_j}$$ denote the dual basis. Define 
+    $$\Psi:\calL(V_1, \cdots, V_k; \R) \to V_1^* \otimes \cdots \otimes V_k^* $$ by 
+    $$ \Psi(F) = F\br{E_1^{(j)}, \cdots, E_n^{(j)}}\eps_{(j)}^1 \otimes \cdots \otimes \eps_{(j)}^n. $$ Next, define $$\Phi: V_1^* \times \cdots \times V_k^* \to \calL(V_1, \cdots, V_k; \R)$$ by $$\Phi(w^1, \cdots, w^k)(v_1, \cdots, v_k) = w^1(v_1)w^2(v_2)\cdots w^k(v_k). $$ This is multi-linear, so there is a linear map $\widetilde{\Phi}:V_1^* \otimes \cdots \otimes V_k^* \to \calL(V_1, \cdots, V_k; \R)$ with 
+    $$\widetilde{\Phi}(w^1 \otimes \cdots \otimes w^k)  
+      = \widetilde{\Phi} \circ \pi (w_1, \cdots, w_k) 
+      = \Phi(w^1, \cdots, w^k). $$ 
+    Check that 
+    $$\widetilde{\Phi} \circ \Psi = \id_{\calL(V_1,\cdots,V_k;\R)}$$ and 
+    $$\Psi \circ \widetilde{\Phi} = \id_{V_1^* \otimes \cdots \otimes V_k^*}. $$
+\end{proof}
+\begin{corollary}\label{12.8}
+    If $V_1, \cdots, V_k$ have finite dimension, then 
+    \begin{enumerate}
+    \item $V_1 \otimes \cdots \otimes V_k \simeq \calL(V_1^*,\cdots,V_k^*;\R)$.
+    \item If $E_1^{(j)}, \cdots, E_k^{(j)}$ is a basis of $V_j$, then 
+    $$\calB = \cBr{
+    E_{i_1}^{(1)} \otimes \cdots \otimes E_{i_k}^{(k)}:
+    1 \leq i_j \leq n_j \text{ for }j=1,\cdots,k
+    }$$ is a basis for $V_1 \otimes \cdots \otimes V_k$. 
+    \end{enumerate}
+\end{corollary}
+\begin{proof}
+    (1) We can identify $V = V^{**}$ by $v \in V \mapsto \psi_V \in V^{**}$, where $\psi_v(f) = f(v).$ Hence 
+    $$V_1 \otimes \cdots \otimes V_k = (V_1^*)^* \otimes \cdots \otimes (V_k^*)^* \simeq \calL(V_1^*,\cdots,V_k^*,\R). $$
+    (2) follows from \textbf{Proposition 12.4} of Lee, where we computed a basis of $\calL(V_1,\cdots,V_k;\R)$. 
+\end{proof}
+\begin{example}
+    Show that $M_n(\R) \simeq \R^n \otimes \R^n$. 
+\end{example}
+\begin{proof}
+    $M_n(\R) \simeq \calL(\R^n, \R^n) \simeq (\R^n)^* \otimes (\R^n)^* \simeq \R^n \otimes \R^n.$
+\end{proof}
+
+\subsection{Covariant and Contravariant Tensors}
+Let  $$T^k(V^*) = \underbrace{V^* \otimes \cdots \otimes V^*}_{k \text{ terms}},$$
+which is called the \textit{space of covariant tensors} of rank $k$. 
+$$T^k(V) = \underbrace{V \otimes \cdots \otimes V}_{k \text{ terms}}$$ 
+is called the space of \textit{contravariant} tensors of rank $k$. 
+$$T^{(k,l)}(V) = \underbrace{V \otimes \cdots \otimes V}_{k \text{ terms}} \otimes 
+\underbrace{V^* \otimes \cdots \otimes V^*}_{l \text{ terms}} $$ is called the space of \textit{mixed} tensors of type $(k,l)$. 
+
+\begin{corollary}
+    Suppose $E_1, \cdots, E_n$ is a basis of $V$ and $\eps^1, \cdots, \eps^n$ is the dual basis. Then 
+    \begin{align*}
+    &\{\eps^{i_1} \otimes \cdots \otimes \eps^{i_k}: 1 \leq i_1, \cdots, i_k \leq n \}, \\  
+    &\{E_{i_1} \otimes \cdots \otimes E_{i_k}:  1 \leq i_1, \cdots, i_k \leq n\}, \\
+    &\{E_{i_1} \otimes \cdots \otimes E_{i_k} \otimes \eps^{j_1} \otimes \cdots \otimes \eps^{j_l}:  1 \leq i_1, \cdots, i_k \leq n\}
+    \end{align*}
+    are bases of $T^k(V^*), T^k(V), T^{(k,l)}(V)$. 
+\end{corollary}
+
+\section{Symmetric and Alternating Tensors}
+\subsection{Symmetric Tensors}
+Let $V$ be a finite-dimensional vector space. A convariant $k$-densor $\a$ on $V$ is said to be \textit{symmetric} if 
+$$\a(v_1, \cdots, v_i, \cdots, v_j, \cdots, v_k) = \a(v_1, \cdots, v_j, \cdots, v_i, \cdots, v_k) $$ whenever $1\leq i < j \leq k$. 
+
+Let $S_k$ be the symmetric group on $\{1, \cdots, k\}$. Then $S_k$ acts on $T^k(V^*) \simeq \calL(V, \cdots, V; \R)$ by 
+$$(\sigma \cdot \a)(v_1, \cdots, v_k) = \a(v_{\sigma^{-1}(1)}, \cdots, v_{\sigma^{-1}(k)}), $$ where $\sigma \in S_k, \a \in T^k(V^*), v_1, \cdots, v_k \in V$. 
+\begin{remark}
+    Lee uses the notation $\sigma \cdot \a = \sigma_\a$,
+    this is a group action. 
+\end{remark}
+\begin{exercise}
+    For a covariant $k$-tensor $\a$, the following are equivalent:
+    \begin{enumerate}
+    \item $\a$ is symmetric. 
+    \item For any $v_1, \cdots, v_k \in V$, $\a(v_1, \cdots, v_k)$ is unchanged when $v_1, \cdots, v_k$ are rearranged in any order. 
+    \item The components $\a_{i_1\cdots i_k}$ of $\a$ w.r.t. any basis are unchanged by any permutation of the indices. 
+    \end{enumerate}
+\end{exercise}
+\begin{proof}
+    (1) $\implies$ (2): Suppose $\a$ is symmetric. Since any permutation is a product of transpositions, we can write $\sigma = \tau_1 \cdots \tau_N$, where $\tau_n$ is a transposition: it acts on $\a$ by interchanging a pair of arguments, say,
+    $$\tau_n \cdot \a (v_1, \cdots, v_i, \cdots, v_j, \cdots, v_k) = \a(v_1, \cdots, v_j, \cdots, v_i, \cdots, v_k). $$ But by symmetry,
+    $$\tau_n \cdot \a (v_1, \cdots, v_i, \cdots, v_j, \cdots, v_k) = (v_1, \cdots, v_i, \cdots, v_j, \cdots, v_k). $$ Hence, $\sigma \cdot \a = \a$. \\
+    (2) $\implies$ (1): Since $\sigma \cdot \a = \a$ for any $\sigma \in \Sigma_k$, taking $\a$ to be transpositions shows that $\a$ is symmetric. 
+\end{proof}
+\begin{proposition}
+    The action is by linear transformations
+    $$\sigma \cdot (a \a + b \b) = a(\sigma \cdot \a) + b(\sigma \cdot \b)$$ for all $\sigma \in S_k, \a, \b \in T^k(V^*), a, b \in \R$. 
+\end{proposition}
+
+\begin{definition}
+    $\a \in T^k(V^*)$ is called \textit{symmetric} if $\sigma \cdot \a = \a$ for all $\sigma \in S_k$. 
+    Let $\Sigma^k(V^*) \subset T^k(V^*)$ be the vector space of symmetric tensors. 
+    Let $Sym: T^k(V^*) \to \Sigma^k(V^*)$ be the map 
+    $$ Sym(\a) = \frac{1}{k!}\sum_{\sigma \in S_k} \sigma \cdot \a. $$
+\end{definition}
+\begin{proposition}
+    If $\a \in T^k(V^*)$, then 
+    \begin{enumerate}
+    \item $Sym(\a) \in \Sigma^k(V^*)$.
+    \item $Sym(\a) = \a$ if and only if $\a \in \Sigma^k(V^*)$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    (1) If $\eta \in S_k$, then $$\eta \cdot Sym(\a) = \frac{1}{k!}\sum_{\sigma \in S_k}(\eta \sigma) \cdot \a = \frac{1}{k!}\sum_{\sigma' \in S_k} \sigma' \cdot \a = Sym(\a). $$
+    (2) See Lee.
+\end{proof}
+
+\subsection{Symmetric Products}
+If $\a \in \Sigma^k(V^*)$ and $\b \in \Sigma^l(V^*)$, we define their \textit{symmetric product} by 
+$$\a \b = Sym (\a \otimes \b). $$ More explicitly, 
+$$\a \b(v_1, \cdots, v_k, v_{k+1}, \cdots, v_{k+l}) = 
+\frac{1}{(k+l)!}\sum_{\sigma \in S_{k+l}} \a\br{
+v_{\sigma(1)}, \cdots, v_{\sigma(k)}
+} \b\br{
+v_{\sigma(k+1)}, \cdots, v_{\sigma(k+l)}
+}.
+$$
+
+
+\subsection{Alternating Tensors}
+A tensor $\a \in T^k(V^*)$ is \textit{alternating} if $\sigma \cdot \a = (-1)^{\sgn \sigma} \a$ for all $\sigma \in S_k$. Equivalently, 
+$$\a(v_1, \cdots, v_i, \cdots, v_j, \cdots, v_k) = (-1)\a(v_1, \cdots, v_j, \cdots, v_i, \cdots, v_k)$$ for all $v_1, \cdots, v_k \in V$ and $1 \leq i < j \leq k$. Sometimes alternating tensors are called \textit{skew} or \textit{anti-symmetric}.
+\begin{example}
+    Let $\a \in \calL(\R^n, \cdots, \R^n, \R)$ be 
+    $$\a(v_1, \cdots, v_k) = \det ([v_1~\cdots~v_k]),$$ then $\a$ is alternating. 
+\end{example}
+
+\section{Tensor and Tensor Fields on Manifolds}
+Given a smooth manifold $M$, let
+$$T^kT^*M = \bigsqcup_{p \in M} T^k(T_p^*M)$$ be the bundle of covariant $k$-tensors on $M$, and 
+$$T^kTM = \bigsqcup_{p \in M} T^k(T_pM)$$ be the bundle of contravariant $k$-tensors on $M$, and
+$$T^{(k,l)} TM = \bigsqcup_{p \in M} T^{(k,l)}(T_pM)$$ be the bundle of mixed tensors of type $(k,l)$. 
+These bundles are called \textit{tensor bundles} of $M$ and sections of these bundles are called \textit{tensor fields}. Here is an analogy:
+\begin{center}
+    \begin{tabular}{c|c}
+    bundle & section \\
+    \hline 
+    tangent bundle $TM$ & vector field $T_pM$ \\
+    tensor bundle $T^{(k,l)}TM$ & tensor field $T^{(k,l)}(T_pM)$
+    \end{tabular}
+\end{center}
+\begin{exercise}
+    These are smooth vector bundles over $M$.
+\end{exercise}
+\begin{proof}
+    Check using \textbf{Lemma 10.6} of Lee. 
+\end{proof}
+Locally, fix a chart $(U,\phe)$ of $M$. If $p \in U$, then 
+$$\cBr{\pdv{}{x^{i_1}} \otimes \cdots \otimes \pdv{}{x^{i_k}} \otimes dx^{j_1} \otimes \cdots \otimes dx^{j_l}|_p: 1 \leq i_1, \cdots, i_k, j_1, \cdots, j_l \leq n = \dim M }$$ is a basis of $T^{(k,l)}T_pM$. Let $\widetilde{U} = \pi^{-1}(U) \subset T^{(k,l)}TM$, define 
+\begin{align*}
+    &\widetilde{\phe}:\widetilde{U} \to \R^n \times T^{(k,l)}(\R^n) \\
+    &\widetilde{\phe}\br{
+    \xi_{j_1\cdots j_l}^{i_1\cdots i_k} 
+    \pdv{}{x^{i_1}} \otimes \cdots \otimes \pdv{}{x^{i_k}} \otimes dx^{j_1} \otimes \cdots \otimes dx^{j_l}|_p
+    } \\ &= \br{
+    \phe(p), \xi_{j_1\cdots j_l}^{i_1\cdots i_k} E_{i_1} \otimes \cdots \otimes E_{i_k} \otimes \eps^{j_1} \otimes \cdots \otimes \eps^{j_l}
+    },
+\end{align*}
+where $E_1, \cdots, E_n, \eps^1, \cdots, \eps^n$ are standard basis and dual basis of $\R^n$.
+\begin{proposition}
+    If $L:T^{(k,l)}(\R^n) \to \R^{n^{k+l}}$ is a linear isomorphism, then $(\widetilde{U}, (\id_{\R^n} \times L) \circ \widetilde{\phe})$ is a smooth chart.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\subsection{Basic Properties}
+Regularity. 
+
+Suppose $A:M \to T^{(k,l)}TM$ is a section and $(U,\phe)$ is a smooth chart. On $U$, 
+$$A = A_{j_1\cdots j_l}^{i_1 \cdots i_k}  \pdv{}{x^{i_1}} \otimes \cdots \otimes \pdv{}{x^{i_k}} \otimes dx^{j_1} \otimes \cdots \otimes dx^{j_l}, $$
+where $A_{j_1 \cdots j_l}^{i_1 \cdots i_k}:U \to \R$ are component functions.
+\begin{proposition}\label{12.19}
+    Let $A:M \to T^{(k,l)}TM$ be a section. Then TFAE:
+    \begin{enumerate}
+    \item $A$ is smooth.
+    \item For every chart, the component functions are smooth. 
+    \item Whenever $X_1, \cdots, X_l \in \frak{X}(M)$ and $Y_1, \cdots, Y_k \in \frak{X}^*(M)$, the function $A(Y_1,\cdots,Y_k,X_1,\cdots,X_l$ defined by 
+    $$ A(Y_1,\cdots,Y_k,X_1,\cdots,X_l)(p) = A_p\br{
+    Y_1|_p, \cdots, Y_k|_p, X_1|_p, \cdots, X_l|_p
+    }$$ is smooth. 
+    \end{enumerate}
+\end{proposition}
+
+\subsection{Mixed Tensor Products}
+The \textit{tensor product} of $\a \in T^{(k,l)}T_pM$ and $\b \in T^{(u,v)}E_pM$ is the element $\a \otimes \b \in T^{(k+u, l+v)}T_pM$ satisfying 
+$$(\a \otimes \b)(Y_1,\cdots,Y_{k+u}, X_1,\cdots,X_{l+v} = \a(Y_1,\cdots,Y_k,X_1,\cdots,X_l)\b(Y_{k+1},\cdots,Y_{k+u},X_{l+1},\cdots,X_{l+v})$$ for all $Y_1,\cdots,Y_{k+u} \in T_p^*M$ and $X_1,\cdots,X_{l+v} \in T_pM$. 
+
+\begin{definition}[tensor product of tensor fields]
+    The \textit{tensor product} of two tensor fields $A,B$ is the tensor field $A \otimes B$ satisfying $(A \otimes B)_p = A_p \otimes B_p$. 
+\end{definition}
+
+\begin{example}
+    If $M = \R^n$, then 
+    $$\br{
+    \pdv{}{x^1} \otimes dx^2 } \otimes \pdv{}{x^2} = 
+    \pdv{}{x^1} \otimes \pdv{}{x^2} \otimes dx^2 $$
+\end{example}
+
+\section{Pullbacks of Covariant Tensor Fields}
+\begin{definition}
+    Suppose $F: M \to N$ is smooth.
+    \begin{itemize}
+    \item Given $p \in M$ and $\a \in T^k(T_{F(p)}^*N)$, the \textit{(pointwise) pullback} of $\a$ by $F$ is the element $dF_p^*(\a) \in T^k(T_p^*M)$ satisfying $$dF_p^*(\a)(v_1,\cdots,v_k) = \a(dF_p v_1, \cdots, dF_p v_k)$$ for all $v_1,\cdots,v_k \in T_pM$. 
+    \item Given a covariant $k$-tensor field $A$ on $N$, the \textit{pullback} of $\a$ by $F$ is the covariant $k$-tensor field $F^*A$ where 
+    $$ (F^*A)_p = dF_p^* A_{F(p)}. $$
+    This tensor acts on $(v_1, \cdots, v_k) \in T_pM \times \cdots T_pM$ by 
+    $$(F^*A)_p(v_1, \cdots, v_k) = A_{F(p)}\br{
+    dF_p(v_1), \cdots, dF_p(v_k)}. 
+    $$
+    \end{itemize}
+\end{definition}
+\begin{proposition}\label{12.25}
+    Suppose $F:M \to N$ and $G:P \to M$ are smooth, $A$ and $B$ are covariant tensor fields on $N$, and $f:N \to \R$. 
+    \begin{enumerate}
+    \item $F^*(fB) = (f \circ F)F^*B$.
+    \item $F^*(A \otimes B) = F^*A \otimes F^*B$.
+    \item $F^*(A + B) = F^*A + F^*B$.
+    \item If $B$ is smooth, then $F^*B$ is smooth. 
+    \item $(F \circ G)^*B = G^* (F^*B)$. 
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    (1) Recall that $fB(p) = f(p)B_p$ (See Section \ref{section of VB}). Then 
+    \begin{align*}
+    \left[F^*(fB) \right]_p(v_1,\cdots,v_k)
+    &= (fB)_{F(p)}\br{dF_p(v_1),\cdots,dF_p(v_k)} \\
+    &= f(F(p))B_{F(p)}\br{dF_p(v_1),\cdots,dF_p(v_k)} \\
+    &= (f \circ F)(p) (F^*B)_p (v_1,\cdots,v_k) \\
+    &= \left[(f \circ F)F^*B\right]_p (v_1,\cdots,v_k).
+    \end{align*}
+    \\ 
+    (2) Let $(v_1,\cdots,v_k), (w_1, \cdots, w_k) \in 
+    \underbrace{T_pM \times \cdots \times T_pM}_{k}$, then 
+    \begin{align*}
+    &(F^*A \otimes F^*B)_p (v_1,\cdots,v_k,w_1,\cdots,w_k) \\
+    &= (F^*A)_p(v_1,\cdots,v_k) (F^*B)_p(w_1,\cdots,w_k) \\
+    &= A_{F(p)}\br{dF_p(v_1), \cdots, dF_p(v_k)}
+       B_{F(p)}\br{dF_p(w_1), \cdots, dF_p(w_k)} \\
+    &= A_{F(p)} \otimes B_{F(p)}\br{
+       dF_p(v_1), \cdots, dF_p(v_k), dF_p(w_1), \cdots, dF_p(w_k)
+    } \\
+    &= (A \otimes B)_{F(p)}\br{
+       dF_p(v_1), \cdots, dF_p(v_k), dF_p(w_1), \cdots, dF_p(w_k)
+    } \\
+    &= F^*(A \otimes B)_p(v_1,\cdots,v_k,w_1,\cdots,w_k). 
+    \end{align*}
+    (5) Let $p \in P$ and $(v_1,\cdots,v_k) \in \underbrace{T_pP \times \cdots \times T_pP}_{k}$, then 
+    \begin{align*}
+    \br{(F \circ G)^*B}_p(v_1,\cdots,v_k) 
+    &= B_{F \circ G(p)}\br{
+    d(F \circ G)_p (v_1), \cdots, d(F \circ G)_p (v_k)
+    } \\
+    &= B_{F \circ G(p)}\br{
+    dF_{G(p)} \circ dG_p(v_1), \cdots, dF_{G(p)} \circ dG_p(v_k)
+    }
+    \end{align*}
+\end{proof}
+\begin{example}
+    Suppose $F:M \to N$ is smooth and $f:N \to \R$ is smooth. Then $df \in \frak{X}^*(M)$ is a covariant $1$-tensor field. For $X \in T_pM$, 
+    $$(F^*df)_p(X) = df_{F(p)}(dF_p X)
+    = d(f \circ F)_p(X), $$
+    so $$F^*df = d(f \circ F). $$
+\end{example}
+\begin{example}
+    Locally a convariant $k$-tensor field $A$ on $N$ can be written as 
+    $$A = A_{j_1 \cdots j_l} dx^{j_1} \otimes \cdots \otimes dx^{j_l}, $$ so locally 
+    \begin{align*}
+    F^*A &= (A_{_1 \cdots j_l} \circ F)F^* dx^{j_1} \otimes \cdots \otimes dx^{j_l}  \\
+    &= (A_{_1 \cdots j_l} \circ F)d(x^{j_1} \circ F) \otimes \cdots \otimes d(x^{j_l} \circ F) \\
+    &= (A_{_1 \cdots j_l} \circ F)dF^{j_1} \otimes \cdots \otimes dF^{j_l},
+    \end{align*}
+    where $F^i$ is the $i$th component of $F$. 
+\end{example}
+
+\section{Lie Derivative of Tensor Fields}
+\begin{definition}
+    Suppose $V \in \frak{X}(M)$ and $\cta:\calD \to M$ is the flow of $V$. Given a smooth covariant $k$-tensor field $A$, the \textit{Lie derivative} of $A$ with respect to $V$ is the smooth covariant $k$-tensor field where
+    $$(\calL_V A)_p = \dv{}{t}\bigg|_{t=0} (\cta_t^* A)_p = \lim_{t \to 0} \frac{d(\cta_t)_p^* A_{\cta_t(p)} - A_p}{t}. $$
+    Note that $(\cta_t^* A)_p \in T^k(T_p^*M)$ and $T^k(T_p^*M)$ is just a vector space, so we can use the limit definition of the derivative. 
+\end{definition}
+\begin{proposition}
+    Suppose $V \in \frak{X}(M), f \in C^\infty(M)$ and $A,B$ are smooth covariant tensor fields on $M$. Then:
+    \begin{enumerate}
+    \item $\calL_V(f) = Vf$.
+    \item $\calL_V(fA) = \calL_V(f)A + f\calL_V(A)$.
+    \item $\calL_V(A \otimes B) = \calL_V(A) \otimes B + A \otimes \calL_V(B)$.
+    \item If $X_1,\cdots,X_k \in \frak{X}(M)$ and $A$ is a covariant $k$-tensor field, then 
+    \begin{align*}
+    &\calL_V(A(X_1,\cdots,X_k) ) \\
+    &= (\calL_V A)(X_1,\cdots,X_k) + A(\calL_V(X_1), X_2,\cdots,X_k) + \cdots + A(X_1,\cdots,X_{k-1},\calL_V(X_k)).    
+    \end{align*}
+    \end{enumerate}
+    Note that in (1), we regard elements of $C^\infty(M)$ as smooth covariant $0$-tensors. If we do this, $f \otimes A = fA$, then (2) is a consequence of (3)
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}\label{12.3.4}
+    If $f \in C^\infty(M)$ and $V \in \frak{X}(M)$, then $$\calL_V(df) = d(V(f)) = d(\calL_V(f)). $$
+\end{corollary}
+\begin{proof}
+    Use (4): If $X \in \frak{X}(M)$, then 
+    \begin{align*}
+    \calL_V(df)(X) &= 
+    \calL_V(df(X)) - df(\calL_V(X)) \\
+    &= V(X(f)) - df([V,X]) \\
+    &= V(Xf) - [V,X](f) \\
+    &= VXf - VXf + XVf \\
+    &= X(Vf) = d(V(f))X.
+    \end{align*}
+    Since $X \in \frak{X}(M)$ was arbitrary, $\calL_V(df) = d(V(f))$. 
+\end{proof}
+\begin{example}
+    Suppose $A$ is a smooth covariant $k$-tensor field and $V \in \frak{X}(M)$. Fix a chart $(U,\phe)$, then on $U$ we can write
+    $$V = V^i\pdv{}{x^i}, $$
+    $$A = A_{i_1\cdots i_k}dx^{i_1} \otimes \cdots \otimes dx^{i_k}. $$ 
+    Note $$\calL_V(dx^i) = d(V(x^i)) = dV^i
+    = \pdv{V^i}{x^j}dx^j. $$ By proposition (3)
+    \begin{align*}
+    \calL_V(A) &= 
+    V(A_{i_1\cdots i_k} dx^{i_1} \otimes \cdots \otimes dx^{i_k} \\ 
+    &+ A_{i_1\cdots i_k}\calL_V(dx^{i_1}) \otimes \cdots \otimes dx^{i_k} \\ 
+    &+ \cdots +  
+    A_{i_1\cdots i_k}dx^{i_1} \otimes \cdots \otimes \calL_V{dx^{i_k}} \\
+    &= V(A_{i_1\cdots i_k}dx^{i_1} \otimes \cdots \otimes dx^{i_k} \\
+    &+ A_{i_1\cdots i_k}\pdv{V^{i_1}}{x^j} dx^{j} \otimes dx^{i_2} \otimes \cdots \otimes dx^{i_k} \\ &+ \cdots + 
+    A_{i_1\cdots i_k}\pdv{V^{i_k}}{x^j} dx^{i_1} \otimes \cdots \otimes dx^{i_{k-1}} \otimes dx^j.
+    \end{align*}
+\end{example}
+
+\section{Recapitulation}
+\begin{tabular}{c|c}
+    tensor product of &  \\
+    multi-linear functions & \\
+    vectors & \\
+    tensor fields & \\
+\end{tabular}

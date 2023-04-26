@@ -1,0 +1,174 @@
+\section{Vector Fields on Manifolds}
+A \textbf{vector field} is a map $X:M \to TM$ such that $X(p) \in T_pM$ for all $p \in M$. We often write $X_p$ for $X(p)$. Given a vector field $Y$ and a chart $(U,\phe)$, we can write
+$$ Y_p = Y^i(p) \pdv{}{x^i}\bigg|_p $$
+for some functions $Y^i:U \to \R$ called the component functions of $Y$. 
+\begin{proposition}
+    A vector field $X:M \to TM$ is smooth if and only if for every chart the component functions are smooth. 
+\end{proposition}
+
+Let $\frakX(M)$ denote the set of all smooth vector fields. This is naturally a $\R$-vector space where
+\begin{itemize}
+    \item $(X+Y)_p = X_p + Y_p$ for all $X,Y \in \frakX(M)$,
+    \item $(aX)_p = aX_p$ for all $a \in \R, X \in \frakX(M)$. 
+\end{itemize}
+Given $X \in \frakX(M)$ and $f \in C^\infty(M)$, we can also define $fX \in \frakX(M)$ by 
+$(fX)_p = f(p)X(p). $
+
+\begin{proposition}
+\begin{enumerate}
+    \item If $X,Y \in \frakX(M)$ and $f,g \in C^\infty(M)$, then $fX+gY \in \frakX(M)$. 
+    \item $\frakX(M)$ is a module over $C^\infty(M)$. 
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}
+    If $M$ is a smooth manifold and $A \subset M$, a \textit{vector field along} $A$ is a continuous map $X:A \to TM$ satisfying $\pi \circ X = \id_A$.
+    We call it a \textit{smooth vector field along} $A$ if for each $p \in A$, there is a neighborhood $V$ of $p$ in $M$ and a smooth vector field $\widetilde{X}$ on $V$ that agrees with $X$ on $V \cap A$. 
+\end{definition}
+\begin{lemma}[extension lemma for vector fields]
+    Let $M$ be a smooth manifold with or without boundary, and let $A \subseteq M$ be a closed subset. Suppose $X$ is a smooth vector field along $A$. Given any open subset $U$ containing $A$, there exists a smooth global vector field $\tilde{X}$ on $M$ such that $\left.\widetilde{X}\right|_A=X$ and $\operatorname{supp} \widetilde{X} \subseteq U$.
+\end{lemma}
+\begin{proof}
+    The proof uses the standard smooth structure of $TM$ and essentially follows the proof of the extension lemma of a smooth function. The idea is to "pull back" from $\R^{2n}$ to $TM$ using the diffeomorphism $\widetilde{\phe}$. 
+    
+    We begin by recalling some notations in the construction of the smooth structure on $TM$. If $(U, \phe)$ is a smooth chart on $M$ with coordinates $(x^1, \cdots, x^n)$ and $\pi:TM \to M$ given by $\pi(p,v) = p$, then $(\pi^{-1}(U), \widetilde{\phe})$ is a smooth chart on $TM$, where 
+    $$ \widetilde{\phe}\br{v^i \pdv{}{x^i}\bigg|_p} = 
+        (x^1(p), \cdots, x^n(p), v^1, \cdots, v^n). $$
+
+    Let $p \in A$, then there is an open neighborhood $W_p$ of $p$ such that there exists a smooth vector field $Y:W_p \to TM$ with $Y|_{W_p \cap A} = X|_{W_p \cap A}$. Without loss of generality we may assume that $W_p$ is the domain of a smooth chart $(W_p,\phe)$ for $M$, Thus $(\pi^{-1}(W_p), \widetilde{\phe})$ is a smooth chart for $TM$.
+    
+    Because $\{W_p\}_{p \in A}$ is an open cover of $A$, by the gluing lemma, there exists a unique smooth map $Z:A \to TM$ such that  
+    $$ Z_{W_p \cap A} = Y|_{W_p \cap A} = X|_{W_p \cap A} \quad \text{for every }p \in A, $$
+    thus $X:A \to TM$ is a smooth map. Since $\widetilde{\phe}:\pi^{-1}(W_p) \to \widetilde{\phe}(\pi^{-1}(W_p)) \subset \R^{2n}$ is a diffeomorphism, 
+    the composition $\widetilde{\phe} \circ X := f:A \to \R^{2n}$ is smooth.
+    
+    Since $\pi^{-1}(W_p)$ consists of all the tangent vectors at each point of $W_p$ and $Y$ is a vector field, we have $Y(W_p) \subset \pi^{-1}(W_p)$. Thus $\widetilde{f}_p := \widetilde{\phe} \circ Y: W_p \to TM$ is a smooth map. By replacing $W_p$ by $W_p \cap U$, we may assume that $W_p \subset U$. 
+    Now the family $\{W_p\}_{p \in A} \cup \{M \setminus A\}$ is an open cover of $M$, so there exists a smooth partition of unity $\{\psi_p\}_{p\in A} \cup \{\psi_0\}$ subordinate to this cover such that 
+    \begin{itemize}
+        \item $\supp \psi_p \subset W_p$,
+        \item $\supp \psi_0 \subset M \setminus A$,
+        \item $\{\supp \psi_p\}$ is locally finite. 
+        \item $\bigcup_{p \in A}\supp \psi_p \subset U$.
+    \end{itemize}
+    The product $\psi_p \widetilde{f}_p$ is smooth on $W_p$ and admit a smooth extension to all of $M$ since $\supp \psi_p \subset W_p$. Define 
+    $\widetilde{f}:M \to \R^{2n}$ by
+    $$\widetilde{f}(x) = \sum_{p \in A} \psi_p(x) \widetilde{f}_p(x), $$
+    which is a finite sum due to the local finiteness of $\{\supp \psi_p\}$, thus $\widetilde{f}$ is a smooth map. 
+
+    Define $\widetilde{X}:M \to TM$ by 
+    $$ \widetilde{X}(x) = \widetilde{\phe}^{-1} \circ \widetilde{f}(x),$$
+    then 
+    \begin{itemize}
+    \item $\widetilde{X}$ is smooth since it is a composition of smooth maps, and
+    $$\widetilde{X}(x) = Y(x) \in T_x M, $$
+    so that $\widetilde{X}(x)$ is a smooth vector field. 
+    \item If $x \in A$, then 
+    \begin{align*}
+        \widetilde{\phe}^{-1} \circ \widetilde{f}(x) 
+        &= \widetilde{\phe}^{-1}\br{\sum_{p \in A}\psi_p(x)\widetilde{f}_p(x)} \\
+        &= \widetilde{\phe}^{-1}\br{\sum_{p \in A}\psi_p(x) f(x)} \\
+        &= \widetilde{\phe}^{-1}\br{f(x) \sum_{p \in A}\psi_p(x)} \\
+        &= \widetilde{\phe}^{-1}(f(x)) \\
+        &= \widetilde{\phe}^{-1}(\widetilde{\phe} \circ X(x)) \\
+        &= X(x),
+    \end{align*}
+    hence $\widetilde{X}|_A = X|_A$.
+    \item By the coordinate representation of $\widetilde{\phe}$, we have $\widetilde{\phe}^{-1}(0) = 0$, thus
+    $$\supp \widetilde{X} = \supp \widetilde{\phe}^{-1} \circ \widetilde{f} \subset \supp \widetilde{f} = \bigcup_{p \in A}\supp \psi_p \subset U, $$
+    \end{itemize}
+    completing the proof. 
+\end{proof}
+
+\subsection{Vector Fields as Derivations of $C^\infty(M)$}
+A derivation of $C^\infty(M)$ is a map $D:C^\infty(M) \to C^\infty(M)$ such that 
+$$D(fg) = fD(g) + gD(f) \quad \text{for all }f,g \in C^\infty(M). $$
+This looks like the derivation without referring to a point. 
+
+If $X \in \frakX(M)$ and $f \in C^\infty(M)$, we define
+\begin{align*}
+    Xf:M &\to \R \\
+    (Xf)(p) &= X_p(f).
+\end{align*}
+This makes sense since $X_p \in T_pM$, so it acts on any $f \in C^\infty(M)$. 
+
+\begin{proposition}
+    A map $D:C^\infty(M) \to C^\infty(M)$ is a derivation if and only if $Df = Xf$ for some $X \in \frak{X}(M)$. 
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\section{Vector Fields and Smooth Maps}
+
+
+
+\begin{definition}
+    Suppose $F:M \to N$ is smooth and $X$ is vector field on $M$, and suppose there is a vector field $Y$ on $N$ such that for each $P \in M$, $dF_p(X_p) = Y_{F(p)}$, then we say $X$ and $Y$ are \textit{$F$-related}.
+\end{definition}
+
+\begin{proposition}
+    Suppose $F:M \to N$ is a smooth map between manifolds, $X \in \frak{X}(M) ,Y \in \frak{X}(N)$. Then $X$ and $Y$ are $F$-related if and only if for every $f \in C^\infty(V)$, where $V$ is open in $N$, 
+    $$ X(f \circ F) = (Yf) \circ F. $$
+\end{proposition}
+\begin{proof}
+    Let $p \in M$ and $f$ defined in a neighborhood of $F(p)$ be smooth, then 
+    $$X(f \circ F)(p) = X_p(f \circ F) = dF_p(X_p)f. $$ We also have 
+    $$(Yf) \circ F(p) = (Yf)(F(p)) = Y_{F(p)}f. $$
+\end{proof}
+\begin{example}
+    Let $F(t) = (\cos t, \sin t)$, then $d/dt \in \frak{X}(\R)$ is $F$-related to the vector field $Y \in \frak{X}(\R^2)$ defined by 
+    $$Y = x\pdv{}{y} - y\pdv{}{x}. $$
+\end{example}
+\begin{proof}
+    
+\end{proof}
+\begin{proposition}
+    Suppose $F:M \to N$ is a diffeomorphism. For every $X \in \frak{X}(M)$, there is a unique smooth vector field on $N$ that is $F$-related to $X$. 
+\end{proposition}
+
+
+\section{Lie Brackets}
+\begin{definition}
+    The \textit{Lie bracket} of $X,Y \in \frak{X}(M)$ is the map
+    \begin{align*}
+    [X,Y]: C^\infty(M) &\longrightarrow C^\infty(M) \\
+    [X,Y](f) &= XYf - YXf.
+    \end{align*}
+\end{definition}
+\begin{lemma} % 8.25
+    $[X,Y] \in \frak{X}(M)$. 
+\end{lemma}
+\begin{proof}
+    Just compute
+    $$[X,Y](fg) = f[X,Y]g + g[X,Y]f, $$ where $f \in C^\infty(M)$. 
+\end{proof}
+\begin{example}
+    In general, $XY \notin \frak{X}(M)$. If $M=\R^2, X=\pdv*{}{x}, Y=x\pdv*{}{y}, f(x,y)=x, g(x,y)=y$, then 
+    \begin{align*}
+    &XY(fg) = \pdv{}{x}\br{ {x\pdv{}{y}}(xy) } = 2x, \\
+    &fXY(g) + gXY(f) = x\pdv{}{x}\br{ {x\pdv{}{y}}(xy) } + y \pdv{}{x}\br{ x{\pdv{}{y}}(x) } = 
+    \end{align*}
+\end{example}
+
+\begin{proposition}
+    If $X,Y \in \frak{X}(M)$ and $(U,\phe)$ is a smooth chart, then locally
+    $$ [X,Y] = \br{X^i \pdv{Y^j}{x^i} - Y^i \pdv{X^j}{x^i}} \pdv{}{x^j}. $$
+\end{proposition}
+
+\begin{proposition}[properties of Lie brackets]\label{8.28}
+    
+\end{proposition}
+
+\subsection*{Pushforwards}
+Given $X \in \frak{X}(M)$ and a diffeomorphism $F:M \to N$, the \textit{push forward} of $X$ is the vector field $F_* X \in \frak{X}(N)$ defined by 
+$$(F_* X)_q = dF_{F^{-1}(q)}\br{ X_{F^{-1}(q)} }. $$
+
+\begin{lemma}
+    If $F:M \to N$ is a diffeomorphism, $X \in \frak{X}(M)$, and $f \in C^\infty(N)$, then 
+    $$(F_* X)(f) = X(f \circ F) \circ F^{-1}. $$
+\end{lemma}
+
+\begin{corollary}
+    If $F:M \to N$ is a diffeo and $X,Y \in \frak{X}(M)$, then 
+    $$F_*[X,Y] = [F_*X, F_*Y]. $$
+\end{corollary}

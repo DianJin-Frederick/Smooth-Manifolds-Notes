@@ -1,0 +1,142 @@
+\section{Computations in Coordinates}
+Suppose $M$ is a smooth manifold, and let $(U,\phe)$ be a smooth coordinate chart on $M$. Then $d\phe_p: T_pM \to T_{\phe(p)}\R^n$ is an isomorphism. Since the derivations 
+$\pdv*{}{x^1}|_{\phe(p)}, \cdots, \pdv*{}{x^n}|_{\phe(p)}$ form a basis for $T_{\phe(p)}\R^n$, the preimages 
+$$ (d\phe_p)^{-1}\br{\pdv{}{x^1}\bigg|_{\phe(p)}}, \cdots, (d\phe_p)^{-1}\br{\pdv{}{x^n}\bigg|_{\phe(p)}} $$
+form a basis for $T_pM$. We use the notation 
+We use another notation $\pdv*{}{x^i}|_p$ for these vectors:
+\begin{equation}\label{tan_manifold_basis}
+    \pdv{}{x^i}\bigg|_p = (d\phe_p)^{-1}\br{ {\pdv{}{x^i}}\bigg|_{\phe(p)} }
+  = d(\phe^{-1})_{\phe(p)}\br{{\pdv{}{x^i}}\bigg|_{\phe(p)}}.
+\end{equation}
+Notice that $\pdv*{}{x^i}|_{\phe(p)}$ is a derivation in $T_{\phe(p)}\R^n$, 
+hence $\pdv*{}{x^i}|_{p}$ acts on a function $f \in C^\infty(U)$ by 
+\begin{equation}
+    \pdv{}{x^i}\bigg|_p f = d(\phe^{-1})_{\phe(p)}\br{\pdv{}{x^i}\bigg|_{\phe(p)}f }
+    = \pdv{}{x^i}\bigg|_{\phe(p)}(f \circ \phe^{-1}) 
+    = {\pdv{\hat{f}}{x^i}}(\hat{p}),
+\end{equation}
+where $\hat{f} = f \circ \phe^{-1}$ is the coordinate representation of $f$, and $\hat{p} = \phe(p)$ is the coordinate representation of $p$. We summarize these in the following prosposition. 
+\begin{definition}
+    The vectors $\pdv*{}{x^i}|_p$ are called the \textbf{coordinate vectors} at $p$ associated with the given coordinate system. 
+\end{definition}
+\begin{proposition}
+    Let $M$ be a smooth $n$-manifold, $p \in M$. Then $T_pM$ is an $n$-dimensional vector space, and for any smooth chart $(U, (x^i))$ containing $p$, the coordinate vectors $\pdv*{}{x^1}|_p, \cdots, \pdv*{}{x^n}|_p$ form a basis for $T_pM$. 
+\end{proposition}
+Thus, a tangent vector $v \in T_pM$ can be written uniquely as a linear combination $$v = v^i \pdv{}{x^i}\bigg|_p.$$
+The ordered basis $(\pdv*{}{x^i}|_p)$ is called a \textbf{coordinate basis} for $T_pM$, and the numbers $v^1, \cdots, v^n$ are called the \textbf{components} of $v$ with respect to the coordinate basis. For each $j$, the components of $v$ are given by $v^j = v(x^j)$, where $x^j$ is the $j$th coordinate function. 
+
+\subsection{The Differential in Coordinates}
+Consider a smooth map $F:U \to V$, $U \subset \R^n, V \subset \R^m$ are open 
+subsets. Let $(x^1, \cdots, x^n)$ denote the coordinates in $U$ and $(y^1, \cdots, y^m)$ denote those in $V$. 
+$dF_p: T_p\R^n \to T_{F(p)}\R^m$ acts on a basis vector as follows:
+\begin{align*}
+    dF_p \br{\pdv{}{x^i}\bigg|_p}f
+    &= \pdv{}{x^i}\bigg|_p (f \circ F) = \Sum{j=1}{m}{\pdv{f}{y^j}}(F(p)){\pdv{F^j}{x^i}}(p) \\
+    &= \br{\Sum{j=1}{m}{\pdv{F^j}{x^i}}(p) \pdv{}{y_j}\bigg|_{F(p)} }f \\
+    &= \br{{\pdv{F^j}{x^i}}(p) \pdv{}{y_j}\bigg|_{F(p)}} f.
+    \quad (\text{Einstein summation})
+\end{align*}
+Since $f \in C^\infty(V)$ is arbitrary, we have 
+\begin{equation}\label{Lee3.9}
+    dF_p \br{\pdv{}{x^i}\bigg|_p} = {\pdv{F^j}{x^i}}(p) \pdv{}{y_j}\bigg|_{F(p)}.
+\end{equation}
+In terms of the coordinate bases, the matrix of the linear map $dF_p:T_p\R^n \to T_{F(p)}\R^m$:
+$$ {\everymath{\displaystyle}
+   \begin{pmatrix} 
+    {\pdv{F^1}{x^1}}(p) & \cdots & {\pdv{F^1}{x^1}}(p) \\
+    \vdots              & \ddots & \vdots              \\
+    {\pdv{F^1}{x^1}}(p) & \cdots & {\pdv{F^1}{x^1}}(p) 
+   \end{pmatrix}}. $$
+This is non other than the Jacobian matrix of $F$ at $p$. In this case, $dF_p: T_p\R^n \to T_{F(p)}\R^m$ corresponds to the \textit{total derivative} $DF(p): \R^n \to \R^m$. 
+
+Now we consider a smooth map $F:M \to N$ between smooth manifolds. Choosing smooth coordinate charts $(U,\phe)$ for $M$ containing $p$ and $(V,\psi)$ for $N$ containing $F(p)$, we obtain the coordinate representation $\hat{F} = \psi \circ F \circ \phe^{-1}$ from a subset of $\R^n$ to $\R^m$. 
+Next, we will find the domain of $\hat{F}$. Let's draw a diagram:
+\begin{center}
+    \begin{tikzcd}
+    M \arrow[r, "F"] & N \arrow[d, "\psi"]   \\
+    \R^n \arrow[u, "\phe^{-1}"] \arrow[r, "\psi \circ F \circ \phe^{-1}"] & 
+    \R^m 
+    \end{tikzcd}
+\end{center}
+But the domain of $\phe$ is $U$ and the domain of $\psi$ is $V$, so we can be a bit more precise step by step:
+\begin{center}
+    \begin{tikzcd}
+    U \arrow[r, "F"] & V \cap F(U) \arrow[d, "\psi"]   \\
+    \R^n \arrow[u, "\phe^{-1}"] \arrow[r, "\psi \circ F \circ \phe^{-1}"] & 
+    \R^m 
+    \end{tikzcd}    
+\end{center} 
+$\psi$ should take values on $V \cap F(U)$, but this also affects the domain of $F$. Instead of starting from $U$, $F$ will map from $F^{-1}(V \cap F(U)) = F^{-1}(V) \cap U$. Thus the domain of the diffeomorphism $\phe^{-1}$ is $\phe(U \cap F^{-1}(V))$, and our ultimate diagram goes:
+\begin{center}
+    \begin{tikzcd}
+    F^{-1}(V \cap F(U)) \arrow[r, "F"] & V \cap F(U) \arrow[d, "\psi"]   \\
+    \phe(U \cap F^{-1}(V)) \arrow[u, "\phe^{-1}"] \arrow[r, "\psi \circ F \circ \phe^{-1}"] & 
+    \psi(V \cap F(U))
+    \end{tikzcd}    
+\end{center} 
+Using the formula \ref{tan_manifold_basis} and chain rule, we compute 
+\begin{align*}
+    dF_p\br{\pdv{}{x^i}\bigg|_p}
+    &= dF_p \br{d(\phe^{-1})_{\hat{p}}\br{\pdv{}{x^i}\bigg|_{\hat{p}} } } \\
+    &= dF_{\phe^{-1}(\hat{p})} d(\phe^{-1})_{\hat{p}} \br{\pdv{}{x^i}\bigg|_{\hat{p}} } \\
+    &= d(F \circ \phe^{-1})_{\hat{p}} \br{\pdv{}{x^i}\bigg|_{\hat{p}} } 
+     = d(\psi^{-1} \circ \hat{F})_{\hat{p}} \br{\pdv{}{x^i}\bigg|_{\hat{p}} } \\
+    &= d(\psi^{-1})_{\hat{F}(\hat{p})}\br{d\hat{F}_{\hat{p}} \left(\pdv{}{x^i}\bigg|_{\hat{p}} \right) } \quad (\text{chain rule}) \\
+    &= d(\psi^{-1})_{\hat{F}(\hat{p})} \br{  {\pdv{\hat{F}^j}{x^i}}(\hat{p}) \pdv{}{y^j}\bigg|_{\hat{F}(\hat{p})}  } \quad (\hat{F}(\hat{p}) = F(p)) \\
+    &= (d\psi_{F(p)})^{-1} \br{  {\pdv{\hat{F}^j}}{x^i}(\hat{p}) \pdv{}{y^j}\bigg|_{\hat{F}(\hat{p})}  } \quad (\ref{tan_manifold_basis}) \\
+    &= {\pdv{\hat{F}^j}{x^i}} (\hat{p}) \pdv{}{y^j} \bigg|_{F(p)}.
+\end{align*}
+
+\subsection{Change of Coordinates}
+Let $(U,\phe), (V,\psi)$ be two smooth charts on $M$, and $p \in U \cap V$. Denote the coordinate functions of $\phe$ by $(x^i)$ and those of $\psi$ by $(\tilde{x}^i)$.
+Any tangent vector at $p$ can be represented by either basis $\displaystyle{\br{\pdv{}{x^i}\bigg|_p}}$ or $\displaystyle{\br{\pdv{}{\tilde{x}^i}\bigg|_p}}$.
+
+Write the transition map $\psi \circ \phe^{-1}: \phe(U \cap V) \to \psi(U \cap V)$ in the following notation:
+%$$\psi \circ \phe^{-1}(x) = (\tilde{x}^1(x), \cdots, \tilde{x}^n(x)) \quad (x \in \phe(U \cap V)). $$
+$$\psi \circ \phe^{-1}(x) = (y^1(x), \cdots, y^n(x)) \quad (x \in \phe(U \cap V)). $$
+By (\ref{Lee3.9}), we have 
+%\begin{align*}
+    %d(\psi \circ \phe^{-1})_{\phe(p)}\br{ \pdv{}{x^i}\bigg|_{\phe(p)} }
+    %&= \pdv{\Tilde{x}^j}{x^i}(\phe(p))\br{ \pdv{}{\tilde{x}^i}\bigg|_{\psi(p)} }.
+%\end{align*}
+\begin{align*}
+    d(\psi \circ \phe^{-1})_{\phe(p)}\br{ \pdv{}{x^i}\bigg|_{\phe(p)} }
+    &= {\pdv{\Tilde{x}^j}{x^i}} (\phe(p))  \pdv{}{y^i}\bigg|_{\psi(p)} .
+\end{align*}
+Using the definition of coordinate vectors, we obtain
+\begin{align*}
+    \br{\pdv{}{x^i}\bigg|_p}
+    &= d(\phe^{-1})_{\phe(p)}\br{ \pdv{}{x^i}\bigg|_{\phe(p)} } \\
+    &= d(\psi^{-1} \circ \psi \circ \phe^{-1})_{\phe(p)} \br{ \pdv{}{x^i}\bigg|_{\phe(p)} } \\
+    &= d(\psi^{-1})_{(\psi \circ \phe^{-1})(\phe(p))} \circ d(\psi \circ \phe^{-1})_{\phe(p)} \br{ \pdv{}{x^i}\bigg|_{\phe(p)} } \\
+    &= d(\psi^{-1})_{\psi(p)} \br{  {\pdv{y^j}{x^i}} (\phe(p)) \pdv{}{y^i}\bigg|_{\psi(p)}  } \\
+    &= {\pdv{y^j}{x^i}}(\hat{p}) \pdv{}{\tilde{x}^j}\bigg|_p,
+\end{align*}
+where $\hat{p} = \phe(p)$.
+Applying this to the components of a derivation $\displaystyle{v = v^i \pdv{}{x^i}\bigg|_p = \Tilde{v}^j\pdv{}{\Tilde{x}^j}\bigg|_p }$, by the above rule
+$$\Tilde{v}^j = {\pdv{y^j}{x^i}}(\hat{p})v^i, $$
+where $y^j$'s are the components of the transition map $\psi \circ \phe^{-1}$.
+\begin{example} 
+    The transition map between polar coordinates and standard coordinates in suitable open subsets of $\R^2$ is given by $(x,y) = (r\cos \cta, r\sin \cta)$. Let $p \in \R^2$ with polar coordinate represent being $(r,\cta) = (2, \pi/2)$, and $v \in T_p\R^2$ with polar coordinate represent being
+    $$ v = 3 \dvBase{r}{p}-\dvBase{\cta}{p}. $$ 
+    We find
+    \begin{align*}
+    &\dvBase{r}{p} = \pdv{(r\cos \cta)}{r}\bigg|_{(2,\pi/2)} \dvBase{x}{p} + 
+                    \pdv{(r\sin \cta)}{r}\bigg|_{(2,\pi/2)} \dvBase{y}{p}
+                  = \cos(\pi/2) \dvBase{x}{p} + \sin(\pi/2) \dvBase{y}{p} 
+                  = \dvBase{y}{p}, \\
+    &\dvBase{\cta}{p} = \pdv{(r\cos \cta)}{\cta}\bigg|_{(2,\pi/2)} \dvBase{x}{p} + 
+                    \pdv{(r\sin \cta)}{\cta}\bigg|_{(2,\pi/2)} \dvBase{y}{p}
+                  = -2\sin(\pi/2) \dvBase{x}{p} + 2\cos(\pi/2) -2\dvBase{x}{p} 
+                  = \dvBase{y}{p},               
+    \end{align*}
+    thus $v$ has the coordinate representation in standard coodinates
+    $$v = 3\dvBase{y}{p} + 2 \dvBase{x}{p}. $$
+\end{example}
+\begin{exercise}
+    Let $(x,y)$ denote the standard coordinates on $\R^2$. Verify that $(\Tilde{x},\Tilde{y})$ are global smooth coordinates on $\R^2$, where 
+    $$\Tilde{x} = x, \quad \Tilde{y} = y+x^3. $$
+    Let $p = (0,1) \in \R^2$ (in standarad coordinates), and show that 
+    $$ \dvBase{x}{p} \neq  \dvBase{\Tilde{x}}{p}. $$
+\end{exercise}
+

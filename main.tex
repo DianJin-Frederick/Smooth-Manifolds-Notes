@@ -1,0 +1,82 @@
+%\documentclass[11pt, color=none]{elegantbook}
+%\documentclass{[11pt]{book}}
+\documentclass{kumikoNotes}
+
+
+\setcounter{tocdepth}{2}
+\title{\Huge{Smooth Manifolds}}
+%\subtitle{}
+
+\author{Kumiko}
+\date{2023 spring}
+%\version{4.3}
+%\bioinfo{Bio}{Information}
+
+%\logo{logo-blue.png}
+
+% modify the color in the middle of titlepage
+
+\begin{document}
+\input{macros_manifolds}
+%\input{env_manifolds}
+
+\maketitle
+
+\frontmatter
+\tableofcontents
+
+\mainmatter
+
+\chapter{Manifolds and Smoothness}
+    \input{1 smoothness/def_manifolds}
+    \input{1 smoothness/smoothness}
+    %\input{1 smoothness/manifolds_bdry.tex}
+
+\chapter{Tangent Spaces}
+    \input{2 tangent/tan_vectors.tex}
+    \input{2 tangent/coord_computation.tex}
+    \input{2 tangent/tangent_bundle.tex}
+    \input{2 tangent/velocity_vector}
+    \input{2 tangent/cat_functor.tex}
+    
+\chapter{Submersions, Immersions, Embeddings}
+    \input{3 mersion embedding/const_rank.tex}
+    \input{3 mersion embedding/embeddings}
+    
+
+
+\chapter{Submanifolds and Sard's Theorem}
+    \input{submanifolds/submanifolds}
+    \input{submanifolds/Sard}
+
+\chapter{Lie Groups}
+    \input{Lie group/Lie_group.tex}
+    \input{Lie group/Lie_group_action.tex}
+    
+\input{questions_OH.tex}
+
+\chapter{Vector Fields, Integral Curves and Flows}
+    \input{8 vector fields/vector field}
+    \input{9 int curves flows/int curves and flows}
+
+\chapter{Vector Bundles}
+    \input{10 vector bundles/vector bundle}
+    \input{10 vector bundles/cotg bundle}
+
+\chapter{Tensors}
+    \input{12 tensors/multiLA}
+    \input{12 tensors/tensor product}
+\chapter{Differential Forms and Integration}
+    \input{diff form and integration/diff_form.tex}
+    \input{diff form and integration/ext_derivative.tex}
+    \input{diff form and integration/int_diff_form.tex}
+    \input{diff form and integration/Stokes.tex}
+    
+\appendix
+\input{Appendix/set_theory.tex}
+%\input{Appendix/Riemann-Stieltjes.tex}
+%\printbibliography[heading=bibintoc, title=\ebibname]
+
+
+
+\end{document}

@@ -1,0 +1,168 @@
+\begin{problemset}
+\item (Stein) Let $\{x_j\}$ denote an enumeration of the rational numbers in $\R$, and consider the sets
+$$U_n = \bigunion{j=1}{\infty}\left(x_j-\frac{1}{n2^j}, x_j+\frac{1}{n2^j}\right),$$
+and $$U=\bigcap_{n=1}^\infty U_n.$$
+Show that $U$ is generic but has Lebesgue measure $0$. 
+\begin{proof}
+    $m(U)=0$ is easy to see.
+\end{proof}
+\item (Stein) Suppose $F$ is a closed subset and $\calO$ an open subset of a complete metric space.
+\begin{enumerate}
+    \item $F$ is of the first category if and only if $F$ has empty interior.
+    \begin{proof}
+    Let $F=\union{n=1}{\infty}F_n$, where $F_n$ is nowhere dense. Suppose that $F^\circ$ were not empty, then some closed ball $\cl{B} \subset F$, so 
+    $$\cl{B} = \bigunion{n=1}{\infty} (F_n \cap \cl{B}).$$
+    From $\cl{F_n \cap \cl{B}} = \cl{F_n} \cap \cl{B}$ and $(\cl{F_n} \cap \cl{B})^\circ \subset (\cl{F_n})^\circ \cap (\cl{B})^\circ = \varnothing$ we see that 
+    $\cl{B}$ is of the first category, a contradiction since $\cl{B}$ is complete. 
+    Conversely, $F = \union{n=1}{\infty}F_n$ with $F_1=F$ and $F_n=\varnothing$ for all $n>1$.
+    \end{proof}
+    \item $\calO$ is of the first category if and only if $\calO$ is empty.
+    \begin{proof}
+    Let $\calO$ be of the first category and suppose $\calO$ is not empty, then $\calO$ contains a closed ball $\cl{B}$, thus $\cl{B}$ is of the first category, a contradiction.
+    \end{proof}
+    \item $F$ is generic if and only if $F=X$; and $\calO$ is generic if and only if $\calO^c$ contains no interior.
+    \begin{proof}
+    Suppose $F$ is generic, then $F^c$ is of the first category, so $F^c=\varnothing$, thus $F=X$. \\
+    $\calO$ is generic $\implies$ $\calO^c$ is of the first category $\implies$ $\calO^c$ has empty interior.
+    \end{proof}
+\end{enumerate}
+\item (Stein) Show that the conclusion of the Baire category theorem continues to hold if $X_0$ is a metric space that arises as an open subset of a complete metric space $X$.
+[Hint: Apply the BCT to the closure of $X_0$ in $X$.]
+\begin{proof}
+    Note that $\cl{X_0}$ is complete. Suppose $X_0$ were of the first category:
+    $$X_0 = \bigunion{n=1}{\infty}A_n,$$
+    where $A_n$ is nowhere dense. Then,
+    $$\cl{X_0} = \cl{\bigunion{n=1}{\infty}A_n} \supset \bigunion{n=1}{\infty}\cl{A_n}.$$
+\end{proof}
+\item (Stein) Prove that every continuous function on $[0,1]$ can be approximated uniformly by continuous nowhere differentiable functions. Do so by either:
+\begin{enumerate}
+    \item using Theorem 1.5 (book). 
+    \item using only the fact that a continuous nowhere differentiable function exists. 
+\end{enumerate}
+\begin{proof}
+\begin{enumerate}
+    \item Recall that in a complete metric space, a generic set is dense. Therefore, the set of continuous nowhere differentiable functions is dense in $C([0,1])$. 
+    \item 
+\end{enumerate}
+\end{proof}
+
+% Stein 4-5
+\item Let $X$ be a complete metric space.
+\begin{enumerate}
+    \item a dense $G_\delta$ is generic.
+    \item Hence a countable dense set is an $F_\sigma$, but not a $G_\delta$.
+    \item If $E$ is a generic set, then there exists $E_0 \subset E$ with $E_0$ a dense $G_\delta$.
+\end{enumerate}
+\begin{proof}
+    \begin{enumerate}
+    \item Let $\bigintersect{n=1}{\infty}\calO_n$ be dense. If there is some $\calO_m$ not dense in $X$, then $\cl{\bigintersect{n=1}{\infty}\calO_n} \subset \cl{\calO_m} \neq X$, a contradiction. Therefore, each $\calO_n$ is dense. Then, $\calO_n^c$ is closed and nowhere dense. Now $\bigunion{n=1}{\infty}\calO_n^c$ is of the first category, hence its complement is generic.  
+    \item Since a metric space is Hausdorff, each point $\{x\}$ is closed. Then $A=\union{n=1}{\infty}\{x_n\}$ is of course an $F_\sigma$. Suppose that $A$ is a $G_\delta$, then $A=\intersect{n=1}{\infty}G_n$, so each $G_n$ is open and dense, hence $G_n^c$ is closed and nowhere dense. Then 
+    $$A^c \cap A = \bigintersect{n=1}{\infty}(G_n \cap X\backslash \{x_n\}) = \varnothing,$$
+    so $$\bigunion{n=1}{\infty}(G_n^c \cup \{x_n\}) = X,$$
+    but $X$ is complete, a contradiction.
+    \item Since $E$ is generic, $E$ is dense and $E^c=\union{n=1}{\infty}A_n$, where $A_n$ is nowhere dense, so $A_n^c$ is dense. Hence $E=\intersect{n=1}{\infty}A_n^c$ is dense. Let $B_n=A_n^c$, then $\cl{B_n^\circ} = \cl{B_n} = X$, so $E_0=\intersect{n=1}{\infty}B_n^\circ$ is the desired subset of $E$.     
+    \end{enumerate}
+\end{proof}
+
+% Stein 4-6
+\item (Stein) The function
+$$f(x)=\begin{cases}
+    0 & \mathrm{if~}x\mathrm{~is~irrational} \\
+    1/q & \mathrm{if~}x=p/q\mathrm{~is~rational~and~expressed~in~lowest~form}
+\end{cases}$$
+is continuous precisely at the irrationals. In contrast to this, prove that there is no function on $\R$ that is continuous precisely at the rationals.
+\begin{proof}
+    Since $f$ is continuous at $x$ if and only if $\osc(f)(x)=0$, we can write the set of continuities of $f$ as 
+    $$C(f) = \bigintersect{n=1}{\infty}\{x \in \R: \osc(f)(x) < 1/n\},$$
+    which is a $G_\delta$. Suppose there exists $f_0$ continuous precisely at the rationals, then 
+    $C(f_0)=\Q$ is a $G_\delta$. But from the last exercise we know that a countable dense set is not a $G_\delta$. 
+\end{proof}
+
+% Stein 4-7
+\item (Stein, 4-7) Let $E \subset [0,1]$ and let $I$ be any closed non-trivial interval in $[0,1]$. 
+\begin{enumerate}
+    \item Suppose $E$ is of the fisrt category in $[0,1]$. Show that for every $I$, the set $E \cap I$ is of the first category in $I$. 
+    \item Suppose $E$ is generic in $[0,1]$. Show that for every $I$, the set $E \cap I$ is generic in $I$. 
+    \item Construct a set $E$ in $[0,1]$ so that for all $I$, the set $E \cap I$ is neither of the first category nor generic in $I$. 
+\end{enumerate}
+
+% Stein 4-8
+\item (Stein) A Hamel basis for a vector space $X$ is a collection $\calH$ of vectors in $X$ such that any $x \in X$ can be written as a unique finite linear combination of elements in $\calH$. \\
+Prove that a Banach space cannot have a countable Hamel basis.
+\begin{proof}
+    Suppose that $X$ is a Banach space with a countable Hamel basis 
+    $\{e_k: k\in \N\}$. Let $x \in X$, then $x \in \Span \{h_1, \cdots, h_n\}$ for some $n \in \N$. Hence 
+    $$X = \bigunion{n=1}{\infty}\Span \{h_1, \cdots, h_n\}.$$
+    Since every finite-dimensional vector space is closed, it suffices to show that each $\Span \{h_1, \cdots, h_n\}$ has empty interior. By linearity, we only need to show that each span contains no balls centered at the origin. 
+    Suppose that $\Span \{h_1, \cdots, h_n\}$ contains $B(0,1)$, then $h_{n+1}/2\|h_{n+1}\| \in B(0,1)$ but is not in that span. 
+    Then $X$ is of the first category, a contradiction. 
+\end{proof}
+
+% Fall 2016
+\item (Fall 2016) Show that there is a continuous real-valued function on $[0,1]$ that is not monotone on any open interval $(a,b) \subset [0,1]$.
+\begin{proof}
+    Suppose there were no such functions. Let $E_{a,b}=\{f \in C([0,1]): f~\mathrm{is~monotone~in}~(a,b)\}$. Then
+    $$C([0,1])=\bigcup_{a,b\in \Q, a<b}E_{a,b}.$$
+    First we show that $E_{a,b}$ is closed. 
+    Let $\{f_k\} \subset E_{a,b}$ with $f_k \to f$ uniformly, then each $f_k$ is either increasing or decreasing in $(a,b)$. If all $f_k$'s are increasing (or decreasing), then 
+    $f_k(x)\leq f_k(y)$ if $x\leq y(x \geq y ~\mathrm{resp.})$ for all $k$, so $f(x) \leq f(y)$
+    if $x\leq y(x \geq y ~\mathrm{resp.})$, thus $f \in E_{a,b}$. \\
+    Otherwise, let $I=\{k: f_k~\mathrm{increasing~in~}(a,b)\}$ and $J=\{k: f_k~\mathrm{decreasing~in~}(a,b)\}$.
+    Then, $\{f_i: i \in I\}$ and $\{f_j: j \in J\}$ are subsequences of $\{f_k\}$. Note that 
+    $I \cup J = \N$.
+    \begin{enumerate}
+    \item WLOG let $J$ be finite, then $I$ is infinite and thus $f$ is increasing in $(a,b)$. 
+    \item Suppose that $I$ and $J$ are both infinite. Since $f_k \to f$ pointwisely, for each $x \in (a,b)$, every subsequence of $\{f_k(x)\}$ converges to $f(x)$. 
+    Hence 
+    $$\lim_{i \to \infty, i \in I} f_i(x) = f(x), \quad \lim_{j\to \infty, j \in J} f_j(x) = f(x).$$
+    Therefore, $f$ is constant in $(a,b)$, thus belongs to $E_{a,b}$. 
+    \end{enumerate}
+    Next, we show that $E_{a,b}$ has no interior. 
+    Suppose that $E_{a,b}$ contains an open ball 
+    $B(f_0, r)=\{f\in C([0,1]): \|f-f_0\|<r\}$, where $f_0 \in E_{a,b}$. Then, we can find a zig-zag function $g$ in $(a,b)$ with $\sup_{a<x<b} |g(x)-f_0(x)|<r$, but $g$ is not monotone in $(a,b)$. 
+    Now $C([0,1])$ is of the first category, a contradiction. 
+\end{proof}
+
+% Stein 4-11
+\item (Stein) Let $X=C([0,1])$ over $\R$ with the sup norm. Let $\calM$ be the collection of functions that are not monotonic (increasing or decreasing) in any interval $[a,b]$, where $0\leq a<b \leq 1$. Prove that $\calM$ is generic in $X$. \\
+Hint: Let $\calM_{[a,b]}$ denote the subset of $X$ consisting of functions that not monotonic in $[a,b]$. Then $\calM_{[a,b]}$ is dense in $X$, while $\calM_{[a,b]}^c$ is closed.
+\begin{proof}
+    
+\end{proof}
+
+% Stein 4-9
+\item (Stein 4-9) Consider $L^p([0,1])$ with Lebesgue measure. Note that if $f \in L^p$ with $p>1$, then $f \in L^1$. Show that the set of $f \in L^1$ so that $f \notin L^p$, is generic. 
+\begin{proof}
+    Let $q$ be the conjugate exponent to $p$. 
+    Consider the set 
+    $$E_N=\{f \in L^1: \int_I |f| \leq Nm(I)^{1/q}~\mathrm{for~all~intervals~}I\}.$$ 
+    If $f \in L^p(p>1)$, then $f \in L^1$. By the H\"older's inequality,
+    $$\int |f\chi_{I}| \leq \norm{f}_p \norm{\chi_{I}}_q 
+       = \left( \int|f|^p \right)^{1/p} m(I)^{1/q} \leq N\norm{\chi_{I}}_q $$
+    for some $N$ since $f \in L^p$. This shows that 
+    $$L^p \subset \bigunion{N=1}{\infty}E_N.$$
+    Now we show $E_N$ is closed. 
+    Let $\{f_n\} \subset E_N$ and $f_n \to f$ in $L^1$. Let $I$ be any interval in $[0,1]$, then 
+    \begin{align*}
+    \int_I |f| &\leq \Brace{\int|f_n-f+f|}m(I)^{1/q} \\
+               &\leq \left[ \int|f_n-f|+\int|f| \right]m(I)^{1/q} \\
+               &\leq Nm(I)^{1/q}
+    \end{align*}
+    if $n$ is sufficiently large. \\
+    Finally, we show $E_N$ is nowhere dense in $L^1$. Suppose that $E_N$ contains an open ball
+    $$B(f_0, \eps) = \{f \in L^1: \norm{f-f_0}_{L^1}<\eps\},$$ where $f_0 \in E_N$. 
+\end{proof}
+
+% Fall 2020, Stein 4-
+\item (Fall 2020)
+Suppose that $X, Y, Z$ are Banach spaces, and $T:X \times Y \to Z$ is a mapping such that
+\begin{enumerate}
+    \item For each $x \in X$, the map $y \mapsto T(x,y)$ is a bounded linear map: $Y \to Z$.
+    \item For each $y \in Y$, the map $x \mapsto T(x,y)$ is a bounded linear map: $X \to Z$.
+\end{enumerate}
+Prove that there exists a constant $C$ such that 
+$$\norm{T(x,y)}_Z \leq C\|x\|_X \|y\|_Y.$$
+\begin{proof}
+    
+\end{proof}
+\end{problemset}

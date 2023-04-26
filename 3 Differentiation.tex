@@ -1,0 +1,83 @@
+\chapter{Signed Measure and Differentiation}
+This chapter studies the notation 
+$$d\varphi = fd\mu$$
+and differentiation theorems.
+
+\section{Signed Measure}
+Let $(X, \calM)$ be a measurable space. 
+\begin{definition}
+    A signed measure on $(X, \calM)$ is a function $\nu: \calM \to [-\infty, \infty]$ such that 
+    \begin{itemize}
+        \item $\nu(\varnothing) = 0;$
+        \item $\nu$ assumes at most one of the values $\pm \infty$;
+        \item if $\{E_j\}$ is a sequence of disjoint sets in $\calM$, then 
+        $$\nu(\union{j=1}{\infty}E_j) = \Sum{j=1}{\infty} \nu(E_j),$$
+        where the latter sum converges absolutely if $\nu(\union{j=1}{\infty}E_j)$ is finite. \\
+        We shall sometimes refer to measures as positive measures.
+    \end{itemize}
+\end{definition}
+\begin{proposition}
+    Let $\nu$ be a signed measure on $(X, \calM)$.
+    \begin{enumerate}
+        \item If $\{E_j\}$ is an increasing sequence in $\calM$, then 
+        $\nu(\union{j=1}{\infty}E_j) = \Lim{j}{\infty}\nu(E_j)$. 
+        \item If $\{E_j\}$ is an decreasing sequence in $\calM$ and $\nu(E_1)$ is finite, then $\nu(\intersect{j=1}{\infty}E_j) = \Lim{j}{\infty}\nu(E_j)$. 
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    1. Let $A_n = E_n \backslash E_{n-1}$, then 
+    $$\nu(\union{j=1}{\infty}E_j)=\nu(\union{j=1}{\infty}A_j)
+    = \SumInf{j=1}\nu(A_j) = \Lim{N}{\infty}\Sum{j=1}{N}\nu(A_N) = \Lim{N}{\infty} \nu(\union{j=1}{N}A_j) = \Lim{N}{\infty}\nu(E_N).$$
+    2. \begin{align*}
+        \Lim{n}{\infty} = \mu(\union{n=1}{\infty}E_1 \backslash E_n)
+        = \mu(E_1 \backslash \intersect{n=1}{\infty}E_n)
+        = \mu(E_1) - \mu(\intersect{n=1}{\infty}E_n)
+        = \mu(E_1) - \lim_{n \to \infty}\mu(E_n).
+    \end{align*}
+\end{proof}
+\begin{definition}[positive/negative set]
+    If $\nu$ is a signed measure on $(X, \calM)$, a set $E \in \calM$ is called positive (resp. negative, null) for $\nu$ if $\nu(F) \geq 0$ (resp. $\nu(F) \leq 0, \nu(F)=0$) for all measurable $F \subset E$.
+\end{definition}
+\begin{lemma}
+    Any measurable subset of a positive set is positive, and the union of any countable family of positive sets are positive.
+\end{lemma}
+\subsection{Decomposition}
+\begin{theorem}[Hahn Decomposition]
+    If $\nu$ is a signed measure on $(X, \calM)$, there exists a positive set $P$ and a negative set $N$ for $nu$ such that $P \cup N=X$ and $P \cap N=\varnothing$. 
+    If $P', N'$ is another such pair, then $P \Delta P'(=N \Delta N')$ is null for $\nu$.
+\end{theorem}
+
+\begin{definition}
+Two signed measures $\mu$ and $\nu$ on $(X, \calM)$ are mutually singular if there exist $E, F \in \calM$ such that $E \cap F=\varnothing, E \cup F=X, E$ is null for $\mu$ and $F$ is null for $\nu$. Notation: $\mu \perp \nu$.     
+\end{definition}
+
+\begin{theorem}[Jordan Decomposition]
+    If $\nu$ is a signed measure, there exist unique positive measures $\nu^+$ and $\nu^-$ such that $\nu = \nu^+ - \nu^-$ and $\nu^+ \perp \nu^-$. 
+\end{theorem}
+
+\section{Maximal Function}
+
+\section{Lebesgue Differentiation Theorem}
+
+\section{Radon-Nikodym Theorem}
+\begin{definition}
+    Suppose that $\nu$ is a signed measure and $\mu$ is a positive measure on $(X, \calM)$. We say that $\nu$ is absolute continuous w.r.t. $\mu$ and write 
+    $$\nu \ll \mu$$
+    if $\nu(E)=0$ for every $E \in \calM$ for which $\mu(E)=0$. 
+\end{definition}
+\begin{theorem}
+    Let $\nu$ be a finite signed measure and $\mu$ a positive measure on $(X, \calM)$. Then $\nu \ll \mu$ if for every $\eps>0$ there exists $\delta>0$ such that $|\nu(E)|<\eps$ whenever $\mu(E)<\delta$. 
+\end{theorem}
+\begin{theorem}[Lebesgue-Radon-Nikodym]
+    Let $\nu$ be a $\sigma$-finite signed measure and $\mu$ a $\sigma$-finite positive measure on $(X, \calM)$. There exists unique $\sigma$-finite signed measures $\lam, \rho$ on $(X, \calM)$ such that 
+    $$\lam \perp \mu, \quad, \rho \ll \mu, \quad, \nu = \lam + \rho. $$
+    Moreover, there is an extended $\mu$-integrable function $f:X \to \R$ such that $d\rho=fd\mu$, and any two such functions are equal $\mu$-a.e.
+\end{theorem}
+\begin{theorem}[Radon-Nikodym]
+    Let $(X, \calM)$ be a measurable space and $\mu, \nu$ be two $\sigma$-finite measures. If $\nu \ll \mu$, then 
+    $d\nu=fd\mu$ for some $f$. 
+\end{theorem}
+\begin{proof}
+    Use Hilbert space technique.
+\end{proof}
+\section{Absolute Continuity}

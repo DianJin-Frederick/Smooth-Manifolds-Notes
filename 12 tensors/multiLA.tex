@@ -1,0 +1,108 @@
+\section{Multilinear Algebra}
+
+\begin{definition}
+Let $V_1, \cdots, V_k$ and $W$ be vector spaces. A map $F:V_1 \times \cdots \times V_k \to W$ is called \textbf{multilinear} if 
+$$F(u_1, \cdots, au_i + bv_i, \cdots, u_k) = aF(u_1, \cdots, u_i, \cdots, u_k) + 
+bF(u_1, \cdots, v_i, \cdots, u_k) \quad \text{for each }i. $$
+\end{definition}
+Denote $\calL(V_1, \cdots, V_k;W)$ for the set of all multilinear maps from $V_1 \times \cdots \times V_k$ to $W$. 
+\begin{remark}
+    We all know that $V_1 \times \cdots V_k$ is also a vector space, however, a multilinear map $F$ on this vector space is different from a linear map on this vector space. Take $k=2$, then 
+    $$F(av_1, av_2) = aF(v_1, av_2) = a^2 F(v_1, v_2). $$
+    As a product space, $a(v_1, v_2) = (av_1, av_2)$. 
+\end{remark}
+\begin{example}
+    \begin{enumerate}
+    \item The dot product in $\R^n$ is a bilinear function of two vectors. 
+    $$\net{v,w} \in \R^n \times \R^n \mapsto v \cdot w \in \R$$ is in $\calL(\R^n, \R^n; \R)$.
+    \item The cross product 
+    $$(v,w) \in \R^3 \times \R^3 \mapsto v \times w \in \R^3 $$ is in $\calL(\R^3, \R^3; \R^3)$.
+    \item The determinant is a real-valued multilinear function of $n$ vectors in $\R^n$. 
+    \end{enumerate}
+\end{example}
+\begin{proof}
+    Let $a \in \R$, then $\net{au+bv, w} = a\net{u, w} + b\net{v, w}$. Let $v_i \in \R^n$, then 
+    $$\det [v_1 \cdots av_i+bv_j \cdots v_n ] = a\det[v_1 \cdots v_n] + b\det [v_1 \cdots v_n]. $$
+\end{proof}
+\begin{definition}
+    Given $F \in \calL(V_1, \cdots, V_k; \R)$ and $G \in \calL(W_1, \cdots, W_l; \R)$, define the \textit{tensor (product)} of $F$ and $G$ by $F \otimes G \in \calL(V_1, \cdots, V_k, W_1, \cdots, W_l, \R)$ by 
+    \begin{align*}
+    F \otimes G(v_1, \cdots, v_k, w_1, \cdots, w_l) = F(v_1, \cdots, v_k)G(w_1, \cdots, w_l).
+    \end{align*}
+\end{definition}
+
+\begin{example}
+    Let $E_1, \cdots, E_n$ be the standard basis of $\R^n$ and $\eps^1, \cdots, \eps^n$ be the dual basis. Then 
+    $$ v \cdot w = \br{\Sum{i=1}{n}\eps^i \otimes \eps^i}(v,w) $$ for all $v,w \in \R^n$. For each $i$, 
+    $$\eps^i \otimes \eps^i(v_1, \cdots, v_n)\eps^i(w_1,\cdots,w_n) = v_i w_i. $$
+\end{example}
+\begin{example}
+    ({\color{blue} Need to be justified}) 
+    Let $(\Omg, \calF, \P)$ be a probability space, and let $X_1, \cdots, X_n$ be integrable independent variables, that is, $\E X_j < \infty$ for all $j$, where $\E$ is the expectation. Note that $\E$ is a linear map on $L^1(\Omg)$, and we write $\E \in \calL(L^1, \R)$. Then $\E(X_1)\E(X_2) = \E \otimes \E(X_1, X_2) = \E(X_1 X_2)$. 
+\end{example}
+
+
+\begin{proposition}\label{12.4}
+    Let $V_1, \cdots, V_k$ be a vector space of dimension $n_1, \cdots, n_k$. For each $j = 1, \cdots, k$, let $E_1^{(j)}, \cdots E_{n_j}^{(j)}$ be a basis of $V_j$ and 
+    $\eps_{(j)}^{1}, \cdots, \eps_{(j)}^{n_j}$ be the dual basis, then 
+    $$\calB = \cBr{\eps_{(1)}^{i_1} \otimes \cdots \otimes \eps_{(k)}^{i_k}: 1\leq i_j \leq n_j \text{ for }j=1, \cdots, k}$$ is a basis for $\calL(V_1, \cdots, V_k; \R)$.
+    $$\begin{array}{ccc}
+    \text{vector space} & \text{basis} & \text{dual basis} \\
+    V_1 & E_1^{(1)}, E_2^{(1)}, \cdots, E_{n_1}^{(1)} & \eps_{(1)}^{1}, \cdots, \eps_{(1)}^{n_1}\\
+    V_2 & E_1^{(2)}, E_2^{(2)}, \cdots, E_{n_2}^{(2)} & \eps_{(2)}^{1}, \cdots, \eps_{(2)}^{n_2}\\
+    \vdots & \\
+    V_k & E_1^{(k)}, E_2^{(k)}, \cdots, E_{n_k}^{(k)} & \eps_{(k)}^{1}, \cdots, \eps_{(k)}^{n_k}
+    \end{array}$$
+\end{proposition}
+\begin{proof}
+    Fix a multi-linear function $F \in \calL(V_1, \cdots, V_k; \R)$. 
+    Define coefficients 
+    $$F_{i_1, \cdots, i_k} = F\br{E_{i_1}^{(1)}, \cdots, E_{i_k}^{(k)} }, $$ then (using Einstein summation)
+    \begin{align*}
+    F(v_1, \cdots, v_k) &= F
+    \br{ v_1^{i_1}E_{i_1}^{(1)}, \cdots, v_k^{i_k}E_{i_k}^{(k)} } \\
+    &= v_1^{i_1} \cdots v_k^{i_k}F
+    \br{ E_{i_1}^{(1)}, \cdots, E_{i_k}^{(k)} } \\
+    &= v_1^{i_1} \cdots v_k^{i_k} F_{i_1, \cdots, i_k} \\
+    &= \br{F_{i_1, \cdots, i_k} \eps_{(1)}^{i_1} \otimes \cdots \otimes \eps_{(k)}^{i_k} } (v_1, \cdots, v_k). 
+    \end{align*}
+    If we do not use Einstein summation, the above sum can be written as 
+    \begin{align*}
+    &F\br{
+    \sum_{i_1}v_1^{i_1}E_{i_1}^{(1)}, \sum_{i_2}v_2^{i_2}E_{i_2}^{(2)}, \cdots,
+    \sum_{i_k}v_k^{i_k}E_{i_k}^{(k)}
+    } \\
+    &= \sum_{i_1}v_1^{i_1}F\br{
+    E_{i_1}^{(1)}, \sum_{i_2}v_2^{i_2}E_{i_2}^{(2)}, \cdots, \sum_{i_k}v_k^{i_k}E_{i_k}^{(k)}
+    } \\
+    &= \sum_{i_1}v_1^{i_1} \sum_{i_2}v_2^{i_2} F\br{
+    E_{i_1}^{(1)}, E_{i_2}^{(2)}, \cdots, \sum_{i_k}v_k^{i_k}E_{i_k}^{(k)}
+    } = \cdots \\
+    &= \sum_{i_1}v_1^{i_1} \sum_{i_2}v_2^{i_2} \cdots \sum_{i_k}v_k^{i_k} 
+       F\br{ E_{i_1}^{(1)}, \cdots, E_{i_k}^{(k)} } \\
+    &= \sum_{i_1,\cdots,i_k} v_1^{i_1} \cdots v_k^{i_k}
+       F\br{ E_{i_1}^{(1)}, \cdots, E_{i_k}^{(k)} } \\
+    &= \sum_{i_1,\cdots,i_k} v_1^{i_1} \cdots v_k^{i_k}F_{i_1,\cdots,i_k}.     
+    \end{align*}
+    Recall the definition of a dual basis, we have
+    $$v_1^{i_1} = \eps_{(1)}^{i_1}\br{
+    \Sum{j=1}{n_1} v_1^j E_{j}^{(1)}
+    } = \eps_{(1)}^{i_1}(v_1). $$
+    Then
+    \begin{align*}
+    \sum_{i_1,\cdots,i_k} v_1^{i_1} \cdots v_k^{i_k}F_{i_1,\cdots,i_k}
+    &= \sum_{i_1,\cdots,i_k} \eps_{(1)}^{i_1}(v_1) \cdots \eps_{(k)}^{i_k}(v_k)
+       F_{i_1,\cdots,i_k} \\
+    &= \sum_{i_1,\cdots,i_k} F_{i_1,\cdots,i_k}
+       \left[\eps_{(1)}^{i_1} \cdOtimes \eps_{(k)}^{i_k} (v_1,\cdots,v_k)\right].
+    \end{align*}
+
+    
+    Now we show $\calB$ is linearly independent.
+    Suppose $\a_{i_1, \cdots, i_k} \eps_{(1)}^{i_1} \otimes \cdots \otimes \eps_{(k)}^{i_k} = 0$, then
+    \begin{align*}
+    0 = \br{\a_{i_1, \cdots, i_k} \eps_{(1)}^{i_1} \otimes \cdots \otimes \eps_{(k)}^{i_k}}\br{E_{j_1}^{(1)}, \cdots, E_{j_k}^{(k)}}
+    = \a_{j_1, \cdots, j_k}
+    \end{align*}
+    for all indices $j_1, \cdots, j_k$.
+\end{proof}

@@ -1,0 +1,244 @@
+\section{Exterior Derivatives}
+Let $M$ be a smooth manifold, $\Omg^k(M)$ be the vector space of $k$-forms.
+Goal: Define a ``derivative'' $d:\Omg^k(M) \to \Omg^{k+1}(M)$. 
+\subsection{Euclidean Case}
+If $U \subset \R^n$ is open, define $d:\Omg^k(U) \to \Omg^{k+1}(U)$ by 
+$$d\br{\sum_I' \omg_I dx^I} = \sum_{I}'d\omg_I \wedge dx^I. $$
+\begin{example}
+    Let $U = \R^3, k=1$. If $\omg = Pdx + Qdy + Rdz \in \Omg^1(\R^3)$, then 
+    $$d\omg = dP \wedge dx + dQ \wedge dy + dR \wedge dz,$$
+    \begin{align*}
+    dP \wedge dx &= \br{\pdv{P}{x}dx + \pdv{P}{y}dy + \pdv{P}{z}dz
+    } \wedge dx \\
+    &= -\pdv{P}{y}dx \wedge dy - \pdv{P}{z}dx \wedge dz.
+    \end{align*}
+    Expand other terms,
+    $$d\omg = \br{\pdv{Q}{x}-\pdv{P}{y}}dx \wedge dy
+    + \br{\pdv{R}{x}-\pdv{P}{z}}dx \wedge dz
+    + \br{\pdv{R}{y}-\pdv{Q}{z}}dy \wedge dz. $$
+    If we define isomorphisms 
+    \begin{align*}
+        \musFlat{}:\frak{X}(\R^3) \to \Omg^1(\R^3) \\
+        \musFlat(X)(\cdot) = \net{X, \cdot}
+    \end{align*}
+    \begin{align*}
+    \b:\frak{X}(\R^3) &\to \Omg^2(\R^3)  \\
+    \b(X) &= i_X(dx \wedge dy \wedge dz) \\
+    \b(X)(y_1,y_2) &= (dx \wedge dy \wedge dz)(X,y_1,y_2)
+    \end{align*}
+    One can show 
+    \begin{center}
+    \begin{tikzcd}
+    &\frak{X}(\R^3) \arrow[r, "curl"] \arrow[d, "\musFlat"] &\frak{X}(\R^3) \arrow[d, "\b"] \\
+    &\Omg^1(\R^3) \arrow[r, "d"] & \Omg^2(\R^3)
+    \end{tikzcd}
+    \end{center}
+    
+\end{example}
+\begin{proposition}\label{14.23}
+    \begin{enumerate}
+    \item[(a)] $d$ is linear over $\R$.
+    \item[(b)] If $\omg \in \Omg^k(U)$ and $\eta \in \Omg^l(U)$, then $d(\omg \wedge \eta) = d\omg \wedge \eta + (-1)^k\omg \wedge d\eta$.
+    \item[(c)] $d \circ d = 0$.
+    \item[(d)] If $F:U \to V$ is smooth and $\omg \in \Omg^k(U)$, then $F^*(d\omg) = dF^*(\omg)$. 
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+    \item[(a)] By definition. 
+    \item[(b)] By (a) we can assume that $\omg = udx^I$ and $\eta = vdx^J$, then 
+    \begin{align*}
+    d(\omg \wedge \eta) &= d(uv dx^{IJ}) \\
+    &= d(uv) \wedge dx^{IJ} \\
+    &= (vdu + udv) \wedge dx^{IJ} \\
+    &= du \wedge dx^I \wedge (v dx^J) + dv \wedge (u dx^I) \wedge dx^J \\
+    &= d\omg \wedge \eta + (-1)^k \omg \wedge d\eta.
+    \end{align*}
+    \item[(c)] By (a) we can assume $\omg = udx^I$, then 
+    \begin{align*}
+    d(d\omg) &= d(du \wedge dx^I) \\
+    &= d \br{\pdv{u}{x_j} dx^j \wedge dx^I } \\
+    &= d \br{\pdv{u}{x^j}} dx^j \wedge dx^I \\
+    &= \pdv[2]{u}{x^k}{x^j} dx^k \wedge dx^j \wedge dx^I \\
+    &= \sum_{j < k} \br{
+    \pdv[2]{u}{x^k}{x^j} - \pdv[2]{u}{x^j}{x^k} 
+    } dx^k \wedge dx^j \wedge dx^I \\
+    &= 0.
+    \end{align*}
+    \item[(d)] By (a) we can assume $\omg = u dx^I$, then 
+    \begin{align*}
+    F^*(d\omg) &= F^*(du \wedge dx^I) \\
+    &= d(u \circ F) \wedge d(x^{i_1} \circ F) \wedge \cdots \wedge d(x^{i_k} \circ F) 
+    \end{align*}
+    %\begin{align*}
+    %d(F^*\omg) &= 
+    %d(\u \circ F d(x^{i_1}\circ F) \cdWedge d(x^{i_k}\circ F) \\
+    %&= d(u \circ F) \wedge d(x^{i_1}\circ F) \cdWedge d(x^{i_k}\circ F) \\
+    %&+ (u \circ F)d^2(x^{i_1}\circ F) \wedge d(x^{i_2}\circ F) \cdWedge d(x^{i_k}\circ F) + k-1\text{ more terms} \\
+    %&= d(u \circ F) \wedge d(x^{i_1}\circ F) \cdWedge d(x^{i_k}\circ F).
+    %\end{align*}
+\end{enumerate}
+\end{proof}
+\subsection{Manifold Case}
+\begin{theorem}\label{14.24}
+    There are unique operators 
+    $$d:\Omg^k(M) \to \Omg^{k+1}(M)$$ for $K = 0,1,2,\cdots$ called \textit{exterior differentiation} such that 
+    \begin{enumerate}
+    \item $d$ is linear over $\R$.
+    \item If $\omg \in \Omg^k(M)$ and $\eta \in \Omg^l(M)$, then $$d(\omg \wedge \eta) = d\omg \wedge \eta + (-1)^k \omg \wedge d\eta. $$
+    \item $d \circ d = 0$. 
+    \item For $f \in \Omg^0(M) = C^\infty(M)$, $df$ is the previously defined differential.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    First note that if $\omg \in \Omg^k(M)$ and $(U,\phe), (V,\psi)$ are smooth charts, then on $U \cap V$
+    \begin{align*}
+    \phe^* d(\underbrace{\phe^{{-1}*} \omg}_{\text{in }\Omg^k(\phe(U))})
+    &= \psi^*\psi^{-1*}\phe^* d(\phe^{-1*}\omg) \\
+    &= \psi^*(\phe \circ \psi^{-1})^* d(\phe^{-1*}\omg) \\
+    &= \psi^* d\br{
+    (\phe \circ \psi^{-1})^* \phe^{-1*} \omg
+    } \quad \text{by 14.24(d)}\\
+    &= \psi^*d\br{
+    (\psi^{-1})^* \phe^* \phe^{-1*} \omg
+    } \\
+    &= \psi^* d\br{\psi^{-1*} \omg }.
+    \end{align*}
+    Then define $d\omg \in \Omg^{k+1}(M)$ to the element where $d\omg = \phe^* d(\phe^{-1*}\omg)$ on every chart $(U,\phe)$. By 14.23, $d$ satisfies (1) - (4). This proves existence. See Lee for uniqueness. 
+\end{proof}
+\begin{proposition}\label{14.26}
+    If $F:M \to N$ is smooth, then the pullback commutes with $d$:
+    $$F^*d\omg = dF^* \omg \quad \text{for all }\omg \in \Omg^k(N). $$
+\end{proposition}
+\begin{proof}
+    Fix charts $(U,\phe),(V,\psi)$ with $F(U) \subset V$. Then on $U$,
+    \begin{align*}
+    F^*(d\omg) &= F^* \psi^* d(\psi^{-1*}\omg) \\
+    &= \phe^*(\psi \circ F \circ \phe^{-1})^* d(\psi^{-1*}\omg) \\
+    &= \psi^* d( (\psi \circ F \circ \phe^{-1})^* \psi^{-1*}\omg) \\
+    &= \phe^* d(\phe^{-1*}F^* \omg) \\
+    &= d(F^*\omg). 
+    \end{align*}
+\end{proof}
+\subsection{a Non-Local (Invariant) Formula for $d$}
+\begin{proposition}\label{14.32}
+    Let $\omg \in \Omg^k(M)$ and $X_1,\cdots,X_{k+1} \in \frak{X}(M)$. Then 
+    \begin{align*}
+    d\omg(X_1,\cdots,X_{k+1}
+    &= \sum_{1\leq i \leq k+1} (-1)^{i-1}X_i\br{\omg(X_1,\cdots,\hat{X_i},\cdots,X_{k+1}} \\
+    &+ \sum_{1 \leq i < j \leq k+1} (-1)^{i+j} \omg \br{
+    [X_i,X_j], X_1, \cdots, \hat{X_i}, \cdots, \hat{X_j}, \cdots, X_n
+    }.
+    \end{align*}
+    Note: If $k = 1$ (so $\omg$ is a contangent vector) then 
+    $$ d\omg(X,Y) = X(\omg(Y)) - Y(\omg(X)) - \omg\br{[X,Y]}$$ for all $X,Y \in \frak{X}(M)$.
+\end{proposition}
+\begin{proof}
+    Let $D_\omg(X_1,\cdots,X_{k+1})$ be the right hand side. Observe that 
+    \begin{enumerate}
+    \item we can work locally.
+    \item The expressions are 
+    \begin{itemize}
+        \item linear in $\omg$ over $\R$. 
+        \item linear in $X_1,\cdots,X_{k+1}$ over $C^\infty(M)$. (Check this when $k=1$)
+    \end{itemize}
+    \end{enumerate}
+    so it suffices to fix a chart and assume $\omg = udx^I$ and $ X_1,\cdots,X_{k+1} = \pdv{}{x^{j_1}}, \cdots, \pdv{}{x^{j_{k+1}}}$. Then 
+    
+    \begin{align*}
+    d\omg(X_1,\cdots,X_{k+1})
+    &= \br{
+    \sum_m \pdv{u}{x^m} dx^m \wedge dx^I
+    } (X_1,\cdots,X_{k+1}) \\
+    &= \br{
+    \sum_m \pdv{u}{x^m} \delta_J^{mI}
+    },
+    \end{align*}
+    where $J = (j_1,\cdots,j_{k+1})$. Note that 
+    $$\left[\pdv{}{x^{j_p}}, \pdv{}{x^{j_q}} \right]=0,$$
+    so 
+    \begin{align*}
+    D_\omg(X_1,\cdots,X_{k+1})
+    &= \sum_p (-1)^{p-1}X_{p}\br{
+    \omg(X_1,\cdots,\hat{X_p},\cdots,X_{k+1}
+    } \\
+    &= \sum_p(-1)^{p-1}\pdv{}{x^{j_p}}\br{
+    udx^I \br{
+    \pdv{}{x^{j_1}}, \cdots, \hat{\pdv{}{x^{j_p}}},\cdots, \pdv{}{x^{j_{k+1}}} }
+    } \\
+    &= \sum_p (-1)^{p-1}\pdv{u}{x^{j_p}} \delta_{\hat{J}_p}^I,
+    \end{align*}
+    where $\hat{J}_p = (j_1,\cdots,\hat{j_p},\cdots,j_{k+1})$.
+    Note at most one term in (**) is nonzero and for this term $I$ is a permutation of $\hat{J}_p$. Then $j_pI$ is a permutation of $J$ and the $m=j_p$ term is the only non-vanishing term in (*). Finally, by row/column expansion of determinant 
+    \begin{align*}
+    (-1)^{p-1}\d_{\hat{J}_p}^I = \d_J^{j_pI}. 
+    \end{align*}
+\end{proof}
+
+\subsection{Lie Derivatives}
+We previously defined Lie derivatives for tensor fields, hence we can consider Lie derivatives of forms (i.e. alternating tensor fields)
+\begin{proposition}
+    If $V \in \frak{X}(M), \omg \in \Omg^K(M)$ and $\eta 
+    \in \Omg^l(M)$, then 
+    $$\calL_V(\omg \wedge \eta) = \calL_V(\omg) \wedge \eta + \omg \wedge \calL_V(\eta). $$
+\end{proposition}
+\begin{proof}
+    HW. 
+\end{proof}
+\begin{theorem}[Cartan's magic formula]\label{14.35}
+    If $V \in \frak{X}(M)$ and $\omg \in \Omg^k(M)$, then 
+    $$\calL_V(\omg) = i_V(d\omg) + d(i_V(\omg)). $$
+\end{theorem}
+\begin{proof}
+    We induct on $k$. 
+
+    $k=0$. Recall $\omg^0(M) = C^\infty(M)$. Fix $f \in C^\infty(M)$, then $i_V(f) = 0$ (by definition). Also $$i_V(df) = df(V) = V(f),$$ so $\calL_V(f) = V(f) = i_V(df) + d(i_V(f)).$
+
+    Suppose $k>0$. It suffices to work locally. Then since both sides are linear over $\R$ in $\omg$, we can assume that $\omg = fdx^I$. Let $u = x^{i_1}, \b = fdx^{i_2} \cdWedge dx^{i_k}$, then $\omg = du \wedge \b$. 
+
+    Reminders: 
+    \begin{align*}
+        &i_V(\a \wedge \xi) = i_V(\a) \wedge \xi + (-1)^k \a \wedge i_V(\xi), \quad \a \in \Omg^k(M). \\
+        &d(\a \wedge \xi) = d\a \wedge \xi + (-1)^k \a \wedge d\xi, \quad \a \in \Omg^k(M). \\
+        &d \circ d = 0. \\
+        &\calL_V(f) = V(f), \quad f \in C^\infty(M). \\
+        &\calL_V(df) = d\calL_V(f), \quad f \in C^\infty(M).
+    \end{align*}
+    Then, 
+    \begin{align*}
+    \calL_V(\omg) &= \calL_V(du \wedge \b) \\
+    &= \calL_V(du) \wedge \b + du \wedge \calL_V(\b) \\
+    &= d\calL_V(u) \wedge \b + du \wedge (i_V(d\b) + d(i_V \b)),
+    \end{align*}
+    and 
+    \begin{align*}
+    i_V(d\omg) &= i_V(d(du \wedge \b)) \\
+    &= i_V(0 - du \wedge d\b) \\
+    &= -i_V(du) \wedge d\b + du \wedge i_V(d\b) \\
+    &= -V(u)d\b  + du \wedge i_V(d\b)
+    \end{align*} and 
+    \begin{align*}
+    d(i_V(\omg)) &= d(i_V(du \wedge \b)) \\
+    &= d(i_V(du) \wedge \b - du \wedge i_V(\b)) \\
+    &= d(V(u)\b - du \wedge i_V(\b)) \\
+    &= d(V(u))\b + V(u)d\b - 0 + du \wedge d(i_V(\b))
+    \end{align*}
+    so 
+    \begin{align*}
+    \calL_V(\omg) = i_V(d\omg) + d(i_V \omg). 
+    \end{align*}
+    Note $d\calL_V(u) \wedge \b = d(V(u) \wedge \b)$.
+\end{proof}
+\begin{corollary}
+    If $V \in \frak{X}(M)$ and $\omg \in \Omg^k(M)$, then 
+    $$\calL_V(d\omg) = d\calL_V(\omg).$$
+\end{corollary}
+\begin{proof}
+    By Cartan,
+    \begin{align*}
+    \calL_V(d\omg) &= i_V(dd\omg) = di_V(d\omg)
+    = d(i_V d\omg)
+    \end{align*}
+    and 
+    $$d\calL_V(\omg) = d\left[i_V(d\omg) + d(i_V \omg) \right] = d(i_V(d\omg)). $$
+\end{proof}

@@ -1,0 +1,16 @@
+\section{Categories and Functors}
+a \textbf{Category} $\sfC$ consists of the following things:
+\begin{itemize}
+    \item a class $\Ob(\sfC)$, whose elements are called \textbf{objects} of $\sfC$,
+    \item a class $\Hom(\sfC)$, whose elements are called \textbf{morphisms} of $\sfC$,
+    \item for each morphism $f \in \Hom(\sfC)$, two objects $X,Y \in \Ob(\sfC)$ called the \textbf{source} and \textbf{target} of $f$, respectively,
+    \item for each triple $X,Y,Z \in \Ob(\sfC)$, a mapping called \textbf{composition}:
+    $$\Hom_\sfC(X,Y) \times \Hom_\sfC(Y,Z) \to \Hom_\sfC(X,Z), $$
+    written $(f,g) \mapsto g \circ f$. $\Hom_\sfC(X,Y)$ denotes the class of all morphisms with source $X$ and target $Y$.
+\end{itemize}
+The morphisms are required to satisfy the following axioms:
+\begin{enumerate}
+    \item \textit{Associativity}: $(f \circ g) \circ h = f \circ (g \circ h)$. 
+    \item \textit{Existence of identities}: For each object $X \in \Ob(\sfC)$, there exists an \textbf{identity morphism} $\id_X \in \Hom_\sfC(X,X)$ such that 
+    $\id_Y \circ f = f = f \circ \id_X$ for all $f \in \Hom_\sfC(X,Y)$. 
+\end{enumerate}

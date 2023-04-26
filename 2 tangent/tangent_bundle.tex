@@ -1,0 +1,16 @@
+\section{The Tangent Bundle}
+\begin{definition}
+Given a smooth manifold $M$, we define the \textbf{tangent bundle} of $M$, denoted by $TM$, to be the disjoint union of the tangent spaces at all points of $M$:
+$$ TM = \bigsqcup_{p \in M}T_pM. $$
+\end{definition}
+We often write an element of $TM$ as $(p,v)$, where $p \in M$ and $v \in T_pM$. The next proposition gives a smooth structure on $TM$, with the idea of divide-and-conquer: utilizing the smooth structure on $M$ and identifying $T_pM$ with $\R^n$. 
+\begin{proposition}
+    For any smooth $n$-manifold $M$, the tangent bundle $TM$ has a natural topology and smooth structure that make it into a $2n$-dimensional smooth manifold. With respect to this structure, the projection $\pi: TM \to M$ is smooth.
+\end{proposition}
+\begin{proof}
+    Let $(U,\phe)$ be a smooth chart for $M$, then $\pi^{-1}(U)$ is an open subset of $TM$ consisting of all tangent vectors at each point of $U$. We construct a smooth structure on $TM$. Let $\phe = (x^1, \cdots, x^n)$ be the coordinate representation, and define
+    $\widetilde{\phe}: \pi^{-1}(U) \to \R^{2n}$ by 
+    $$ \widetilde{\phe}\br{v^i \pdv{}{x^i}\bigg|_p} = 
+    (x^1(p), \cdots, x^n(p), v^1, \cdots, v^n) = (\phe(p), v), $$
+    then $\{(\pi^{-1}(U), \widetilde{\phe}): (U,\phe) \text{ is a smooth chart for }M\}$ is a smooth structure on $TM$. \qed 
+\end{proof}
