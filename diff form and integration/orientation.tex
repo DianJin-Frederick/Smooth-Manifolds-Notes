@@ -1,0 +1,107 @@
+\section{Orientations}
+\textsc{Goal:} Define orientable manifolds
+
+\subsection{Orientations of Vector Spaces}
+Let $V$ be a vector space with $\dim V = n$. 
+Two ordered bases $E_1,\cdots,E_n$ and $E_1',\cdots,E_n'$ are \textit{consistently oriented} if the transition matrix (the matrix $(B_i^j)$ satisfying $E_i = B_i^j E_j'$) has positive determinant. 
+\begin{remark}
+    This defines an equivlance relation and there are two equivalence classes.
+\end{remark}
+\begin{definition}
+    An \textit{orientation} for $V$ is a choice of one of this equivalence classes. An ordered basis in this class is called \textit{positively oriented}, otherwise it is called \textit{negatively oriented}.
+\end{definition}
+\begin{example}
+    Let $V=\R^2$ with the orientation making the standard basis positive. 
+\end{example}
+If $\dim V = 0$, then an orientation is a choice of $+1$ or $-1$. 
+\subsection{Orientations of Manifolds}
+\begin{definition}
+    An \textit{orientation} on a smooth $n$-manifold $M$ is a choice of orientation on each tangent space which is continuous in the following sense:
+    every $p \in M$ has an open neighborhood $U$ where there exist $X_1,\cdots,X_n \in \frak{X}(M)$ such that 
+    $$(X_1|_q,\cdots,X_n|_q)$$ is a positively oriented basis of $T_qM$ for all $q \in U$. 
+\end{definition}
+\begin{remark}
+If $M$ has an orientation, $U \subset M$ is open and connected, and there exist $X_1,\cdots,X_n \in \frak{X}(U)$, where 
+$(X_1|_q,\cdots,X_n|_q)$ is a basis for all $q \in U$, then $(X_1|_q,\cdots,X_n|_q)$ is either always positively oriented or always negatively oriented.     
+\end{remark}
+\begin{definition}
+    $M$ is \textit{orientable} if it has an orientation.  
+\end{definition}
+\begin{example}
+    The M\"obius band is not orientable. 
+\end{example}
+\subsection{Oriented Atlases}
+\begin{definition}
+    A smooth atlas $\calA$ of $M$ is \textit{oriented} if for all $(U,\phe),(V,\psi) \in \calA$, 
+    $$\det(D(\psi \circ \phe^{-1})) > 0 \text{ on }\phe(U \cap V). $$
+    A smooth atlas $\calA$ of $M$ is \textit{compatible} with an orientation on $M$ if for every $(U,\phe=(x^i)) \in \calA$ and $p \in U$ the basis $\displaystyle{\br{\dvBase{x^1}{p}, \cdots, \dvBase{x^n}{p}}}$ of $T_pM$ is positively oriented. 
+\end{definition}
+\begin{proposition}\label{15.6}
+    Suppose $M$ is a smooth manifold.
+    \begin{enumerate}
+    \item If $\calA$ is an oriented smooth atlas, then there is an orientation on $M$ compatible with $\calA$.
+    \item If $M$ has an orientation, then there exists a compatible oriented smooth atlas. 
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    For each $p \in M$, give $T_pM$ the orientation where $\displaystyle{\br{\dvBase{x^1}{p}, \cdots, \dvBase{x^n}  {p}}}$ is positively oriented for every chart containing $p$. This is well-defined since $\calA$ is oriented. 
+
+    Let 
+    \begin{align*}
+    \calA = \{
+    &(U,\phe): (U,\phe) \text{ smooth chart}, U \text{ is connected, and }
+    \br{\dvBase{x^1}{p}, \cdots, \dvBase{x^n}{p}} \\
+    &\text{ is positively oriented for all }p \in U
+    \},
+    \end{align*}
+    then $\det (D(\psi \circ \phe^{-1})) > 0$ for all $(U,\phe),(V,\psi) \in \calA$. We need to show that $M = \bigcup_{(U,\phe) \in \calA}U$. 
+    Fix $p \in M$ and fix a smooth chart $(V,\psi)$ with $p \in V$. By shrinking, we can assume that $V$ is connected. Since $V$ is connected, 
+    $\displaystyle{\br{\dvBase{x^1}{q}, \cdots, \dvBase{x^n}{q}}}$ is either always positively oriented or always negatively oriented for $q \in V$. In the first case, $(V,\psi) \in \calA$. In the second case, let 
+    $$(U,\phe) = (V,\phe = (-x^1,x^2,x^3,\cdots,x^n)). $$
+    Then $(U,\phe) \in \calA$. 
+\end{proof}
+\subsection{$n$-Forms}
+Recall if $\dim V = n$, $\omg \in T^n(V^*)$ and $L:V \to V$ is linear, then 
+$$\omg(Lv_1,\cdots,Lv_n) = (\det L)\omg(v_1,\cdots,v_n)$$ for all $v_1,\cdots,v_n \in V$. So any nonzero $\omg \in T^n(V^*)$ determines an orientation on $V$ where $(E_1, \cdots, E_n)$ is positively oriented if and only if $\omg(E_1,\cdots,E_n)>0$.
+\begin{definition}
+    An orientation on a smooth $n$-manifold $M$ is \textit{compatible} with a non-vanishing $n$-form $\omg \in \Omg^n(M)$ if for every $p \in M$ the orientation on $T_pM$ is determined by $\omg_p$. 
+\end{definition}
+\begin{proposition}\label{15.5}
+    \begin{enumerate}
+    \item If $\omg \in \Omg^n(M)$ is non-vanishing, then $M$ has an orientation compatible with $\omg$. 
+    \item If $M$ has an orientation, then there is a non-vanishing compatible $n$-form.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+    \item 
+    \item Fix a compatible smooth atlas $\calA = \{(U_i,\phe_i): i \in I\}$, then fix a partition of unity $\{\chi_i\}_{i \in I}$ subordinate to $\{U_i\}_{i \in I}$. Define 
+    $$ \omg = \sum_{i \in I}\chi_i \phe_i^*\br{
+       dx^1 \cdWedge dx^n }. $$
+    Note, on $U_i \cap U_j$ we have 
+    \begin{align*}
+    \phe_i^*(dx^1 \cdWedge dx^n) 
+    &= \phe_j^*(\phe_j^{-1})^*\phe_i^*(dx^1 \cdWedge dx^n) \\
+    &= \phe_j^*(\phe_i \circ \phe_j^{-1})^*(dx^1 \cdWedge dx^n) \\
+    &= \det (D(\phi_i \circ \phe_j^{-1}) )
+       \phe_j^*(dx^1 \cdWedge dx^n).
+    \end{align*}
+    So since $\det(D(\phe_i \circ \phe_j^{-1})) > 0$, $\omg$ is non-vanishing. 
+    \end{enumerate}
+\end{proof}
+\fbox{\textsc{Topology}}
+\begin{theorem}\label{15.41}
+    Every connected non-orientable manifold $M$ admits a 2-sheeted covering map $\pi:\hat{M} \to M$ where $\hat{M}$ is connected and orientable. 
+\end{theorem}
+\begin{corollary}
+    Any simply connected manifold is orientable. 
+\end{corollary}
+
+
+
+
+
+
+
+
+

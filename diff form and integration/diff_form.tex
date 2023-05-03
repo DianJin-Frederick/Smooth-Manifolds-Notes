@@ -43,14 +43,17 @@ $$\a(v_1, \cdots, v_i, \cdots, v_j, \cdots, v_k) = (-1)\a(v_1, \cdots, v_j, \cdo
 \end{definition}
 We begin by a technical result which will be used to show $\Alt(\a)$ is an alternating tensor. 
 \begin{proposition}
-    Let $\sigma, \tau \in S_k$ and $f$ be a $k$ linear function on $V$, then 
+    Let $\sigma, \tau \in S_k$ and $f$ be a $k$-linear function on $V$, then 
     $$\tau(\sigma f) = (\tau \sigma)f. $$
 \end{proposition}
 \begin{proof}
     \begin{align*}
     \tau(\sigma f)(v_1,\cdots,v_k)
     &= (\sigma f)(v_{\tau(1)},\cdots,v_{\tau(k)}) \quad \text{let }w_\Box=v_{\tau(\Box)}\\
-    &= (\sigma f)(w_1,\cdots,w_k) 
+    &= (\sigma f)(w_1,\cdots,w_k) \\
+    &= f(w_{\sigma(1)},\cdots,w_{\sigma(k)}) \\
+    &= f(v_{\tau(\sigma(1))},\cdots,v_{\tau(\sigma(k))}) \\
+    &= (\tau \sigma)f(v_1,\cdots,v_k). 
     \end{align*}
 \end{proof}
 \begin{proposition}
@@ -61,8 +64,29 @@ We begin by a technical result which will be used to show $\Alt(\a)$ is an alter
     \end{enumerate}
 \end{proposition}
 \begin{proof}
-    For each $\sigma \in S_k$, 
-    $$\a(v_{\sigma(1)},\cdots,v_{\sigma(i)},\cdots,v_{\sigma(j)},\cdots,v_{\sigma(k)}) = (-1) $$
+    Let $\tau \in S_k$. We will use the identity $\sgn \tau \sigma = (\sgn \tau)(\sgn \sigma)$. 
+    \begin{align*}
+    \tau \br{\Alt(\a)} &= \frac{1}{k!}\sum_{\sigma \in S_k}(\sgn \sigma)\tau(\sigma \a) \\
+    &= \frac{1}{k!}\sum_{\sigma \in S_k}(\sgn \a)(\tau \sigma)\a \\
+    &= \frac{1}{k!}(\sgn \tau) \sum_{\sigma \in S_k} (\sgn \tau \sigma)(\tau \sigma)\a \\
+    &= (\sgn \tau)\Alt(\a),
+    \end{align*}
+    since $\tau \sigma$ runs through all of $S_k$. For the second part, $\a = \Alt(\a)$ is obviously alternating. Now suppose $\a$ is alternating, then 
+    $$(\sgn \sigma)\a(v_{\sigma(1)},\cdots,v_{\sigma(k)}) = \a(v_1,\cdots,v_k),$$ hence $$\Alt(\a)(v_1,\cdots,v_k) = \frac{1}{k!}k!\a(v_1,\cdots,v_k) = \a(v_1,\cdots,v_k). $$
+\end{proof}
+We will use terms ``$k$-linear functions'', ``multilinear functions'', ``covariant $k$-tensors'' in a mixed way, thanks to the isomorphism 
+$$V^* \cdOtimes V^* \simeq \calL(V_1,\cdots,V_k). $$
+In many cases it suffices to consider multilinear functions to express the idea. 
+\begin{exercise}
+    Let $f$ be an alternating $3$-linear function on a vector space $V$, compute $\Alt(f)(v_1,v_2,v_3)$, where $v_i \in V$. 
+\end{exercise}
+\begin{proof}
+    \begin{align*}
+    \Alt(f)(v_1,v_2,v_3)
+    &= \frac{1}{3!}\sum_{\sigma \in S_3}(\sgn \sigma)f(v_{\sigma(1)},v_{\sigma(2)},v_{\sigma(3)}) \\
+    &= \frac{1}{3!}(f(v_1,v_2,v_3) - f(v_1,v_3,v_2) - f(v_2,v_1,v_3) + f(v_2,v_3,v_1) \\
+    &\quad-f(v_3,v_2,v_1) + f(v_3,v_1,v_2)).
+    \end{align*}
 \end{proof}
 \begin{example}
     Let $E_1, \cdots, E_n$ and $\eps^1,\cdots, \eps^n$ be the standard basis and dual basis of $\R^n$. Then 
@@ -75,10 +99,11 @@ We begin by a technical result which will be used to show $\Alt(\a)$ is an alter
     \end{align*}
 \end{example}
 \subsection{Elementary Alternating Tensors}
-Goal: Find a nice basis of $\Lambda^k(V^*)$. 
-Fix $V$ a vector space and a basis $E_1, \cdots, E_n$. Let $\eps^1, \cdots, \eps^n$ be the dual basis. 
-
-Given $I = (i_1,\cdots,i_k) \in \{1,\cdots,n\}^k$, let $\eps^I \in \Lambda^k(V^*)$ be the element where 
+\fbox{\textsc{Goal}} Find a nice basis of $\Lambda^k(V^*)$. \\
+Fix $V$ a vector space and a basis $E_1, \cdots, E_n$, and let $\eps^1, \cdots, \eps^n$ be the dual basis. 
+\begin{definition}
+Given $I = (i_1,\cdots,i_k) \in \{1,\cdots,n\}^k$ (called the \textit{multi-index} of length $k$), 
+let $\eps^I \in \Lambda^k(V^*)$ be the element where 
 $$\eps^I(v_1,\cdots,v_k) = \det \begin{pmatrix}
 \eps^{i_1}(v_1) & \cdots & \eps^{i_1}(v_k) \\
 \vdots & & \vdots \\
@@ -87,8 +112,10 @@ $$\eps^I(v_1,\cdots,v_k) = \det \begin{pmatrix}
 v_1^{i_1} & \cdots & v_k^{i_1} \\
 \vdots & & \vdots \\
 v_1^{i_k} & \cdots & v_k^{i_k} \end{pmatrix}.$$
+Note that $\eps^I \in \Lambda^k(V^*)$ because of the column swapping property of the determinant. We call $\eps^I$ an \textit{elementary alternating tensor}.
+\end{definition}
 
-Note that $\eps^I \in \Lambda^k(V^*)$ because of the column swapping property of the determinant. Also for $\sigma \in S_k$ let 
+The multi-index can also be permuted: for $\sigma \in S_k$ let 
 $$I_\sigma = (i_{\sigma(1)},\cdots,i_{\sigma(k)})$$ and for $J = (j_1,\cdots, j_k)$ let 
 $$\delta_J^I = \det  \begin{pmatrix}
 \delta_{j_1}^{i_1} & \cdots & \delta_{j_k}^{i_1} \\
@@ -108,6 +135,7 @@ $$\delta_J^I = \det  \begin{pmatrix}
     \end{pmatrix} = \det (v,w,x). $$
 \end{example}
 \begin{lemma}\label{14.7}
+    Let $(E_i)$ be a basis of $V$ and $(\eps^i)$ be the dual basis, and let $\eps^I$ be as defined above \\
     (a) If $I$ has repeated entries, then $\eps^I = 0$. \\
     (b) If $J = I_\sigma$ for some $\sigma \in S_k$, then $\eps^I = (\sgn \sigma) \eps^J$. \\
     (c) $\eps^I(E_{j_1},\cdots,E_{j_k}) = \delta_J^I$.
@@ -117,12 +145,12 @@ $$\delta_J^I = \det  \begin{pmatrix}
     (b) In this case, the matrices are equal after $n$ row swaps where $(-1)^n = \sgn \sigma$. Hence $\eps^I = (\sgn \sigma) \eps^J$. \\
     (c) By definition $\eps^i(E_j) = \delta_j^i$.
 \end{proof}
-\begin{remark}
-Fact: $$\delta_J^I = \begin{cases}
+\begin{exercise}
+Show that $$\delta_J^I = \begin{cases}
 0, & I \text{ or } J \text{ has a repeated entry, or }J\text{ is not a permutation of }I \\
 \sgn \sigma, & I \text{ and } J \text{ has no repeated entries and }J=I_\sigma
 \end{cases}$$
-\end{remark}
+\end{exercise}
 \begin{proof}
     If $I$ or $J$ have a repeated index, then there is a repeated column or row. Hence $\delta_J^I = 0$. Otherwise:
     \begin{itemize}
@@ -130,12 +158,14 @@ Fact: $$\delta_J^I = \begin{cases}
     \item If $J = I_\sigma$ for some $\sigma$, then $$\delta_J^I = \eps^I(E_{j_1},\cdots,E_{j_k} = (\sgn \sigma) \eps^J (E_{j_1}, \cdots, E_{j_k}) = (\sgn \sigma)\det (\id_k) = \sgn \sigma.$$
     \end{itemize}
 \end{proof}
-\begin{proposition}\label{14.8}
-    $$B = \{\eps^I: I = (i_1,\cdots,i_k), 1 \leq i_1<i_2<\cdots<i_k \leq n \}$$ is a basis for $\Lambda^k(V^*)$. Hence, $\dim \Lambda^k(V^*) = \binom{n}{k}$.
+\fbox{\textsc{Notation}} A multi-index $I=(i_1,\cdots,i_k)$ is said to be \textit{increasing} if $i_1 < \cdots < i_k$. We use a primed summation sign to denote a sum over only increasing multi-indices:
+$$\sideset{}{'}\sum_{I} \a_I \eps^I = \sum_{1 \leq i_1<\cdots<i_k \leq n} \a_I \eps^I.$$
+\begin{proposition}\label{14.8} 
+    The collection of $k$-covectors
+    $$ \calE = \{\eps^I: I = (i_1,\cdots,i_k), 1 \leq i_1<i_2<\cdots<i_k \leq n \}$$ is a basis for $\Lambda^k(V^*)$. Hence, $\dim \Lambda^k(V^*) = \binom{n}{k}$.
 \end{proposition}
-\begin{proof}
-    Notation: We write 
-    $$\sum_{I} '\a_I \eps^I = \sum_{i \leq i_1<\cdots<i_k \leq n} \a_I \eps^I.$$ If $k>n$< then any collection of $k$ vectors in $V$ are linearly dependent. Hence 
+\begin{proof} 
+     If $k>n$, then any collection of $k$ vectors in $V$ are linearly dependent. Hence 
     $$\Lambda^k(V^*) = \{0\},$$ so $B = \varnothing$ is a basis. Suppose $k \leq n$, fix $\a \in \Lambda^k(V^*)$. For each multi-index $I$ let $\a_I = \a(E_{i_1},\cdots,E_{i_k})$, then for any $J = (j_1,\cdots,j_k)$ we have 
     \begin{align*}
     (\sum_I'\a_I \eps^I)(E_{j_1},\cdots,E_{j_k})
@@ -149,11 +179,13 @@ Fact: $$\delta_J^I = \begin{cases}
     \end{align*}
 \end{proof}
 \begin{example}
-    $\Lambda^n(V^*)$ is $1$-dimensional and spanned by $\eps^{(1,\cdots,n)}$. Also, if $T:V\to V$ is linear, then the map 
-    $$w \in \Lambda^n(V^*) \mapsto w(T\cdot,\cdots,T\cdot) \in \Lambda^n(V^*)$$ is linear. Hence there exists $\lam(T) \in \R$ such that $$w(Tv_1,\cdots,Tv_n) = \lambda(T)w(v_1,\cdots,v_n)$$ for all $w \in \Lambda^n(V^*)$ and $v_1,\cdots,v_n \in V$. 
+    $\Lambda^n(V^*)$ is $1$-dimensional (because $\binom{n}{n}=1$) and spanned by $\eps^{(1,\cdots,n)}$. 
+    %Also, if $T:V\to V$ is linear, then the map 
+    %$$w \in \Lambda^n(V^*) \mapsto w(T\cdot,\cdots,T\cdot) \in \Lambda^n(V^*)$$ is linear. Hence there exists $\lam(T) \in \R$ such that $$w(Tv_1,\cdots,Tv_n) = \lambda(T)w(v_1,\cdots,v_n)$$ for all $w \in \Lambda^n(V^*)$ and $v_1,\cdots,v_n \in V$. 
 \end{example}
 \begin{proposition}\label{14.9}
-    $\lam(T) = \det T$.
+    Suppose $V$ is an $n$-dimensional vector space and $\omg \in \Lam^n(V^*)$. If $T:V \to V$ is a linear map and $v_1,\cdots,v_n \in V$, then 
+    $$\omg(Tv_1,\cdots,Tv_n) = (\det T)\omg(v_1,\cdots,v_n). $$
 \end{proposition}
 \begin{proof}
     It suffices to consider $w = \eps^{(1,\cdots,n)}$. Since an element of $\Lam^n(V^*)$ is determined by its value on $E_1,\cdots, E_n$, it suffices to show that $$\eps^{(1,\cdots,n)}(TE_1,\cdots,TE_n) = \det(T)\eps^{(1,\cdots,n)}(E_1,\cdots,E_n).$$
@@ -167,8 +199,9 @@ Fact: $$\delta_J^I = \begin{cases}
 \end{proof}
 
 \subsection{Wedge Product}
-The \textit{wedge product} of $w \in \Lam^k(V^*)$ and $\eta \in \Lam^l(V^*)$ is 
-$$w \wedge \eta = \frac{(k+l)!}{k!l!}Alt(w \otimes \eta) \in \Lam^{k+l}(V^*). $$
+The \textit{wedge product} of $w \in \Lam^k(V^*)$ and $\eta \in \Lam^l(V^*)$ is defined by 
+$$w \wedge \eta = \frac{(k+l)!}{k!l!}\Alt(w \otimes \eta) \in \Lam^{k+l}(V^*). $$
+In the following lemma we will see where the coefficient comes from. 
 \begin{lemma}\label{14.10}
     If $I = (i_1,\cdots,i_k)$ and $J = (j_1,\cdots,j_l)$, then 
     $$\eps^I \wedge \eps^J = \eps^{IJ},$$
@@ -178,6 +211,7 @@ $$w \wedge \eta = \frac{(k+l)!}{k!l!}Alt(w \otimes \eta) \in \Lam^{k+l}(V^*). $$
     Long calculation. 
 \end{proof}
 \begin{proposition}\label{14.11}
+Let $\omg, \omg', \eta, \eta', \xi$ be alternating tensors. \\
 (a) The map $$(w,\eta) \in \Lam^k(V^*) \times \Lam^l(V^*) \to w \wedge \eta \in \Lam^{k+l}(V^*)$$ is bilinear:
 $$(aw+a'w') \wedge (b\eta+b'\eta') = (ab)w \wedge \eta + (ab')w \wedge \eta' + (a'b)w' \wedge \eta + (a'b')w' \wedge \eta'.$$
 (b) $w \wedge (\eta \wedge \xi) = (w \wedge \eta) \wedge \xi$. \\
@@ -185,7 +219,7 @@ $$(aw+a'w') \wedge (b\eta+b'\eta') = (ab)w \wedge \eta + (ab')w \wedge \eta' + (
 (d) If $I = (i_1,\cdots,i_k)$, then 
 $$\eps^{i_1} \wedge \cdots \wedge \eps^{i_k} = \eps^I.$$
 (e) If $v_1,\cdots,v_k \in V$ and $w^1,\cdots,w^k \in V^*$, then 
-$$(w^1 \wedge \cdots w^k)(v_1,\cdots,v_k) = \det (w^j(v_i)). $$
+$$(w^1 \cdWedge w^k)(v_1,\cdots,v_k) = \det (w^j(v_i)). $$
 \end{proposition}
 \begin{proof}
     (a) By definition $(\omg,\eta) \to w \otimes \eta$ is bilinear and $\xi \to Alt(\xi)$ is linear. So there composition is bilinear. \\
@@ -204,6 +238,9 @@ $$(w^1 \wedge \cdots w^k)(v_1,\cdots,v_k) = \det (w^j(v_i)). $$
     $$ 
     by 14.7(c) of Lee. 
 \end{proof}
+By part (d) we can use the notations $\eps^I$ and $\eps^{i_1} \cdWedge \eps^{i_k}$ interchangeably. 
+
+
 \begin{corollary}
     If $v_1,\cdots,v_k \in V$ and $w^1,\cdots,w^k \in V^*$, then 
     \begin{align*}
@@ -221,73 +258,163 @@ $$(w^1 \wedge \cdots w^k)(v_1,\cdots,v_k) = \det (w^j(v_i)). $$
     where $V_1^i$ is the submatrix of $(w^j(v_i))$ obtained by deleting the $i$th column and $1$st row. Then 
     $$\det(V_1^i) = (w_1 \wedge \cdots \wedge \hat{w}^i \wedge \cdots \wedge w^k)(v_2,\cdots,v_k).$$
 \end{proof}
+\begin{exercise}
+    The wedge product is the unique associative bilinear and anticommutative map
+    $$\Lam^k(V^*) \times \Lam^l(V^*) \to \Lam^{k+l}(V^*) $$ satisfying 
+    $$\eps^{i_1} \cdWedge \eps^{i_k} = \eps^I $$ for any multi-index $I = (i_1,\cdots,i_k)$.
+\end{exercise}
+
+
+
+
+
 \subsection{Interior Multiplication}
 Given $v \in V$, define $i_v:\Lam^k(V^*) \to \Lam^{k-1}(V^*)$ by 
-$$(i_V w)(v_1,\cdots,v_{k-1}) = w(v,v_1,\cdots,v_{k-1}).$$ Lee also writes ...
+$$(i_V \omg)(v_1,\cdots,v_{k-1}) = \omg(v,v_1,\cdots,v_{k-1}).$$ 
+Another common notation is 
+$$ v \lrcorner~ \omg = i_v \omg. $$
 
 \begin{lemma}\label{14.13}
     If $v \in V,$ then 
     \begin{enumerate}
-    \item[(a)] $i_V \circ i_V = 0$.
-    \item[(b)] If $w \in \Lam^k(V^*)$ and $\eta \in \Lam^l(V^*)$, then 
-    $$i_V(w \wedge \eta) = i_V(w) \wedge \eta + (-1)^k w \wedge i_V(\eta). $$
+    \item[(a)] $i_v \circ i_v = 0$.
+    \item[(b)] If $\omg \in \Lam^k(V^*)$ and $\eta \in \Lam^l(V^*)$, then 
+    $$i_v(\omg \wedge \eta) = i_v(\omg) \wedge \eta + (-1)^k \omg \wedge i_v(\eta). $$
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    (a) $i_V i_V w(v_1,\cdots,v_{k-2}) = w(v,v,v_1,\cdots,v_{k-2})=0$. \\
+    (a) $i_v i_v \omg(v_1,\cdots,v_{k-2}) = \omg(v,v,v_1,\cdots,v_{k-2})=0$. \\
     (b) By multi-linearity, we can assume 
-    $$w = w^1 \wedge \cdots \wedge w^k$$ and 
-    $$\eta = w^{k+1} \wedge \cdots \wedge w^{k+l}$$
-    for some $w^1,\cdots,w^{k+l} \in V^*$. By the corollary, 
+    $$\omg = \omg^1 \wedge \cdots \wedge \omg^k$$ and 
+    $$\eta = \omg^{k+1} \wedge \cdots \wedge \omg^{k+l}$$
+    for some $\omg^1,\cdots,\omg^{k+l} \in V^*$. By the corollary, 
     \begin{align*}
-    i_V(w \wedge \eta) &= \Sum{i=1}{k+l}(-1)^{i-1}w^i(v) w^1 \wedge \cdots \wedge \hat{w}^i \wedge \cdots \wedge w^{k+l}.
+    i_v(\omg \wedge \eta) &= \Sum{i=1}{k+l}(-1)^{i-1}\omg^i(v) \omg^1 \wedge \cdots \wedge \hat{\omg}^i \wedge \cdots \wedge \omg^{k+l}.
     \end{align*}
     Likewise,
     $$
-    i_V(w) = \Sum{i=1}{l}(-1)^{i-1}w^i(v) w^1 \wedge \cdots \wedge \hat{w}^i \wedge \cdots \wedge w^{k}$$ and 
+    i_v(\omg) = \Sum{i=1}{l}(-1)^{i-1}\omg^i(v) \omg^1 \wedge \cdots \wedge \hat{\omg}^i \wedge \cdots \wedge \omg^{k}$$ and 
     $$
-    i_V(\eta) = \Sum{i=l+1}{k+l}(-1)^{i-k-1}
-    w^i(v) w^{k+1} \wedge \cdots \wedge \hat{w}^i \wedge \cdots \wedge w^{k+l},$$
+    i_v(\eta) = \Sum{i=l+1}{k+l}(-1)^{i-k-1}
+    \omg^i(v) \omg^{k+1} \wedge \cdots \wedge \hat{\omg}^i \wedge \cdots \wedge \omg^{k+l},$$
     so 
-    $$i_V(w \wedge \eta) = i_V(w) \wedge \eta + (-1)^k w \wedge i_V(w). $$
+    $$i_v(\omg \wedge \eta) = i_v(\omg) \wedge \eta + (-1)^k \omg \wedge i_v(\omg). $$
 \end{proof}
 
 \section{Differential Forms on Manifolds}
-Let $\Lam^kT^*M = \bigsqcup_{q \in M}\Lam^k(T_p^*M)$. $\Lam^kT^*M$ is a smooth vector bundle over $M$ by Lemma 10.6 of Lee. 
+\subsection{Differential of a Function}
+In calculus, given $f \in C^\infty(\R^n, \R)$, the gradient of $f$ at a point $x \in \R^n$ is given by 
+$$\nabla f (x) = \Sum{i=1}{n} {\pdv{f}{x^i}}(x).$$
+
+For $V$ a finite-dimensional vector space, recall that a \textit{covector} on $V$ is a real-valued linear functional on $V$. For each $p \in M$, the \textit{cotangent space} at $p$ is the dual space of $T_pM$:
+$$T_p^*M := (T_p M)^*.$$
+Elements of $T_p^*M$ are called \textit{tangent covectors}/\textit{covectors} at $p$. Taking union over all $p \in M$ gives the \textit{cotangent bundle} $T^*M = \bigsqcup_{p \in M}T_p^*M$. A \textit{covector field} is just a section of $T^*M$ (so that we can specify a component of the union). 
+
+\begin{definition}[differential as a covector]
+Let $f \in C^\infty(M)$, we define a covector field $df$ called the \textit{differential} of $f$ by 
+$$df_p(v) = vf, \quad v \in T_pM. $$
+Here $df_p$ is a covector (a linear functional on $T_pM$). 
+\end{definition}
+
+The coordinate covector field $\lam^j$ is precisely the differential $dx^j$. Now we can write 
+$$df_p = {\pdv{f}{x^i}}(p)dx^i|_p. $$
+In $1$-dimensional case, this reduces to the familiar expression
+$$df = \frac{df}{dx}dx. $$
+\begin{example}
+    Let $f(x,y) = x^2 y \cos x$, then 
+    $$df(x,y) = (2xy \cos x - x^2y \sin x)~dx + x^2 \cos x ~dy. $$
+\end{example}
+\subsection{Local Expressions}
+Let $\Lam^kT^*M = \bigsqcup_{p \in M}\Lam^k(T_p^*M)$. $\Lam^kT^*M$ is a smooth vector bundle over $M$ by Lemma 10.6 of Lee. 
 
 \begin{itemize}
     \item A section $M \to \Lam^k T^*M$ is called a \textit{differential $k$-form} or just a \textit{$k$-form}. 
     \item $\Omg^k(M)$ denotes the vector space of smooth $k$-forms.
-    \item The \textit{wedge} $w \wedge \eta$ of two forms is defined by 
-    $$(w \wedge \eta)_p = w_p \wedge \eta_p.$$
-    \item Let $\Omg^0(M) = C^\infty(M)$. If $ f \in \Omg^0(M)$, then $f \wedge w = fw$. 
+    \item The \textit{wedge} $\omg \wedge \eta$ of two forms is defined by 
+    $$(\omg \wedge \eta)_p = \omg_p \wedge \eta_p.$$
+    \item Let $\Omg^0(M) = C^\infty(M)$. If $ f \in \Omg^0(M)$, then $f \wedge \omg = f\omg$. 
 \end{itemize}
 \begin{remark}
-    $\Omg^1(M) = \frak{X}^*(M)$. \\
-    If $f \in C^\infty(M) = \Omg^0(M)$, then 
+    $\Omg^1(M) = \frak{X}^*(M)$ is a covector field. If $f \in C^\infty(M) = \Omg^0(M)$, then 
     $$df \in \Omg^1(M) = \frak{X}^*(M). $$
+    For simplicity, one can think of $\Omg^k(M)$ as the set of all alternating multi-linear functions on $T_p^*M \cdTimes T_p^*M$ for some $p \in M$. 
 \end{remark}
+Since a $k$-form is a section, we can consider it as an element in $\Lam^k T_p^*M$ for some $p$. Recall that $(dx^i)$ is a basis for $T_p^*M$ and a basis for $\Lam^k T_p^*M$ is given by 
+$$\{dx^I = dx^{i_1} \cdWedge dx^{i_k}: I \text{ runs through all multi-indices}\}.$$
+
 Locally, given a smooth chart $(U,\phe)$ and a $k$-form $\omg$, then 
-$$\omg = \sum_{I}' \omg_I dx^I $$ on $U$, where 
-$$dx^I = dx^{i_1} \wedge \cdots \wedge dx^{i_k} $$
-and 
+$$\omg = \sideset{}{'}\sum_{I} \omg_I dx^{i_1} \cdWedge dx^{i_k} = 
+   \sideset{}{'}\sum_{I} \omg_I dx^I $$ on $U$.
+The standard basis for $T_pM$ is $\displaystyle{\br{\pdv{}{x^{j_1}},\cdots,\pdv{}{x^{j_k}}} }$, and hence 
+$$dx^{i_1} \cdWedge dx^{i_k} \br{\pdv{}{x^{j_1}},\cdots,\pdv{}{x^{j_k}}}
+  = \d_J^I. $$
+Thus the component functions $\omg_I$ are given by 
 $$\omg_I = \omg\br{\pdv{}{x^{i_1}}, \cdots, \pdv{}{x^{i_k}}}.$$ The functions $\omg_I:U \to \R$ are called component functions. 
+See Page 281 of Lee to refresh on the notation $dx^{i_\circ}$. 
 \begin{proposition}
     A form is smooth if and only if its component functions are smooth in every chart.     
 \end{proposition}
 \subsection{Pullbacks}
-If $F:M \to N$ is smooth and $w \in \Omg^k(N)$, then $F^*w \in \Omg^k(M)$ satisfies 
+If $F:M \to N$ is smooth and $\omg \in \Omg^k(N)$, then $F^* \omg
+  \in \Omg^k(M)$ satisfies 
 $$(F^*\omg)_p(v_1,\cdots,v_k) = \omg_{F(p)}(dF_pv_1,\cdots,dF_pv_k).$$
 \begin{lemma}\label{14.16}
     Suppose $F:M \to N$ smooth.
     \begin{enumerate}
-    \item[(a)] $F^*:\Omg^k(N) \to \Omg^k(M)$.
+    \item[(a)] $F^*:\Omg^k(N) \to \Omg^k(M)$ is linear over $\R$. 
     \item[(b)] $F^*(\omg \wedge \eta) = F^*(\omg) \wedge F^*(\eta)$.
-    \item[(c)] In any chart, 
+    \item[(c)] In any smooth chart, 
     $$F^*\br{\sum_{I}' \omg_I dy^{i_1} \wedge \cdots \wedge dy^{i_k} }
     = \sum_I'(\omg_I \circ F) d(y^{i_1} \circ F) \wedge \cdots \wedge d(y^{i_k} \circ F).$$
     \end{enumerate}
 \end{lemma}
+\begin{proof}
+    (a) Let $\omg, \eta \in \Omg^k(N)$, then 
+    \begin{align*}
+    (F^*(\omg+\eta))_p(v_1,\cdots,v_k) 
+    &= (\omg+\eta)_{F(p)}(dF_p v_1,\cdots,dF_p v_k) \\
+    &= (\omg_{F(p)} + \eta_{F(p)})(dF_p v_1, \cdots, dF_p v_k) \\
+    &= \omg_{F(p)}(dF_p v_1, \cdots, dF_p v_k) + \eta_{F(p)}(dF_p v_1, \cdots, dF_p v_k) \\
+    &= (F^*\omg)_p(v_1,\cdots,v_k) + (F^*\eta)_p(v_1,\cdots,v_k), \\
+    (F^*(\lam \omg))_p(v_1,\cdots,v_k)
+    &= (\lam \omg)_{F(p)}(dF_p v_1,\cdots,dF_p v_k) \\
+    &= \lam \omg_{F(p)}(dF_p v_1,\cdots,dF_p v_k) \\
+    &= \lam (F^* \omg)_p(v_1,\cdots,v_k).
+    \end{align*}
+    (b) This is also a long calculation:
+    \begin{align*}
+    &\br{F^*\omg \wedge F^*\eta}_p(v_1,\cdots, v_k, v_{k+1},\cdots,v_{2k}) \\
+    &= (F^*\omg)_p \wedge (F^*\eta)_p (v_1,\cdots,v_{2k}) \\
+    &= \frac{(2k)!}{k! k!}\Alt\br{(F^*\omg)_p \wedge (F^*\eta)_p}
+       (v_1,\cdots, v_k, v_{k+1},\cdots,v_{2k}) \\
+    &= \frac{(2k)!}{k!k!k!}\sum_{\sigma \in S_k}(\sgn \sigma)\br{(F^*\omg)_p \otimes (F^*\eta)_p}(v_{\sigma(1)},\cdots,v_{\sigma(k)},v_{\sigma(k+1)},\cdots,v_{\sigma(2k)}) \\
+    &= \frac{(2k)!}{k!k!k!}\sum_{\sigma \in S_k}(\sgn \sigma)
+       (F^*\omg)_p(v_{\sigma(1)},\cdots,v_{\sigma(k)}) 
+       (F^*\eta)_p(v_{\sigma(k+1)},\cdots,v_{\sigma(2k)}) \\
+    &= \frac{(2k)!}{k!k!k!}\sum_{\sigma \in S_k}(\sgn \sigma)
+       \omg_{F(p)}\br{dF_p v_{\sigma(1)}, \cdots, dF_p v_{\sigma(k)}}
+       \eta_{F(p)}\br{dF_p v_{\sigma(k+1)}, \cdots, dF_p v_{\sigma(2k)}} \\
+    &= \frac{(2k)!}{k!k!k!}\sum_{\sigma \in S_k}(\sgn \sigma)
+       (\omg_{F(p)} \otimes \eta_{F(p)}) \br{ 
+       dF_p v_{\sigma(1)}, \cdots, dF_p v_{\sigma(k)}, dF_p v_{\sigma(k+1)}, \cdots, dF_p v_{\sigma(2k)} } \\
+    &= \frac{(2k)!}{k!k!}\Alt(\omg_{F(p)} \otimes \eta_{F(p)})\br{
+       dF_p v_{\sigma(1)}, \cdots, dF_p v_{\sigma(k)}, 
+       dF_p v_{\sigma(k+1)}, \cdots, dF_p v_{\sigma(2k)} } \\
+    &= (\omg_{F(p)} \wedge \eta_{F(p)})\br{ dF_p v_1,\cdots,dF_p v_{2k} } \\
+    &= (\omg \wedge \eta)_{F(p)}\br{ dF_p v_1,\cdots,dF_p v_{2k} } \\
+    &= (F^*(\omg \wedge \eta))_p\br{ dF_p v_1,\cdots,dF_p v_{2k} }.
+    \end{align*}
+    (c) Fix an increasing multi-index $I = (i_1,\cdots,i_k)$, then by \textbf{Proposition} \ref{12.25} (1),
+    \begin{align*}
+    \br{ F^*\br{\omg_I dy^{i_1} \cdWedge dy^{i_k}} }_p
+    &= (\omg_I \circ F(p)) \br{ F^*\br{\omg_I dy^{i_1} \cdWedge dy^{i_k}} }_p \\
+    &= (\omg_I \circ F(p)) (F^*dy^{i_1})_p \cdWedge (F^*dy^{i_k})_p \\
+    &= (\omg_I \circ F(p)) d(y^{i_1} \circ F)_p \cdWedge d(y^{i_1} \circ F)_p.
+    \end{align*}
+    Since $F^*$ is linear, it follows that 
+    $$F^*\br{\sum_{I}' \omg_I dy^{i_1} \wedge \cdots \wedge dy^{i_k} }
+    = \sum_I'(\omg_I \circ F) d(y^{i_1} \circ F) \wedge \cdots \wedge d(y^{i_k} \circ F).$$
+\end{proof}
 \begin{example}\label{14.19}
     Let $\omg = dx \wedge dy$ on $\R^2$. Consider polar coordinates $(r,\cta)$ on $V=\R^2 \setminus \{(x,0): x \geq 0\}$ with $0<r$ and $0<\cta<2\pi$, $x = r\cos \cta, y = r\sin \cta$.
     Let $F:V \to \R^2$ be $F(r,\cta) = (r\cos \cta, r\sin \cta)$. 

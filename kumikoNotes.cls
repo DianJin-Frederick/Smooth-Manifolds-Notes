@@ -43,10 +43,13 @@
 \newtheorem{lemma}{Lemma}[section]
 
 \newcounter{example}[chapter]
-\newenvironment{example}[1][]{\refstepcounter{example}\par\medskip
-   \noindent \textsc{Example~\theexample} \textsc{#1}. }{\medskip}
+\newenvironment{example}[1][]{
+    \refstepcounter{example}\par\medskip
+    \noindent {\color{brown}\textsc{Example~\theexample} \textsc{#1}.}
+    }{\medskip}
 
 \newcounter{exercise}[chapter]
 \newenvironment{exercise}[1][]{\refstepcounter{exercise}\par\medskip
    \noindent \textsc{Exercise~\theexercise} #1. }{\medskip}
 
+%\newenvironment{testEnv}[][]{}

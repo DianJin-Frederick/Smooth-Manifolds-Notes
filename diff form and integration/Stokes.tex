@@ -1,1 +1,119 @@
-\section{Stokes's Theorem}
+\section{Integration}
+\fbox{\textsc{Goals}}
+\begin{itemize}
+    \item Given an oriented manifold $M$ and $\omg \in \Omg^n(M)$ where $n = \dim M$. 
+    Define $\int_M \omg$.
+    \item Prove Stokes' Theorem. 
+\end{itemize}
+\subsection{Integration on $\R^n$}
+Given an open set $U \subset \R^n$, let $\int_U f~dV$ denote the Lebesgue integral. 
+\begin{definition}
+    Given an $n$-form $\omg$ on an open set $U \subset \R^n$, we can write 
+    $\omg = fdx^1 \cdWedge x^n$ where $f:U \to \R$. If $f$ is Lebesgue integrable, then $\omg$ is \textit{integrable} and the integral of $\omg$ over $U$ is 
+    $$\int_U \omg = \int_U f~dV. $$
+\end{definition}
+\begin{example}
+    Let $n=1, U = (a,b), \omg = f~dx$, then $$
+    \int_U \omg = \int_{(a,b)}f~dx. $$
+\end{example}
+\begin{proposition}\label{16.1}
+    Suppose $U, W \subset \R^n$ are open and $G:U \to W$ is a diffeomorphism which either preserves or reverses orientation (i.e. $\det DG$ is either always positive or always negative). 
+
+    If $\omg$ is an integrable $n$-form on $W$, then $${\everymath{\displaystyle}
+    \int_U G^*\omg = \begin{cases}
+    \int_W \omg & \text{if }G \text{ preserves orientation}, \\
+    -\int_W \omg & \text{if }G \text{ reverses orientation}. \end{cases} }$$
+\end{proposition}
+\begin{proof}
+    If $\omg = fdx^1 \cdWedge dx^n$, then 
+    \begin{align*}
+    G^*\omg &= f \circ G (\det DG) dx^1 \cdWedge dx^n  \\
+    &= s(f \circ G)|\det DG|dx^1 \cdWedge dx^n,
+    \end{align*}
+    where $s=1$ if $G$ preserves orientation and $s=-1$ if $G$ reverses orientation. 
+    Then 
+    \begin{align*}
+    \int_W \omg &= \int_W f~dV 
+    = \int_U f \circ G|\det DG| ~dV \\
+    &= s \int_U G^* \omg.
+    \end{align*}
+\end{proof}
+\subsection{Integration on Manifolds}
+Fix an oriented smooth $n$-manifold $M$. A chart $(U,\phe)$ is \textit{positively} (\textit{negatively}, resp.) \textit{oriented} if $\displaystyle{\br{\dvBase{x^1}{p},\cdots,\dvBase{x^n}{p}} }$ is positively (negatively, resp.) oriented for all $p \in U$. \\
+\fbox{\textsc{Goal}} Define $\int_M \omg$ when $\omg \in \Omg^n(M)$ is compactly suppoerted. \\
+\fbox{\textsc{Case 1}} Suppose $\supp \omg \subset U$ where $(U,\phe)$ is a positively or negatively oriented chart. Then define 
+$${\everymath{\displaystyle}\int_M \omg = \begin{cases}
+\int_{\phe(U)} (\phe^{-1})^* \omg & \text{ if positively oriented}, \\
+-\int_{\phe(U)} (\phe^{-1})^* \omg & \text{ if positively oriented}.
+\end{cases}
+}$$
+Note 
+$$\int_{\phe(U)} (\phe^{-1})^* \omg
+= \int_{\phe(U)} \omg\br{\dvBase{x^1}{\phe(p)}, \cdots, \dvBase{x^n}{\phe(p)}} dV(p). $$ Recall 
+$$\dvBase{x^i}{p} = d(\phe^{-1})_{\phe(p)}\dvBase{x^i}{\phe(p)}.$$
+\begin{proposition}\label{16.4}
+    $\int_M \omg$ does not depend on the choice of charts containing $\supp \omg$. 
+\end{proposition}
+\begin{proof}
+    Suppose $(U,\phe), (W,\psi)$ are smooth charts, each of which are positively or negatively oriented, and where $\supp \omg \subset U \cap W$. Then 
+    \begin{align*}
+    \int_{\psi(W)}(\psi^{-1})^*\omg 
+    &= \int_{\psi(U \cap W)}(\psi^{-1})^* \omg \\
+    &= s\int_{\phe(U \cap W)}(\psi \circ \psi^{-1})^*(\psi^{-1})^* \omg \\
+    &= s\int_{\phe(U \cap W)}(\phe^{-1})^*\psi^*(\psi^{-1})^*\omg \\
+    &= s\int_{\phe(U \cap W)}(\phe^{-1})^* \omg \\
+    &= s\int_{\phe(U)}(\phe^{-1})^*\omg, 
+    \end{align*}
+    where $s = 1$ if $\psi \circ \phe^{-1}$ preserves orientation (equivalently, $\psi, \phe$ have same orientation), $s=-1$ if $\psi \circ \phe^{-1}$ reverses orientation (equivalently, $\psi, \phe$ have opposite orientation)
+\end{proof}
+\noindent\fbox{\textsc{General Case}}
+Fix finitely many charts $\{(U_i,\psi_i)\}_{i \in I}$, where $\supp \omg \subset \bigcup_{i \in I}U_i$ and each chart is either negatively or positively oriented. Fix a partition of unity $\{\chi_i\}_{i \in I}$ subordinate to $\{U_i\}_{i \in I}$. Then define 
+$$\int_M \omg = \sum_{i \in I}\int_M \chi_i \omg = \sum_{i \in I} (\pm 1)\int_{\phe_i(U_i)}(\phe_i)^*(\chi_i \omg). $$
+\begin{proposition}
+    $\int_M\omg$ is well defined. 
+\end{proposition}
+\begin{proof}
+    Suppose $\{(\widetilde{U}_j, \widetilde{\phe}_j\}_{j \in J}$ and $\{\widetilde{\chi}_j\}_{j \in J}$ are other choices. Then 
+    \begin{align*}
+    \int_M \chi_i \omg &= \int_M \br{\sum_j \widetilde{\chi}_j}\chi_i \omg \\
+    &= \sum_j \int_M \widetilde{\chi}_j \chi_i \omg. 
+    \end{align*}
+    Also, 
+    $$\int_M \widetilde{\chi}_j \omg = \sum_i \int_M \widetilde{\chi}_j \chi_i \omg. $$
+    So $$\sum_i \int_M \chi_i \omg = \sum_j \int_M \widetilde{\chi}_j \omg. $$
+\end{proof}
+\noindent\fbox{\textsc{Corner Case}} If $M = \{p\}$ is a single point, then 
+\begin{itemize}
+    \item $n=\dim M = 0$,
+    \item $\Omg^n(M) = \Omg^0(M) = C^\infty(M) \simeq \R$, 
+    \item an orientation on $M$ is a choice of $+1$ or $-1$. 
+\end{itemize}
+So we define 
+$$\int_M \omg = (\text{orientation of }M)~\omg(p). $$
+\begin{proposition}[Properties]\label{16.6}
+    Suppose $\omg, \eta \in \Omg^n(M)$ are compactly supported. 
+    \begin{enumerate}
+    \item If $a,b \in \R$, then 
+    $$\int_M a\omg + b\eta = a\int_M \omg + b\int_M \eta. $$
+    \item If $-M$ is $M$ with the opposite orientation, then 
+    $$\int_{-M}\omg = \int_M \omg. $$
+    \item If $N$ is an oriented $n$-manifold and $F:N \to M$ is a diffeomorphism, then 
+    $$\int_N F^*\omg = \begin{cases}
+        \int_M \omg, & F \text{ preserves orientation} \\
+        -\int_M \omg, & F \text{ reserves orientation} 
+    \end{cases}$$
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}\label{16.8}
+    Let $\omg \in \Omg^n(M)$ be compactly supported. Suppose $D_1,\cdot,D_k \in \R^n$ are open and $F_i:\cl{D_i} \to M$ is smooth for $i=1,\cdots,k$. 
+    \begin{enumerate}
+    \item $D_i$ is bounded and $\partial D_i$ has Lebesgue measure $0$. 
+    \item $F_i$ induces an orientation-preserving diffeomorphism of $D_i$ onto an open set $W_i \subset M$. 
+    \item $W_i \cap W_j = \varnothing$ if $i \neq j$. 
+    \item $\supp \omg \subset \cl{W_1} \cup \cdots \cl{W_k}$. 
+    \end{enumerate}
+    Then $$\int_M \omg = \Sum{i=1}{k}\int_{D_i}F_i^* \omg. $$
+\end{proposition}
+\begin{example}
+    Consider $\S^2$ with the orientation induced by $\R^3$. Let $\omg = x~dy \wedge dz$ and $\int_{\S^2} \omg$. Let $F(\phi, \cta) = (\sin\phi \cos\cta, \sin\phi\sin\cta, \cos\phi)$. $D=(0,\pi) \times (-\pi,\pi)$, $W = \S^2 \setminus \{(0,0,-1)\}$. Then $F:D \to W$ is a diffeomorphism which preserves orientation and $\cl{W} = \S^2$. 
+\end{example}
